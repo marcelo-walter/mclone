@@ -1,0 +1,328 @@
+#
+#    Makefile
+#
+
+#  CC:      Name of compiler
+#  CFLAGS:  Flags used during compilation
+#  LIB:     Libraries used during linking
+#  OBJ:     List of object files required to build executable program
+
+ARCH=linux
+
+#TARGETS = mclone3DViewer
+TARGETS= /home/rlbinsfeld/UFRGS/Projeto-TI/Texturas_BW/Mclone3D/compiled/mclone3DViewer
+CFILES=	cells.c \
+	distpoints.c \
+	forces.c \
+	heap.c \
+	heapTri.c \
+	intersect.c \
+	jacobi.c \
+	list.c \
+	main.c \
+	matrix.c \
+	morph.c \
+	myvect.c \
+	nrutil.c \
+	obj.c \
+	primitives.c \
+	print.c \
+	random.c \
+	readInpFile.c \
+	readParFile.c \
+	relax.c \
+	simulation.c \
+	splineInter.c \
+	texture.c \
+	transformations.c \
+	util.c \
+	voronoi.c \
+	wingEdge.c \
+	drawing.c \
+	graph.c \
+	menus.c \
+	trackball.c \
+	ui.c \
+	utilGraph.c \
+	decompLU.c \
+	vectorField.c\
+	heapstruct.cc\
+	surface.cpp\
+	vector.cpp\
+	vlist.cpp\
+	facevector.cpp\
+	geolist.cpp\
+	halfedge.cpp\
+	hashtable.cpp\
+	set.cpp\
+	sortedset.cpp\
+	edge.cpp\
+	face.cpp\
+	vertex.cpp\
+	edgelist.cpp\
+	my_opengl.cpp\
+	interfacedistance.cpp \
+	vect.c
+
+OBJ=objv#/${ARCH}
+
+OBJECTS = ${OBJ}/main.o\
+	${OBJ}/graph.o \
+	${OBJ}/myvect.o \
+	${OBJ}/random.o \
+	${OBJ}/forces.o \
+	${OBJ}/util.o \
+	${OBJ}/nrutil.o \
+	${OBJ}/jacobi.o \
+	${OBJ}/readInpFile.o \
+	${OBJ}/distpoints.o \
+	${OBJ}/matrix.o \
+	${OBJ}/transformations.o \
+	${OBJ}/trackball.o \
+	${OBJ}/menus.o \
+	${OBJ}/morph.o \
+	${OBJ}/ui.o \
+	${OBJ}/primitives.o \
+	${OBJ}/print.o \
+	${OBJ}/texture.o \
+	${OBJ}/relax.o \
+	${OBJ}/readParFile.o \
+	${OBJ}/list.o \
+	${OBJ}/intersect.o \
+	${OBJ}/cells.o \
+	${OBJ}/splineInter.o \
+	${OBJ}/wingEdge.o \
+	${OBJ}/voronoi.o \
+	${OBJ}/heap.o \
+	${OBJ}/heapTri.o \
+	${OBJ}/simulation.o \
+	${OBJ}/utilGraph.o \
+	${OBJ}/drawing.o \
+	${OBJ}/obj.o \
+	${OBJ}/decompLU.o \
+	${OBJ}/vectorField.o\
+	${OBJ}/heapstruct.o\
+	${OBJ}/surface.o\
+	${OBJ}/vector.o\
+	${OBJ}/vlist.o\
+	${OBJ}/facevector.o\
+	${OBJ}/geolist.o\
+	${OBJ}/halfedge.o\
+	${OBJ}/hashtable.o\
+	${OBJ}/set.o\
+	${OBJ}/sortedset.o\
+	${OBJ}/edge.o\
+	${OBJ}/face.o\
+	${OBJ}/vertex.o\
+	${OBJ}/edgelist.o\
+	${OBJ}/my_opengl.o\
+	${OBJ}/interfacedistance.o\
+	${OBJ}/vect.o
+
+CC = gcc
+
+#TEXTUREFLAGS = `Magick-config --cflags --cppflags` `Magick-config --libs --ldflags`
+#TEXTUREFLAGS = `/usr/local/bin/Magick-config --cflags --cppflags --libs --ldflags`
+TEXTUREFLAGS = `Magick-config --cflags --cppflags --libs --ldflags`
+
+CFLAGS = -g -DGRAPHICS#-DVERBOSE #-DsaveOutput
+
+CPLUSPLUSFLAGS = -I/usr/include -c -g -x c++
+
+
+INC = -I/usr/include \
+    	-I/usr/X11R6/include \
+	-I/home/rlbinsfeld/UFRGS/Projeto-TI/Texturas_BW/libs/Mesa-5.0.2/include \
+        -I/home/rlbinsfeld/UFRGS/Projeto-TI/Texturas_BW/libs/xforms/FORMS \
+	-I/usr/local/include/magick -I/usr/include/ImageMagick/magick
+
+LIB = -L/home/rlbinsfeld/UFRGS/Projeto-TI/Texturas_BW/libs/voronoi3D -lvoronoi \
+	-L//home/rlbinsfeld/UFRGS/Projeto-TI/Texturas_BW/libs/Mesa-5.0.2/lib -lGLU -lGL \
+	-L/usr/lib -lX11 -lXext -lm \
+	-L/home/rlbinsfeld/UFRGS/Projeto-TI/Texturas_BW/libs/xforms/FORMS -lforms \
+	-L/usr/lib -lglut \
+	-L/usr/lib -lMagick++ \
+	#-L/usr/local/lib -lMagick \
+
+
+
+
+	
+	
+	
+	
+
+
+${TARGETS} : ${OBJECTS}
+	${CC} ${CFLAGS} ${TEXTUREFLAGS} -o $@ $(OBJECTS) $(LIB)
+
+#  Dependencies for each object file
+
+common.dep:			common.h Types.h Macros.h Globals.h
+	echo > common.dep
+
+${OBJ}/main.o:      		main.c main.h common.dep\
+	voronoi.h util.h relax.h wingEdge.h random.h heap.h
+	${CC} $(INC) ${CFLAGS} -c main.c -o $@
+
+${OBJ}/graph.o:			graph.c drawing.h trackball.h transformations.h common.dep
+	${CC} $(INC) ${CFLAGS} -c graph.c -o $@
+
+${OBJ}/myvect.o:		myvect.c common.dep
+	${CC} $(INC) ${CFLAGS} -c myvect.c  -o $@
+
+${OBJ}/intersect.o:		intersect.c intersect.h common.dep
+	${CC} $(INC) ${CFLAGS} -c intersect.c  -o $@
+
+${OBJ}/forces.o:		forces.c forces.h relax.h common.dep
+	${CC} $(INC) ${CFLAGS} -c forces.c  -o $@
+
+${OBJ}/random.o:		random.c random.h
+	${CC} $(INC) ${CFLAGS} -c random.c -o $@
+
+${OBJ}/util.o:			util.c util.h transformations.h common.dep relax.h
+	${CC} $(INC) ${CFLAGS} -c util.c -o $@
+
+${OBJ}/jacobi.o:		jacobi.c nrutil.h
+	${CC} $(INC) ${CFLAGS} -c jacobi.c -o $@
+
+${OBJ}/matrix.o:		matrix.c nrutil.h
+	${CC} $(INC) ${CFLAGS} -c matrix.c -o $@
+
+${OBJ}/nrutil.o:		nrutil.c nrutil.h
+	${CC} $(INC) ${CFLAGS} -c nrutil.c -o $@
+
+${OBJ}/readInpFile.o:		readInpFile.c readInpFile.h common.dep
+	${CC} $(INC) ${CFLAGS} -c readInpFile.c -o $@
+
+${OBJ}/readParFile.o:		readParFile.c common.dep
+	${CC} $(INC) ${CFLAGS} -c readParFile.c -o $@
+
+${OBJ}/distpoints.o:		distpoints.c common.dep random.h relax.h
+	${CC} $(INC) ${CFLAGS} -c distpoints.c -o $@
+
+${OBJ}/transformations.o:	transformations.c transformations.h common.dep
+	${CC} $(INC) ${CFLAGS} -c transformations.c -o $@
+
+${OBJ}/trackball.o:		trackball.c trackball.h common.dep
+	${CC} $(INC) ${CFLAGS} -c trackball.c -o $@
+
+${OBJ}/menus.o:			menus.c menus.h texture.h common.dep
+	${CC} $(INC) ${CFLAGS} -c menus.c -o $@
+
+${OBJ}/morph.o:			morph.c transformations.h common.dep
+	${CC} $(INC) ${CFLAGS} -c morph.c -o $@
+
+${OBJ}/ui.o:			ui.c trackball.h heap.h common.h common.dep
+	${CC} $(INC) ${CFLAGS} -c ui.c -o $@
+
+${OBJ}/primitives.o:		primitives.c transformations.h common.dep
+	${CC} $(INC) ${CFLAGS} -c primitives.c -o $@
+
+${OBJ}/print.o:			print.c common.dep
+	${CC} $(INC) ${CFLAGS} -c print.c -o $@
+
+${OBJ}/texture.o:		texture.c common.dep texture.h relax.h
+	${CC} $(INC) ${CFLAGS} ${TEXTUREFLAGS} -c texture.c -o $@
+
+${OBJ}/relax.o:			relax.c common.dep relax.h forces.h
+	${CC} $(INC) ${CFLAGS} -c relax.c -o $@
+
+${OBJ}/list.o:			list.c common.dep
+	${CC} $(INC) ${CFLAGS} -c list.c -o $@
+
+${OBJ}/cells.o:			cells.c cells.h common.dep relax.h random.h heap.h
+	${CC} $(INC) ${CFLAGS} -c cells.c -o $@
+
+${OBJ}/splineInter.o:		splineInter.c nrutil.h
+	${CC} $(INC) ${CFLAGS} -c splineInter.c -o $@
+
+${OBJ}/wingEdge.o:		wingEdge.c common.dep wingEdge.h
+	${CC} $(INC) ${CFLAGS} -c wingEdge.c -o $@
+
+${OBJ}/voronoi.o:		voronoi.c voronoi.h intersect.h \
+ 	forces.h relax.h wingEdge.h common.dep
+	${CC} $(INC) ${CFLAGS} -c voronoi.c -o $@
+
+${OBJ}/heap.o:			heap.c heap.h common.dep
+	${CC} $(INC) ${CFLAGS} -c heap.c -o $@
+
+${OBJ}/heapTri.o:		heapTri.c common.dep
+	${CC} $(INC) ${CFLAGS} -c heapTri.c -o $@
+
+${OBJ}/simulation.o:		simulation.c common.dep heap.h \
+ 	transformations.h cells.h relax.h
+	${CC} $(INC) ${CFLAGS} -c simulation.c -o $@
+
+${OBJ}/utilGraph.o:		utilGraph.c common.dep
+	${CC} $(INC) ${CFLAGS} -c utilGraph.c -o $@
+
+${OBJ}/drawing.o:		drawing.c drawing.h transformations.h common.dep
+	${CC} $(INC) ${CFLAGS} -c drawing.c -o $@
+
+${OBJ}/obj.o:	    	obj.c common.dep
+	${CC} $(INC) ${CFLAGS} -c obj.c -o $@
+
+${OBJ}/vectorField.o:	    	vectorField.c common.dep
+	${CC} $(INC) ${CFLAGS} -c vectorField.c -o $@
+	
+${OBJ}/decompLU.o:	    	decompLU.c common.dep
+	${CC} $(INC) ${CFLAGS} -c decompLU.c -o $@
+
+
+${OBJ}/heapstruct.o:	    	heapstruct.cc heapstruct.h a48.h
+	${CC} ${CPLUSPLUSFLAGS} heapstruct.cc -o $@
+
+${OBJ}/surface.o:	    	surface.cpp surface.h
+	${CC} ${CPLUSPLUSFLAGS} surface.cpp -o $@
+
+${OBJ}/vector.o:	    	vector.cpp vector.h
+	${CC} ${CPLUSPLUSFLAGS} vector.cpp -o $@
+	
+${OBJ}/vlist.o:	    	vlist.cpp vlist.h
+	${CC} ${CPLUSPLUSFLAGS} vlist.cpp -o $@
+
+${OBJ}/facevector.o:	    	facevector.cpp facevector.h
+	${CC} ${CPLUSPLUSFLAGS} facevector.cpp -o $@
+
+${OBJ}/geolist.o:	    	geolist.cpp geolist.h
+	${CC} ${CPLUSPLUSFLAGS} geolist.cpp -o $@
+	
+${OBJ}/halfedge.o:	    	halfedge.cpp halfedge.h
+	${CC} ${CPLUSPLUSFLAGS} halfedge.cpp -o $@
+
+${OBJ}/hashtable.o:	    	hashtable.cpp hashtable.h
+	${CC} ${CPLUSPLUSFLAGS} hashtable.cpp -o $@
+
+${OBJ}/set.o:	    	set.cpp set.h
+	${CC} ${CPLUSPLUSFLAGS} set.cpp -o $@
+
+${OBJ}/sortedset.o:	    	sortedset.cpp sortedset.h
+	${CC} ${CPLUSPLUSFLAGS} sortedset.cpp -o $@
+
+${OBJ}/edge.o:	    	edge.cpp edge.h
+	${CC} ${CPLUSPLUSFLAGS} edge.cpp -o $@
+
+${OBJ}/face.o:	    	face.cpp face.h
+	${CC} ${CPLUSPLUSFLAGS} face.cpp -o $@
+
+${OBJ}/vertex.o:	    	vertex.cpp vertex.h
+	${CC} ${CPLUSPLUSFLAGS} vertex.cpp -o $@
+
+${OBJ}/edgelist.o:	    edgelist.cpp edgelist.h
+	${CC} ${CPLUSPLUSFLAGS} edgelist.cpp -o $@
+
+${OBJ}/my_opengl.o:	    my_opengl.cpp my_opengl.h
+	${CC} ${CPLUSPLUSFLAGS} my_opengl.cpp -o $@
+	
+${OBJ}/interfacedistance.o:	    interfacedistance.cpp interfacedistance.h
+	${CC} ${CPLUSPLUSFLAGS} interfacedistance.cpp -o $@
+
+${OBJ}/vect.o:		vect.c vect.h
+	${CC} $(INC) ${CFLAGS} -c vect.c -o $@
+
+clean:
+	rm -f $(OBJECTS)
+	rm -f common.dep
+	rm -f *.*~
+	rm -f *~
