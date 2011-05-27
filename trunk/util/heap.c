@@ -1,5 +1,5 @@
 /*
- *  heapTri.c
+ *  heap.c
  *  Mclone3D
  *
  *  Created by Fabiane Queiroz on 6/8/10.
@@ -7,14 +7,11 @@
  *
  */
 
-
-
 /*
  *---------------------------------------------------------------
  
- heapTri.c
- Routines to manipulate a heap SPECIFICALLY FOR A LIST
- OF TRIANGLES AT EACH VERTEX
+ heap.c
+ Routines to manipulate a heap
  
  Based on:
  Algorithms by Robert Sedgewick
@@ -25,26 +22,25 @@
  of the EVENT structure.
  
  Author: Marcelo Walter
- Date: 3/17/98
+ Date: 3/27/95
  
  *---------------------------------------------------------------
  */
 
-#include "common.h"
+#include "../common.h"
+#include "heap.h"
 
-extern void copyMatrix( Matrix4 *destiny, Matrix4 source );
-
-HEAPTRI *myheapTri;
+HEAP *myheap;
 
 /*
  *-----------------------------------------------------------
  *	 Maintains the heap property
  *-----------------------------------------------------------
  */
-void HeapUpTri(HEAPTRI *h, int k)
+void HeapUp(HEAP *h, int k)
 {
 	int v;
-	HEAPTRI_ELEMENT *a;
+	EVENT *a;
 	int *p, *q;
 	
 	a = h->array;
@@ -52,8 +48,8 @@ void HeapUpTri(HEAPTRI *h, int k)
 	q = h->q;
 	v = p[k];
 	
-	a[p[0]].distance = -1e20;
-	while(a[p[k/2]].distance >= a[v].distance){
+	a[p[0]].eventTime= -1e20;
+	while(a[p[k/2]].eventTime >= a[v].eventTime){
 		p[k] = p[k/2];
 		q[p[k/2]] = k;
 		k = k/2;
@@ -67,23 +63,21 @@ void HeapUpTri(HEAPTRI *h, int k)
  *	Insert a new element into the heap
  *-------------------------------------------------------------
  */
-void HeapInsertTri(HEAPTRI *h, HEAPTRI_ELEMENT *a)
+void HeapInsert(HEAP *h, EVENT *a)
 {
 	int size;
 	
-	if(h->size == h->max) HeapGrowTri( h, HEAPTRI_GROW_FACTOR);
+	if(h->size == h->max) HeapGrow( h, HEAP_GROW_FACTOR);
 	
 	size = ++(h->size);
-	h->array[size].faceIndex = a->faceIndex;
-	h->array[size].edgeIndex = a->edgeIndex;
-	h->array[size].vertIndex = a->vertIndex;
-	h->array[size].distance = a->distance;
-	copyMatrix( &(h->array[size].t), a->t );
-    
+	h->array[size].whichEvent = a->whichEvent;
+	h->array[size].eventTime = a->eventTime;
+	h->array[size].info = a->info;
+	
 	h->p[size] = size;
 	h->q[size] = size;
 	
-	HeapUpTri( h, size );
+	HeapUp(h,size);
 	
 }
 
@@ -93,18 +87,17 @@ void HeapInsertTri(HEAPTRI *h, HEAPTRI_ELEMENT *a)
  *	space is allocated in "blocks" of HEAP_GROW_FACTOR size.
  *--------------------------------------------------------------------
  */
-void HeapGrowTri(HEAPTRI *h, int grow)
+void HeapGrow(HEAP *h, int grow)
 {
 	h->max += grow;
-	if((h->array = (HEAPTRI_ELEMENT *)
-		realloc(h->array, (h->max+2) * sizeof (HEAPTRI_ELEMENT)))==NULL)
-		errorMsg("Problem with realloc in heapTri.c! (array)");
+	if((h->array = (HEAP_ELEMENT *) realloc(h->array, (h->max+2) * sizeof (HEAP_ELEMENT)))==NULL)
+		errorMsg("Problem with realloc in heap.c!");
 	
 	if((h->p = (int *) realloc(h->p, (h->max+2) * sizeof (int)))==NULL)
-		errorMsg("Problem with realloc in heapTri.c! (p)");
+		errorMsg("Problem with realloc in heap.c!");
 	
 	if((h->q = (int *) realloc(h->q, (h->max+2) * sizeof (int)))==NULL)
-		errorMsg("Problem with realloc in heapTri.c! (q)");
+		errorMsg("Problem with realloc in heap.c!");
 	
 }
 
@@ -115,25 +108,25 @@ void HeapGrowTri(HEAPTRI *h, int grow)
  *	to the heap.
  *-----------------------------------------------------------
  */
-HEAPTRI *HeapInitTri(int size)
+HEAP *HeapInit(int size)
 {
 	
-	HEAPTRI *h;
+	HEAP *h;
 	int i;
 	
-	if((h = (HEAPTRI *) malloc(sizeof(HEAPTRI)))==NULL)
-		errorMsg("Problem with malloc in HeapInit (heapTri.c)!");
+	if((h = (HEAP *) malloc(sizeof(HEAP)))==NULL)
+		errorMsg("Problem with malloc in HeapInit!");
 	
 	h->size = 0;
 	h->max = size;
-	if((h->array = (HEAPTRI_ELEMENT *) malloc( (size+2) * sizeof( HEAPTRI_ELEMENT)))==NULL)
-		errorMsg("Problem with malloc in HeapInit (heapTri.c)!");
+	if((h->array = (HEAP_ELEMENT *) malloc( (size+2) * sizeof( HEAP_ELEMENT)))==NULL)
+		errorMsg("Problem with malloc in HeapInit!");
 	
 	if((h->p = (int *) malloc( (size+2) * sizeof(int)))==NULL)
-		errorMsg("Problem with malloc in HeapInit (heapTri.c) !");
+		errorMsg("Problem with malloc in HeapInit!");
 	
 	if((h->q = (int *) malloc( (size+2) * sizeof(int)))==NULL)
-		errorMsg("Problem with malloc in HeapInit (heapTri.c)!");
+		errorMsg("Problem with malloc in HeapInit!");
 	
 	/* Addition to the code of Jim Boritz */
 	h->p[0] = 0;
@@ -147,13 +140,13 @@ HEAPTRI *HeapInitTri(int size)
  *
  *----------------------------------------------------
  */
-void HeapPrintTri(HEAPTRI *h)
+void HeapPrint(HEAP *h)
 {
 	int i;
 	
 	printf("ele val ord que\n");
 	for( i=1; i<= h->size; i++)
-		printf("%3d %3f %9d %3d\n", i, h->array[i].distance, h->p[i], h->q[i]);
+		printf("%3d %3f %9d %3d\n", i, h->array[i].eventTime ,h->p[i], h->q[i]);
 }
 
 /*
@@ -161,16 +154,26 @@ void HeapPrintTri(HEAPTRI *h)
  *
  *----------------------------------------------------
  */
-void HeapOrderPrint1Tri(HEAPTRI *h)
+void HeapOrderPrint1(HEAP *h)
 {
-	int i, size;
-	HEAPTRI_ELEMENT *a;
+	int i,size;
+	EVENT *a;
 	
 	size = h->size;
-	printf("Sorted heap Tri\n");
+	printf("Sorted heap\n");
 	for(i=1; i <= size; i++){
-		a = HeapRemoveTri(h);
-		printf( "%d %d %d %f \n" ,a->faceIndex, a->edgeIndex, a->vertIndex, a->distance );
+		a = HeapRemove(h);
+		switch(a->whichEvent){
+			case SPLIT:
+				printf( "%d %f cell(%3.3f %3.3f)\n",
+					   a->whichEvent, a->eventTime, a->info->x, a->info->y );
+				break;
+			case RELAX:
+				printf( "%d %f\n", a->whichEvent, a->eventTime );
+				break;
+			default:
+				break;
+		}
 	}
 }
 
@@ -179,14 +182,14 @@ void HeapOrderPrint1Tri(HEAPTRI *h)
  *
  *-------------------------------------------------------
  */
-void EmptyHeapTri(HEAPTRI *h)
+void EmptyHeap(HEAP *h)
 {
 	int i,size;
-	HEAPTRI_ELEMENT *a;
+	EVENT *a;
 	
 	size = h->size;
-	printf("Please wait...Emptying the heap for triangles\n");
-	for(i=1; i <= size; i++) a = HeapRemoveTri(h);
+	printf("Please wait...Emptying the heap\n");
+	for(i=1; i <= size; i++) a = HeapRemove(h);
 }
 
 /*
@@ -194,19 +197,16 @@ void EmptyHeapTri(HEAPTRI *h)
  * Free the space used by the Heap and starts a new heap
  *---------------------------------------------------------
  */
-HEAPTRI *ClearHeapTri(HEAPTRI *h)
+HEAP *ClearHeap(HEAP *h)
 {
 	
-	HEAPTRI *nh;
-	int i;
+	HEAP *nh;
 	
-	/* This is the addition to make sure that we
-     freed all requested space */
 	free(h->array); h->array=NULL;
 	free(h->p); h->p=NULL;
 	free(h->q); h->q=NULL;
 	free(h); h=NULL;
-	nh = HeapInitTri(HEAPTRI_GROW_FACTOR);
+	nh = HeapInit(HEAP_GROW_FACTOR);
 	return(nh);
 	
 }
@@ -216,9 +216,9 @@ HEAPTRI *ClearHeapTri(HEAPTRI *h)
  *    Removes an element from the heap
  *---------------------------------------------------------
  */
-HEAPTRI_ELEMENT *HeapRemoveTri(HEAPTRI *h)
+EVENT *HeapRemove(HEAP *h)
 {
-	HEAPTRI_ELEMENT *a,*v;
+	EVENT *a,*v;
 	int *p,*q;
 	int size;
 	
@@ -227,31 +227,26 @@ HEAPTRI_ELEMENT *HeapRemoveTri(HEAPTRI *h)
 	q = h->q;
 	size = h->size;
 	
-	if( size == 0) errorMsg("Empty Heap for Triangles!");
+	if( size == 0) errorMsg("Empty Heap !");
 	
-	if((v = (HEAPTRI_ELEMENT *) malloc(sizeof(HEAPTRI_ELEMENT)))==NULL)
-		errorMsg("Problem with malloc in HeapRemove (heapTri.c)!");
+	if((v = (HEAP_ELEMENT *) malloc(sizeof(HEAP_ELEMENT)))==NULL)
+		errorMsg("Problem with malloc in HeapRemove!");
 	
-	v->faceIndex= a[p[1]].faceIndex;
-	v->edgeIndex= a[p[1]].edgeIndex;
-	v->vertIndex= a[p[1]].vertIndex;
-	v->distance= a[p[1]].distance;
-	copyMatrix( &(v->t), a[p[1]].t );
+	v->whichEvent = a[p[1]].whichEvent;
+	v->eventTime = a[p[1]].eventTime;
+	v->info = a[p[1]].info;
 	
-	a[p[1]].faceIndex = a[size].faceIndex;
-	a[p[1]].edgeIndex = a[size].edgeIndex;
-	a[p[1]].vertIndex = a[size].vertIndex;
-	a[p[1]].distance = a[size].distance;
-	copyMatrix( &(a[p[1]].t), a[size].t );
-	
+	a[p[1]].whichEvent = a[size].whichEvent;
+	a[p[1]].eventTime = a[size].eventTime;
+	a[p[1]].info = a[size].info;
 	
 	q[p[1]] = q[size];
 	p[q[size]] = p[1];
 	q[p[size]] = 1;
 	p[1] = p[size];
 	
-	h->size--;
-	HeapDownTri(h,1);
+	h->size --;
+	HeapDown(h,1);
 	
 	return(v);
 	
@@ -262,12 +257,12 @@ HEAPTRI_ELEMENT *HeapRemoveTri(HEAPTRI *h)
  *	The same function as HeapUp
  *--------------------------------------------------
  */
-void HeapDownTri(HEAPTRI *h, int k)
+void HeapDown(HEAP *h, int k)
 {
 	
 	int j,v;
 	int size;
-	HEAPTRI_ELEMENT *a;
+	HEAP_ELEMENT *a;
 	int *p, *q;
 	
 	a = h->array;
@@ -278,25 +273,15 @@ void HeapDownTri(HEAPTRI *h, int k)
 	v = p[k];
 	while( k <= size/2){
 		j = k+k;
-		if (j < size && a[p[j]].distance > a[p[j+1]].distance) j++;
-		if (a[v].distance <= a[p[j]].distance) break;
+		if (j < size && a[p[j]].eventTime > a[p[j+1]].eventTime) j++;
+		if (a[v].eventTime <= a[p[j]].eventTime) break;
 		p[k] = p[j]; q[p[j]] = k; k = j;
 	}
 	p[k] = v; q[v] = k;
     
 }
 
-/*
- *----------------------------------------------------------------------------
- *----------------------------------------------------------------------------
- */
-HEAPTRI_ELEMENT *allocateHeapTriElem( void )
-{
-	HEAPTRI_ELEMENT *a;
-	
-	if ((a = (HEAPTRI_ELEMENT *) malloc(sizeof(HEAPTRI_ELEMENT))) == NULL)
-		errorMsg("Problem with malloc in allocateHeapTriElem (forces.c)!");
-	else return a;
-}
+
+
 
 

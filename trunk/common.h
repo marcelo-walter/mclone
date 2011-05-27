@@ -11,9 +11,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "Macros.h"
-#include "Types.h"
-#include "Globals.h"
+#include "data/Macros.h"
+#include "data/Types.h"
+#include "data/Globals.h"
 
 #ifdef GRAPHICS
 /*

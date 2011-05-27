@@ -1,0 +1,87 @@
+Um pequeno tutorial sobre Subversion (SVN)
+
+Antes de começar, gostaria de sugerir que o tutorial fosse lido até o fim antes que se começasse a tentar usar svn. Peço isso porque talvez a ordem em que as funcionalidades estejam numeradas não seja a mais intuitiva.
+
+
+1a - Instalando o SVN no Ubuntu
+
+Essa é a parte mais fácil:
+
+$ sudo apt-get install subversion-tools
+
+Ele vai instalar primeiro o pacote "subversion" e, imediatamente depois, o pacote "subversion-tools". Em teoria, isso é tudo.
+
+1b - Instalando o SVN no MAC OSX
+
+Eu nunca usei MAC, então não posso dizer se há alguma issue sobre o assunto. De qualquer forma, encontrei o seguinte site
+
+http://www.rubyrobot.org/tutorial/subversion-with-mac-os-x
+
+onde tem um tutorial fácil sobre como instalar o SVN. Aqui, farei um resumo (para o caso de o leitor não quiser ler o texto do link).
+
+Em primeiro lugar, sugere-se que o leitor baixe o executável em
+
+http://www.open.collab.net/downloads/community/
+
+e rode o instalador na sua máquina. O programa deve colocar alguns arquivos em "/opt/subversion/bin", e agora será necessário configurar a PATH para esses novos executáveis.
+
+
+
+
+2 - Baixando o repositório para o próprio computador
+
+A minha primeira sugestão, após instalado o programa, é que se digite "svn help" para se ter uma idéia dos comandos possíveis. São bem poucos, e menos ainda serão os que usaremos o tempo todo.
+
+Para dar "checkout" no repositório inteiro, é só rodar
+
+svn checkout <endereço do repositório> <nome da pasta onde ele ficará>
+
+adicionalmente, pode-se utilizar a opção "--username <meu_nome_de_usuário>", para identificar quem o está fazendo.
+
+No meu caso, para baixar o mclone para o meu computador, tive de digitar o seguinte (depois de ir até a pasta onde pretendo que os arquivos baixados fiquem):
+
+svn checkout https://mclone.googlecode.com/svn/trunk/ mclone --username vaulttech@gmail.com
+
+(aliás... esse é um comando que não é necessário decorar. O site do googlecode já mostra, em "source->checkout", qual o comando a ser utilizado para baixar os arquivos. No caso... é só ir em http://code.google.com/p/mclone/source/checkout, copiar e colar o que está escrito lá)
+
+Na nova pasta (no caso, mclone), aparecerá uma pasta oculta chamada ".svn". É nela que ficam os dados de versionamento do svn. Não será necessário mexer nela, de qualquer forma.
+
+
+
+3 - Alguns comandos úteis...
+
+SVN ADD: O primeiro comando sobre o qual eu quero comentar é o **svn add**. Suponha que você criou um arquivo novo e quer adicioná-lo ao repositório. A melhor forma de fazer isso é utilizando "svn add <novo arquivo>". Assim, na próxima vez que você "commitar" (já veremos como isso funciona...), o seu novo arquivo será adicionado ao repositório, junto com todas as suas outras novas mudanças.
+
+SVN COMMIT / SVN UPDATE: Falamos, no parágrafo anterior, sobre "commitar". Toda vez que você resolve mandar as suas mudanças para o repositório, você deve utilizar o comando **svn commit**. Ao fazê-lo, o svn verificará se você tem a última versão de todos os arquivos que estão no repositório. Se tiver, ele permitirá que você enviar as suas mudanças. Se não, ele exigirá que você chame "svn update" para realizar a atualização. Além disso, ele abrirá um editor de texto onde pedirá que você digite uma mensagem (de preferência pequena) explicando mais ou menos o que foi a sua mudança. Terminados esses passos, o svn mandará os arquivos para o repositório.
+
+Para se livrar de ter de abrir um editor de texto de linha de comando (frequentemente o "vi", que é horroroso), a minha sugestão é que se chame o comando "svn commit" com a opção "-m '<minha mensagem>'". Dessa forma, a mensagem fica já na linha de comando, o que é uma boa forma de nos forçar a escrever mensagens realmente curtas x.X
+
+SVN MKDIR: Não precisa nem dizer, certo? Faz exatamente o mesmo que o mkdir do unix, mas avisa à pasta .svn que essa pasta nova deve fazer parte do seu próximo commit.
+
+SVN RM: Bem como existe o comando SVN ADD, também existe o comando **svn rm**. Ele remove arquivos da sua pasta, avisando que esses arquivos também devem sumir do seu repositório. De qualquer forma, se eles já existiram em alguma versão do seu código, não será difícil reavê-lo (afinal, é pra isso que serve versionamento de código =D).
+
+SVN CP: Exatamente o mesmo que o comando cp, do Unix, o SVN adicionalmente avisa para a pasta ".svn" que ocorreu uma mudança.
+
+SVN MV: Mesma idéia do "svn cp", mas, enfim... é o comando mv =D
+
+Você perceberá que existem sinônimos para esses comandos. Por exemplo, "svn cp" pode ser usado como "svn copy", ou "svn commit" pode ser usado como "svn ci".
+
+
+4 - Para saber mais
+
+Este é um tutorial que explica em "poucas" palavras como usar svn, através de um exemplo. Achei bem bom, e achei bem claro, por causa dos exemplos.
+http://artis.imag.fr/~Xavier.Decoret/resources/svn/index.html
+
+Este link já foi apresentado lá atrás. Ele é um bom tutorial sobre svn no MAC OSX. De qualquer forma, como svn funciona igualmente em outras plataformas, é um bom lugar para procurar ajuda quando se tem algum dúvida também (apesar de a página ser grande, o tutorial em si é pequeno: o que acontece é que é um blog e tem muitos comentários de pessoas ao fim dá página).
+http://www.rubyrobot.org/tutorial/subversion-with-mac-os-x
+
+Ao fim do link anterior, o autor sugere o livro sobre subversion presente no seguinte link (achei que é um bom lugar pra procurar naquele último caso em que definitivamente não sabemos fazer uma certa coisa, sabem?):
+http://svnbook.red-bean.com/
+
+
+
+5 - É isso...
+
+Não sei se tem algo mais a dizer... mas definitivamente há muito mais a aprender. Então, sugiro que aprendamos juntos utilizando essa ferramenta que é uma das mais widely used ferramentas de versionamento de código do mundo =D
+
+John

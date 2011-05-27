@@ -12,7 +12,7 @@
 
 #include <math.h>
 
-#include "common.h"
+#include "../common.h"
 #include "transformations.h"
 
 extern float **growthData;

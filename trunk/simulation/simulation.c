@@ -13,10 +13,10 @@
 //#include "sgi/interface.h"
 #endif
 
-#include "common.h"
-#include "heap.h"
-#include "transformations.h"
-#include "cells.h"
+#include "../common.h"
+#include "../util/heap.h"
+#include "../util/transformations.h"
+#include "../data/cells.h"
 #include "relax.h"
 
 

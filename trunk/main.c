@@ -27,13 +27,13 @@
 
 #include "common.h"
 #include "main.h"
-#include "nrutil.h"
-#include "voronoi.h"
-#include "util.h"
-#include "relax.h"
-#include "wingEdge.h"
-#include "random.h"
-#include "heap.h"
+#include "util/nrutil.h"
+#include "util/voronoi.h"
+#include "util/util.h"
+#include "simulation/relax.h"
+#include "control/wingEdge.h"
+#include "util/random.h"
+#include "util/heap.h"
 #include "distance/interfacedistance.h"
 
 /*

@@ -23,13 +23,13 @@
 #include <sys/types.h>
 #include <magick/api.h>
 
-#include "common.h"
-#include "relax.h"
+#include "../common.h"
+#include "../simulation/relax.h"
 #include "texture.h"
 
 #ifdef GRAPHICS
 //#include <GLUT/glut.h>
-#include "GL/glut.h"
+#include <GL/glut.h>
 #endif
 
 /*

@@ -9,7 +9,7 @@
  */
 
 #include <math.h>
-#include "common.h"
+#include "../common.h"
 
 #define DAMN_SMALL (1e-30)
 #define L_EPSILON 1.0e-10

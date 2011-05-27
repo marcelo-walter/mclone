@@ -23,7 +23,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "common.h"
+#include "../common.h"
 #include "wingEdge.h"
 
 #define	VSTART	0

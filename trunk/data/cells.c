@@ -13,11 +13,11 @@
  *---------------------------------------------------
  */
 
-#include "common.h"
+#include "../common.h"
 #include "cells.h"
-#include "relax.h"
-#include "random.h"
-#include "heap.h"
+#include "../simulation/relax.h"
+#include "../util/random.h"
+#include "../util/heap.h"
 
 //#ifdef GRAPHICS
 //#include "sgi/myforms.h"

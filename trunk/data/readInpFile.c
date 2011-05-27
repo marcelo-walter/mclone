@@ -11,7 +11,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "common.h"
+#include "../common.h"
 #include "readInpFile.h"
 
 /*

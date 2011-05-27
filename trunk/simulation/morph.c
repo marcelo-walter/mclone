@@ -26,8 +26,8 @@
 #include "GL/glut.h"
 #endif
 
-#include "common.h"
-#include "transformations.h"
+#include "../common.h"
+#include "../util/transformations.h"
 
 extern void morphCells( void );
 //extern void compCellsPolygonCoordinates( void );

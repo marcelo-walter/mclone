@@ -14,7 +14,7 @@
 
 #include <GL/glut.h>
 //#include <GLUT/glut.h>
-#include "../texture.h"
+#include "../control/texture.h"
 
 #include "menus.h"
 

@@ -11,9 +11,9 @@
 #include <math.h>
 #include <string.h>
 
-#include "common.h"
+#include "../common.h"
 #include "util.h"
-#include "relax.h"
+#include "../simulation/relax.h"
 #include "transformations.h"
 
 #ifdef GRAPHICS

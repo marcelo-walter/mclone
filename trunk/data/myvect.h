@@ -8,7 +8,7 @@
  *------------------------------------------------------------
  */
 
-#include "common.h"
+#include "../common.h"
 
 double V3SquaredLength(Point3D *a);
 double V3Length(Point3D *a);

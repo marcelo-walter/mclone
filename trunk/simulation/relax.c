@@ -10,11 +10,11 @@
 #include <math.h>
 
 #include <stdio.h>
-#include "common.h"
+#include "../common.h"
 #include "relax.h"
 #include "forces.h"
 /* Added by Thompson Peter Lied in 16/07/2002 */
-#include "Macros.h"
+//#include "../data/Macros.h"
 
 //#ifdef GRAPHICS
 //#include "sgi/myforms.h"

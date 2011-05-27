@@ -15,7 +15,7 @@
  *-----------------------------------------------------
  */
 
-#include "common.h"
+#include "../common.h"
 #include "intersect.h"
 extern void mapOntoPolySpace(int whichFace, double x, double y, double z, Point2D *p);
 
