@@ -12,14 +12,14 @@
 #include <math.h>
 
 //#include <GLUT/glut.h>
-#include "GL/glut.h"
-#include "common.h"
+#include <GL/glut.h>
+#include "../common.h"
 
 // #include "flags.h" // added by Cadu in 29/10
 #include "drawing.h"
-#include "nrutil.h"
+#include "../nrutil.h"
 #include "trackball.h"
-#include "transformations.h"
+#include "../transformations.h"
 
 void drawVoronoi( void );	/* for the picking part */
 void initMenus( void );

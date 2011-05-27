@@ -11,9 +11,9 @@
 
 #include <stdio.h>
 
-#include "common.h"
+#include "../common.h"
 //#include "GLUT/glut.h"
-#include "GL/glut.h"
+#include <GL/glut.h>
 
 extern RMODE renderMode;
 
