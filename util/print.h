@@ -5,7 +5,7 @@
  *-------------------------------------------------------
  */
 
-#include "common.h"
+#include "../common.h"
 
 extern int activePrim;
 

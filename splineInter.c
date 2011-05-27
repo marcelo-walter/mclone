@@ -1,7 +1,7 @@
 
 
 
-#include "nrutil.h"
+#include "util/nrutil.h"
 #include <stdio.h>
 
 /*

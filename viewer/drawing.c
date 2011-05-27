@@ -18,7 +18,7 @@
 #include "../common.h"
 #include "drawing.h"
 //#include <GLUT/glut.h>
-#include "../transformations.h"
+#include "../util/transformations.h"
 
 /*
  *-----------------------------------------------

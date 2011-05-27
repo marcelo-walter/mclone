@@ -28,7 +28,7 @@
  *---------------------------------------------------------------
  */
 
-#include "common.h"
+#include "../common.h"
 
 extern void copyMatrix( Matrix4 *destiny, Matrix4 source );
 

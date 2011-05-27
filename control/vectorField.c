@@ -9,9 +9,9 @@
  */
 #include <math.h>
 #include <stdlib.h>
-#include "common.h"
+#include "../common.h"
 #include "texture.h"
-#include "distance/interfacedistance.h"
+#include "../distance/interfacedistance.h"
 
 /*
  *---------------------------------------------------------------

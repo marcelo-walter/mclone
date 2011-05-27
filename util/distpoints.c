@@ -21,9 +21,9 @@
 #include <string.h>
 #include <math.h>
 
-#include "common.h"
+#include "../common.h"
 #include "random.h"
-#include "relax.h"
+#include "../simulation/relax.h"
 
 /*
  *---------------------------------------------------------

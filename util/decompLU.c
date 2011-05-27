@@ -9,8 +9,8 @@
 
 
 #include <math.h>
-#include "common.h"
-#include "distance/interfacedistance.h"
+#include "../common.h"
+#include "../distance/interfacedistance.h"
 
 #define TINY 1.0e-20
 
