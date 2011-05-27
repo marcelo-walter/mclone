@@ -27,13 +27,6 @@
  *	External function definitions
  *------------------------------------------------------------
  */
-/*
- * For the interpolation of growth and animation data
- * Declared in splineInter.c
- */
-extern void spline(float x[], float y[], int n, float yp1, float ypn, float y2[]);
-extern void splint(float xa[], float ya[], float y2a[], int n, float x,float *y);
-extern void linint(float xa[], float ya[], int n, float x, float *y);
 
 /* declared in simulation.c */
 extern void postSplitEventsOnQueue( void );
@@ -569,6 +562,46 @@ float **allocate2DArrayFloat( int r, int c )
 }
 
 /*
+ *-------------------------------------------------------------------------
+ *	Given the arrays xa[1..n] and ya[1..n] which tabulate a
+ *	function (with the xai's in order) and given a value of x,
+ *	this routine returns a linear interpolated value y
+ *-------------------------------------------------------------------------
+ */
+void linint(float xa[], float ya[], int n, float x, float *y)
+{
+
+	int i;
+	float t;
+
+	/* find the range for x */
+	i = 1;
+	while ( x > xa[i] ) i++;
+
+	if ( i > n ){
+		printf("i = %d n = %d\n", i, n );
+		printf("x = %f xa = %f\n", x, xa[i]);
+		/*comented by Fabiane Queiroz*/
+		//nrerror("Bad index in routine LININT");
+	}
+
+	if ( i == 1){ /* it's the first element */
+		*y = ya[i];
+		/* printf("y = %f\n",  *y );
+		 printf("y[%d] = %f\n", i, ya[i]);
+		 printf("x = %f xa[%d] = %f\n", x, i, xa[i]); */
+	}
+	else{
+		t = ( x - xa[i-1]) / ( xa[i] - xa[i-1] );
+		*y = ya[i-1] * ( 1.0 - t) + ya[i] * t;
+		/* printf("\n");
+		 printf("t = %f y = %f\n", t, *y );
+		 printf("y[%d] = %f y[%d] = %f\n", i-1, ya[i-1], i, ya[i]);
+		 printf("x = %f xa[%d] = %f xa[%d] = %f\n", x, i-1, xa[i-1], i, xa[i]); */
+	}
+}
+
+/*
  *-----------------------------------------------------------------
  *	This routine gets the given animation data
  *	and computes intermediate values using linear
@@ -581,22 +614,22 @@ void linearInterpAnimData( int rowsAnimData, int columnsAnimData, int firstTime)
 	int numberOfFrames;
 	int i, j, k, jj;
 	float y, step;
-	
+
 	/* for the interpolation */
 	static float **dataY;
 	static float *dataX;
-	
+
 	numberOfFrames = FINAL_GROWTH_TIME + 1;
-	
+
 	if ( firstTime ){
 		ra = rowsAnimData;
 		ca = columnsAnimData;
 		rg = ( numberOfFrames + numberOfInBet ) / ( 1 + numberOfInBet);
-		
+
 		/* allocates space for arrays */
 		dataX = (float *)malloc(sizeof(float) * ca);
 		dataY = allocate2DArrayFloat( ra, ca );
-		
+
 		/* copy original months information into dataX */
 		dataX[0] = originalGrowthData[0][MONTH];
 		dataX[ca-1] = originalGrowthData[rg-1][MONTH];
@@ -609,7 +642,7 @@ void linearInterpAnimData( int rowsAnimData, int columnsAnimData, int firstTime)
 			dataX[i] = originalGrowthData[i][MONTH];
 		}
 		/*for(i=0; i < ca; i++) printf("dataX[%d] = %f\n", i, dataX[i]);*/
-		
+
 		/* copy the various data to interpolate */
 		for(i=0; i < ra; i++){
 			for(j=0; j < ca; j++){
@@ -618,13 +651,13 @@ void linearInterpAnimData( int rowsAnimData, int columnsAnimData, int firstTime)
 			}
 		}
 	}
-	
+
 	/* get rid of the previous allocation for growth data array */
 	free( animData ); animData = NULL;
-	
+
 	/* get space for new animation data array */
 	animData = allocate2DArrayFloat( ra, numberOfFrames );
-	
+
 	/* compute interpolated values */
 	for(i=0; i < ra; i++){
 		for(j=0; j < numberOfFrames; j++){
@@ -632,12 +665,12 @@ void linearInterpAnimData( int rowsAnimData, int columnsAnimData, int firstTime)
 			animData[i][j] = y;
 		}
 	}
-	
+
 	FINAL_ANIM_TIME = numberOfFrames - 1;
-	
+
 	/*fprintf( stderr, "\nNew animation data:\n");
 	 printArray(animData, ra, numberOfFrames);*/
-	
+
 	if (firstTime)
 		fprintf( stderr, "\nComputed animation frames.\n");
 	else
@@ -1196,92 +1229,7 @@ void PlaneEquation(int faceIndex, Point4D *plane)
 	plane->d = -V3Dot( &refpt, &normal ) / len;
 }
 
-/*
- *-----------------------------------------------------------------
- *	This routine gets the given growth data
- *	and computes intermediate values using a spline
- *	interpolation.
- *-----------------------------------------------------------------
- */
-void splineInterpGrowthData( int rowsGrowthData, int columnsGrowthData, int firstTime)
-{
-	int i, j, k;
-	static int rg, cg;
-	int numberOfFrames;
-	
-	/* for the interpolation */
-	static float **dataY;
-	static float **y2;	/* 2nd derivative */
-	static float *dataX;
-	
-	float x, y, step;
-	
-	if ( firstTime ){
-		rg = rowsGrowthData;
-		cg = columnsGrowthData;
-		
-		/* allocates space for arrays */
-		dataX = (float *)malloc(sizeof(float) * rg);
-		dataY = allocate2DArrayFloat( cg, rg );
-		y2 = allocate2DArrayFloat( cg, rg );
-		
-		/* copy original months information int dataX */
-		for(i=0; i < rg; i++) dataX[i] = originalGrowthData[i][MONTH];
-		
-		/* copy the various data to interpolate */
-		for(i=1; i < cg; i++){
-			for(j=0; j < rg; j++){
-				dataY[i-1][j] = originalGrowthData[j][i];
-			}
-			/* computes the 2nd derivative */
-			/* the values 1e30 specify that the splines
-			 have 0 2nd derivative at the first and last points */
-			spline( dataX-1, dataY[i-1]-1, rg, 1e30, 1e30, y2[i-1]-1);
-		}
-		
-	}
-	
-	numberOfFrames = rg + ( (rg - 1) * numberOfInBet );
-	
-	/* get rid of the previous allocation for growth data array */
-	free( growthData ); growthData = NULL;
-	/* get space for new growth data array */
-	growthData = allocate2DArrayFloat( numberOfFrames, cg );
-	
-	/* first compute the 'X' values */
-	for(i=0, k=0; i < rg-1; i++){
-		step = (originalGrowthData[i+1][MONTH] - originalGrowthData[i][MONTH]) /
-		(float) (numberOfInBet + 1);
-		/*fprintf( stderr, "step = %f\n", step);*/
-		for(j=0; j <= numberOfInBet; j++){
-			growthData[k][MONTH] = originalGrowthData[i][MONTH] + j*step;
-			k++;
-		}
-	}
-	
-	/* fix for the last row */
-	growthData[k][MONTH] = originalGrowthData[rg-1][MONTH];
-	
-	/* now that we have the 'X' values we can compute the 'Y' */
-	for(i=0; i < numberOfFrames; i++){
-		x = growthData[i][MONTH];
-		for(j=0; j < cg-1; j++){
-			splint(dataX-1, dataY[j]-1, y2[j]-1, rg, x, &y );
-			growthData[i][j+1] = y;
-		}
-	}
-	
-	/*fprintf( stderr, "New growth data:\n");
-	 printArray(growthData, numberOfFrames, cg);*/
-	
-	if (firstTime)
-		fprintf( stderr, "\nNumber of frames = %d\n", numberOfFrames);
-	else
-		fprintf(stderr, "\nNew number of frames = %d\n", numberOfFrames);
-	
-	FINAL_GROWTH_TIME = numberOfFrames - 1;
-	growthTime = numberOfFrames;
-}
+
 /*
  *-----------------------------------------------------------------
  *	This routine goes over the animation data file and
@@ -1344,84 +1292,4 @@ void openParseAnimData1( int *r, int *c )
 	
 	*r = rows;
 	*c = columns;
-}
-/*
- *-----------------------------------------------------------------
- *	This routine gets the given animation data
- *	and computes intermediate values using a spline
- *	interpolation.
- *-----------------------------------------------------------------
- */
-void splineInterpAnimData( int rowsAnimData, int columnsAnimData, int firstTime)
-{
-	
-	int i, j, k;
-	static int ra, ca, rg;
-	int numberOfFrames;
-	
-	/* for the interpolation */
-	static float **dataY;
-	static float **y2;	/* 2nd derivative */
-	static float *dataX;
-	
-	float x, y;
-	
-	numberOfFrames = FINAL_GROWTH_TIME + 1;
-	
-	if ( firstTime ){
-		ra = rowsAnimData;
-		ca = columnsAnimData;
-		rg = ( numberOfFrames + numberOfInBet ) / ( 1 + numberOfInBet);
-		
-		/* allocates space for arrays */
-		dataX = (float *)malloc(sizeof(float) * ca);	
-		dataY = allocate2DArrayFloat( ra, ca );
-		y2 = allocate2DArrayFloat( ra, ca );
-		
-		/* copy original months information into dataX */
-		dataX[0] = originalGrowthData[0][MONTH];
-		dataX[ca-1] = originalGrowthData[rg-1][MONTH];
-		if ( ca > rg )
-			errorMsg("There is more animation data than growth...\n");
-		
-		for(i=1; i < ca-1; i++){
-			dataX[i] = originalGrowthData[i][MONTH];
-		}
-		for(i=0; i < ca; i++) printf("dataX[%d] = %f\n", i, dataX[i]);
-		
-		/* copy the various data to interpolate */
-		for(i=0; i < ra; i++){
-			for(j=0; j < ca; j++){
-				dataY[i][j] = originalAnimData[i][j];
-				/*printf("dataY[%d][%d] = %f\n",i,j,dataY[i][j]);*/
-			}
-			/* computes the 2nd derivative */
-			/* the values 1e30 specify that the splines
-			 have 0 2nd derivative at the first and last points */
-			spline( dataX-1, dataY[i]-1, ca, 1e30, 1e30, y2[i]-1);
-		}
-	}
-	
-	/* get rid of the previous allocation for growth data array */
-	free( animData ); animData = NULL;
-	
-	/* get space for new animation data array */
-	animData = allocate2DArrayFloat( ra, numberOfFrames );
-	
-	for(i=0; i < ra; i++){
-		for(j=0; j < numberOfFrames; j++){
-			splint(dataX-1, dataY[i]-1, y2[i]-1, ca, growthData[j][MONTH], &y );
-			animData[i][j] = y;
-		}
-	}
-	
-	FINAL_ANIM_TIME = numberOfFrames - 1;
-	
-	/*fprintf( stderr, "\nNew animation data:\n");
-	 printArray(animData, ra, numberOfFrames);*/
-	
-	if (firstTime)
-		fprintf( stderr, "\nComputed animation frames.\n");
-	else
-		fprintf(stderr, "\nComputed new animation frames.\n");
 }
