@@ -4,7 +4,7 @@ extern "C"
 }
 
 #include "surface.h"
-#include "common.h"
+#include "../common.h"
 
 Vertex 	*vert;
 Face	*faces;

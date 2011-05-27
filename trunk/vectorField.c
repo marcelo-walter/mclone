@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "common.h"
 #include "texture.h"
-#include "interfacedistance.h"
+#include "distance/interfacedistance.h"
 
 /*
  *---------------------------------------------------------------

@@ -34,7 +34,7 @@
 #include "wingEdge.h"
 #include "random.h"
 #include "heap.h"
-#include "interfacedistance.h"
+#include "distance/interfacedistance.h"
 
 /*
  *--------------------------------------------------
