@@ -47,7 +47,7 @@
  * The resulting rotation is returned as a quaternion rotation in the
  * first paramater.
  */
-#include "../vect.h"
+#include "../util/vect.h"
 void
 trackball(float q[4], float p1x, float p1y, float p2x, float p2y);
 

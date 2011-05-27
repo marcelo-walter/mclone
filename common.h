@@ -112,8 +112,8 @@ float computeGlobalScale( int index, float max );
 void includeUserAgeintoGrowthArray( int time, float scale );
 void openParseAnimData( int *r, int *c );
 void PlaneEquation( int faceIndex, Point4D *plane );
-void splineInterpGrowthData( int rowsGrowthData, int columnsGrowthData, int firstTime );
-void splineInterpAnimData( int rowsAnimData, int columnsAnimData, int firstTime );
+//void splineInterpGrowthData( int rowsGrowthData, int columnsGrowthData, int firstTime ); //removed function, by Bins
+//void splineInterpAnimData( int rowsAnimData, int columnsAnimData, int firstTime ); //removed function, by Bins
 void linearInterpGrowthData( int rowsGrowthData, int columnsGrowthData, int firstTime );
 void linearInterpAnimData( int rowsAnimData, int columnsAnimData, int firstTime );
 void saveObjFile( const char *fileName );
