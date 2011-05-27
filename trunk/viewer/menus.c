@@ -10,11 +10,11 @@
 #include <stdlib.h>
 /*#include <forms.h>*/
 
-#include "common.h"
+#include "../common.h"
 
 #include <GL/glut.h>
 //#include <GLUT/glut.h>
-#include "texture.h"
+#include "../texture.h"
 
 #include "menus.h"
 

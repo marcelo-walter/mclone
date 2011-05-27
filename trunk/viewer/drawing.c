@@ -8,17 +8,17 @@
  *------------------------------------------------------------
  */
 
-#include "GL/glut.h"
+#include <GL/glut.h>
 
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-#include "common.h"
+#include "../common.h"
 #include "drawing.h"
 //#include <GLUT/glut.h>
-#include "transformations.h"
+#include "../transformations.h"
 
 /*
  *-----------------------------------------------

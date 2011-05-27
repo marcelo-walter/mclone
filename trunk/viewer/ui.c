@@ -13,14 +13,14 @@
 #include <string.h>
 #include <math.h>
 
-#include "GL/glut.h"
+#include <GL/glut.h>
 //#include <GLUT/glut.h>
-#include "common.h"
+#include "../common.h"
 #include "trackball.h"
 #include "drawing.h"
 
 /*Start*/
-#include "interfacedistance.h"
+#include "../distance/interfacedistance.h"
 
 extern VECTORGEODESICPATH *ArrayGeodesicPath;
 long IndiceGeodesicPath, OffSetIndiceGeodesicPath;
