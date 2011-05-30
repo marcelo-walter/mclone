@@ -1310,3 +1310,45 @@ void saveVectorField( char *FileName )
 	fprintf( stderr, "...done.\n" );
 }
 
+
+/*
+ * Moved from main.c by Bins
+ *
+ *---------------------------------------------------------
+ *	Load the entire Vector Field from the file (one vector per face)
+ *---------------------------------------------------------
+ */
+
+void loadVectorField( char *VFfileName )
+{
+	char line[255], input[255];
+	int IndexFaceVF;
+
+	float X_, Y_, Z_;
+
+	FILE *FileVectorField;
+
+	if (( FileVectorField = fopen( VFfileName, "r" )) == NULL )
+	{
+		printf( "Could not open Vectors Field File ( %s ) to read! \n", VFfileName );
+		exit(1);
+	}
+
+	fprintf( stderr, "Loading Vector Field from file %s ... ", VFfileName );
+
+	Getline(line, 256, FileVectorField);
+	Getline(line, 256, FileVectorField);
+	Getline(line, 256, FileVectorField);
+
+	for (IndexFaceVF = 0; IndexFaceVF < NumberFaces; IndexFaceVF++)
+	{
+		fscanf( FileVectorField, "%f %f %f", &X_, &Y_, &Z_);
+		faces[IndexFaceVF].EndOfVector3D.x = X_;
+		faces[IndexFaceVF].EndOfVector3D.y = Y_;
+		faces[IndexFaceVF].EndOfVector3D.z = Z_;
+	}
+
+	fclose( FileVectorField );
+
+	fprintf( stderr, "... Done.\n" );
+}

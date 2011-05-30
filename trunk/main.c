@@ -28,21 +28,19 @@
 #include "common.h"
 #include "main.h"
 //#include "util/nrutil.h"
-#include "util/interfaceVoronoi.h"
-#include "util/genericUtil.h"
-#include "simulation/relax.h"
-#include "control/wingEdge.h"
-#include "util/random.h"
+//#include "util/interfaceVoronoi.h"
+//#include "util/genericUtil.h"
+//#include "simulation/relax.h"
+//#include "control/wingEdge.h"
+//#include "util/random.h"
 #include "util/heap.h"
-#include "distance/interfacedistance.h"
+//#include "distance/interfacedistance.h"
 
 /*
  *--------------------------------------------------
  *	Externally Defined prototypes
  *--------------------------------------------------
  */
-/* prototype in readInpFile.c */
-void readObject( char *name );
 
 /* defined in myvect.c */
 void checkIdentity( Matrix4 *a );
@@ -542,45 +540,6 @@ int main( int argc, char *argv[] )
 	else usage();
 }
 
-/*
- *---------------------------------------------------------
- *	Load the entire Vector Field from the file (one vector per face)
- *---------------------------------------------------------
- */
-
-void loadVectorField( char *VFfileName )
-{
-	char line[255], input[255];
-	int IndexFaceVF;
-	
-	float X_, Y_, Z_;
-	
-	FILE *FileVectorField;
-	
-	if (( FileVectorField = fopen( VFfileName, "r" )) == NULL )
-	{
-		printf( "Could not open Vectors Field File ( %s ) to read! \n", VFfileName );
-		exit(1);
-	}
-	
-	fprintf( stderr, "Loading Vector Field from file %s ... ", VFfileName );
-	
-	Getline(line, 256, FileVectorField);
-	Getline(line, 256, FileVectorField);
-	Getline(line, 256, FileVectorField);
-	
-	for (IndexFaceVF = 0; IndexFaceVF < NumberFaces; IndexFaceVF++)
-	{
-		fscanf( FileVectorField, "%f %f %f", &X_, &Y_, &Z_);
-		faces[IndexFaceVF].EndOfVector3D.x = X_;
-		faces[IndexFaceVF].EndOfVector3D.y = Y_;
-		faces[IndexFaceVF].EndOfVector3D.z = Z_;
-	}
-	
-	fclose( FileVectorField );
-	
-	fprintf( stderr, "... Done.\n" );
-}
 
 /*
  *---------------------------------------------------------
@@ -663,7 +622,7 @@ void runNonInteractive( PFMODE mode, RELAXMODE rMode )
 	}
 	
 	/* print final number of cells */
-	printFinalNumberOfCells();
+	printFinalNumberOfCells(nCellsType);
 	
 	/* save CM file */
 	printf("Saving cells file...");
@@ -687,29 +646,7 @@ void runNonInteractive( PFMODE mode, RELAXMODE rMode )
 	/* inform the user the simulation is over */
 	fprintf( stderr, "Simulation done!\n" );
 }
-/*
- *---------------------------------------------------------
- *	printFinalNumberOfCells
- *---------------------------------------------------------
- */
-void printFinalNumberOfCells( void )
-{
-	float totalNumberCells;
-	
-	totalNumberCells = nCellsType[C] +
-    nCellsType[D] +
-    nCellsType[E] +
-    nCellsType[F];
-	
-	printf( "Final Number of Cells: %d\n", (int) totalNumberCells );
-	printf( "[C] = %d (%3.3f%%) [D] = %d (%3.3f%%) [E]= %d (%3.3f%%) [F] = %d (%3.3f%%)\n",
-		   nCellsType[C], ((float) nCellsType[C]/totalNumberCells)*100.0,
-		   nCellsType[D], ((float) nCellsType[D]/totalNumberCells)*100.0,
-		   nCellsType[E], ((float) nCellsType[E]/totalNumberCells)*100.0,
-		   nCellsType[F], ((float) nCellsType[F]/totalNumberCells)*100.0 );
-	printf( "Average number of cells per face: %3.3f\n",
-		   totalNumberCells / NumberFaces );
-}
+
 /*
  *---------------------------------------------------------
  *	initParam

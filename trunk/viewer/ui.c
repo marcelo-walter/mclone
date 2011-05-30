@@ -20,9 +20,9 @@
 #include "drawing.h"
 
 /*Start*/
-#include "../distance/interfacedistance.h"
+//#include "../distance/interfacedistance.h"
 
-extern VECTORGEODESICPATH *ArrayGeodesicPath;
+//extern VECTORGEODESICPATH *ArrayGeodesicPath;
 long IndiceGeodesicPath, OffSetIndiceGeodesicPath;
 /*End*/
 

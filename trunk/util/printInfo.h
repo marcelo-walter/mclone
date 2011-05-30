@@ -22,4 +22,5 @@ void printEdges( void );
 void printCellsInfo( void );
 void printCellsTimeSplit( void );
 void printTmpListCells( int whichFace,  SCELL *h, SCELL *t );
+void printFinalNumberOfCells( int *nCellsType );
 void printString( int mode, char *string );
