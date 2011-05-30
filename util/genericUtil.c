@@ -12,7 +12,7 @@
 #include <string.h>
 
 #include "../common.h"
-#include "util.h"
+#include "genericUtil.h"
 #include "../simulation/relax.h"
 #include "transformations.h"
 

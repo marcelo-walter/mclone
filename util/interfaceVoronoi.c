@@ -6,11 +6,11 @@
 
 #include <stdlib.h>
 #include "../common.h"
-#include "voronoi.h"
+#include "interfaceVoronoi.h"
 #include "../simulation/relax.h"
 #include "../simulation/forces.h"
 #include "../control/wingEdge.h"
-#include "intersect.h"
+//#include "intersect.h"
 
 /*
  *--------------------------------------------------------------------

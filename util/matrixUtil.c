@@ -1,5 +1,5 @@
 /*
- *  nrutil.c
+ *  matrixUtil.c
  *  Mclone3D
  *
  *  Created by Fabiane Queiroz on 6/7/10.
@@ -9,7 +9,7 @@
 
 
 /*
- nrutil.c
+ matrixUtil.c
  Numerical Recipes in C - Second Edition
  
  Partial code for nrutil.c - pg. 942
@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "nrutil.h"
+#include "matrixUtil.h"
 
 #define NR_END 1
 #define FREE_ARG char*

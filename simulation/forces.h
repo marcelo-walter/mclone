@@ -49,32 +49,4 @@ void 	compUnfoldingMatrix( int currentSecFace, int inSecFaces,
 							Matrix4 *t );
 int 	insertCellsFromFaceInTmpList( int whichFace, int sourceFace, Matrix4 m,
 									 SCELL *h, SCELL *t );
-void 	planarizeFace( int whichFace );
-void 	writeTmpListCells( SCELL *h, SCELL *t );
-void 	planarizePrimFaces( int whichFace, SCELL *h, SCELL *t );
-void 	planarizeOneFace( int whichFace, SCELL *h, SCELL *t );
-void 	planarizeSecFaces( int whichFace, SCELL *h, SCELL *t );
-void 	planarizeFacesOnHeap( int whichFace , SCELL *h, SCELL *t );
-void 	planarizeSecToTmpList( int whichFace, int sourceFace, Matrix4 m, SCELL *h, SCELL *t );
 
-/*add by Fabiane Queiroz*/
-void projectVerticesVectors(int , Point3D*, Point3D* , Point3D* );
-
-
-/* I am not using these anymore */
-int  compForcesOnSecFaces( Point2D cellPos2D, CELL *c,
-						  double *sx, double *sy );
-int  compForcesOnSameFace( Point2D cellPos2D, CELL *c,
-						  double *sx, double *sy );
-int  processCellsOnPrimAdjFace( Point2D cellPos2D, CELL *c,
-							   int adjFaceIndex, int adjEdgeIndex,
-							   double *sx, double *sy );
-void insertFacesDistZeroInHeap( int whichFace );
-int  compForcesOnAdjFaces( Point2D cellPos2D, CELL *c,
-						  double *sx, double *sy );
-void compForcesForCell( CELL *c, double *sumdx, double *sumdy );
-int  includeCellsFromSecFaces( int whichFace, SCELL *h, SCELL *t );
-double 	distBetweenTri( int face1, int face2);
-double 	distBetweenPointAndTri( Point3D p, int whichTriangle );
-void 	insertFacesAdjToVertexInHeap( int referenceFace, int faceIndex,
-									 int vertIndex );

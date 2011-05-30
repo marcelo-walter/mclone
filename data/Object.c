@@ -1,7 +1,7 @@
 /*
  *---------------------------------------------------------
  *
- *	readInpFile.c
+ *	Object.c
  *	Marcelo Walter
  *	This file has the routine which reads an .obj
  *	file
@@ -12,7 +12,7 @@
 #include <ctype.h>
 
 #include "../common.h"
-#include "readInpFile.h"
+#include "Object.h"
 
 /*
  *--------------------------------------------------

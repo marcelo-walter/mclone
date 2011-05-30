@@ -17,7 +17,7 @@
 
 // #include "flags.h" // added by Cadu in 29/10
 #include "drawing.h"
-#include "../util/nrutil.h"
+//#include "../util/nrutil.h"
 #include "trackball.h"
 #include "../util/transformations.h"
 

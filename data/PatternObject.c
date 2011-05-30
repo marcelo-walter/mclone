@@ -1,6 +1,6 @@
 /*
  *--------------------------------------------------------
- *	obj.c
+ *	PatternObject.c
  *	Routines related with the object and material
  *	files to write a .obj and .mtl format file
  *--------------------------------------------------------
@@ -157,7 +157,7 @@ void savePatternFile( const char *filename )
     /* Writes faces info */
     fprintf(fpObj, "# Faces info\n");
     /* faceIndex = 0; */
-	
+
 	for( whichFace = 0; whichFace < NumberFaces; whichFace++)
     {
         for ( i = 0; i < faces[whichFace].nVorPol; i++)
@@ -202,8 +202,7 @@ void savePatternFile( const char *filename )
 			            break;
 				}
 			}
-			
-			
+
 			nVorVerts = faces[whichFace].vorFacesList[i].faceSize;
 			
 			fprintf( fpObj, "f " );
@@ -224,8 +223,7 @@ void savePatternFile( const char *filename )
 	//rewind( fp );
 	//fprintf( fp, "# %d vertices \n", vert_index );
     //fprintf( fp, "# %d faces \n", NumberFaces );
-	
-	
+
     fclose( fpObj );
 	
 	fprintf( stderr, "Ok \n" );

@@ -1,6 +1,6 @@
 /*
  *---------------------------------------------------------
- *	readParFile.c
+ *	Parameters.c
  *	This file has the routine which reads the parameter
  *	file <obj name>.par
  *---------------------------------------------------------
@@ -8,13 +8,7 @@
 
 #include <stdlib.h>
 
-#include "../common.h"
-
-/*
- *	Prototypes
- */
-void readParametersFile( const char *fileName );
-void printParamForUser( void );
+#include "Parameters.h"
 
 extern float 	adhes[HOW_MANY_TYPES][HOW_MANY_TYPES];
 extern float 	swTypes[HOW_MANY_TYPES][HOW_MANY_TYPES];
@@ -38,8 +32,7 @@ extern float orientation;
  *----------------------------------------------------------
  *----------------------------------------------------------
  */
-void
-readParametersFile( const char *fileName )
+void readParametersFile( const char *fileName )
 {
 	
 	FILE *fp;
@@ -113,8 +106,7 @@ readParametersFile( const char *fileName )
  *----------------------------------------------------------
  *----------------------------------------------------------
  */
-void
-printParamForUser( void )
+void printParamForUser( void )
 {
 	
 	printf("\n---------------------------------------------------------\n");
