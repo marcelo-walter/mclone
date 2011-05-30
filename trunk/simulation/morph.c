@@ -208,7 +208,7 @@ void morphVertices( int t )
 				
 				if (i == 1)
 				{
-					// printf("XXX: %.25lf", v1.x);
+					// printf("XXXX: %.25lf", v1.x);
 					// printf(" YYY: %.25lf", v1.y);
 					//  printf(" ZZZ: %.25lf \n", v1.z);
 				}
@@ -476,221 +476,13 @@ void fromMaster2World( Point3D *vReturn )
 	
 }
 
-// void followMasterPrimitive( int primIndex, Matrix4 *m, int tim,
 
-// 			    Point3D *vReturn)
-
-// {
-
-//   int parentIndex;
-
-//   Matrix4 g, r, t, s;			/* primitive matrices */
-
-//   Matrix4 gpi, rpi, tpi, spi,
-
-//   gp, rp, tp, sp, inverseParent;	/* parent matrices */
-
-//   Matrix4 result;
-
-//   Point3D v;
-
-//   
-
-//   /* for test of rotation */
-
-//   Matrix4 testRotation;
-
-// 
-
-//   /* this is the test to include rotations */
-
-//   buildTestRot( &testRotation, primIndex, tim );
-
-// 
-
-//   loadIdentity(m);
-
-//     
-
-//   /* get vertex to be transformed */
-
-//   v.x = vReturn->x;
-
-//   v.y = vReturn->y;
-
-//   v.z = vReturn->z;
-
-//   
-
-//   /* index for the parent primitive */
-
-//   parentIndex = Prim[primIndex].parentPrim;
-
-//   if (parentIndex == -1)
-
-//       errorMsg("Bug in hierarchy of primitives. Trying to acess undefined primitive!");
-
-// 
-
-//   /*  primitive matrices. Go from primitive space
-
-//       into world space */
-
-//   buildGrowthMatrix(&g, primIndex);
-
-//   buildTranslMatrix(&t, primIndex);
-
-//   buildRotMatrix(&r, primIndex);
-
-// 
-
-//   /* #ifdef RELATIVE
-
-//   buildScaleMatrix(&s, primIndex);
-
-//   #endif */
-
-//   
-
-//   /* parent matrices. Go from world space into
-
-//      primitive space */
-
-//   buildInvGrowthMatrix(&gpi, parentIndex);
-
-//   buildInvTranslMatrix(&tpi, parentIndex);
-
-//   buildInvRotMatrix(&rpi, parentIndex);
-
-//   buildInvScaleMatrix(&spi, parentIndex);
-
-// 
-
-//   buildGrowthMatrix(&gp, parentIndex);
-
-//   buildTranslMatrix(&tp, parentIndex);
-
-//   buildRotMatrix(&rp, parentIndex);
-
-//   buildScaleMatrix(&sp, parentIndex);
-
-//   buildInvTransfMatrix(&inverseParent, parentIndex);
-
-// 
-
-//   /* #ifdef RELATIVE */
-
-//   /* apply scaling */
-
-//   /* V3PreMul(&v, &s); */
-
-// #ifdef DEBUG
-
-//   printf("\n====== %d -> %d =======\n",primIndex,parentIndex);
-
-//   //printMatrixInfo("Primitive scaling", s, v);
-
-// #endif
-
-//   /* #endif */
-
-// 
-
-//   /* apply growth */
-
-//   V3PreMul(&v, &g);
-
-// #ifdef DEBUG
-
-//   printMatrixInfo("Primitive growth", g, v);
-
-// #endif
-
-// 
-
-//   /* test with the rotation stuff */
-
-//   V3PreMul(&v, &testRotation);
-
-// 
-
-//   /* undo rotation */
-
-//   V3PreMul(&v, &r);
-
-// #ifdef DEBUG
-
-//   printMatrixInfo("Primitive rotation", r, v);
-
-// #endif
-
-// 
-// 
-
-//   V3PreMul(&v, &t);
-
-// #ifdef DEBUG
-
-//   printMatrixInfo("Primitive translation", t, v);
-
-// #endif
-
-// 
-
-//  /* Instead of multiplying each individual matrix
-
-//      I'm multiplying for the whole inverse transformation */
-
-//   V3PreMul(&v, &inverseParent);
-
-//    V3PreMul(&v, &tpi);
-
-// #ifdef DEBUG
-
-//   printMatrixInfo("Parent inverse translation", tpi, v);
-
-// #endif
-
-//   
-// 
-
-//   V3PreMul(&v, &rpi); 
-// #ifdef DEBUG
-
-//   printMatrixInfo("Parent inverse rotation", rpi, v);
-
-// #endif
-
-// 
-
-// 
-//   V3PreMul(&v, &gpi); 
-// #ifdef DEBUG
-
-//   printMatrixInfo("Parent inverse growth", gpi, v);
-
-// #endif
-
-// 
-
-//   /* copy new vertex position into destination variable */
-
-//   vReturn->x = v.x;
-
-//   vReturn->y = v.y;
-
-//   vReturn->z = v.z;
-
-// 
-
-// }
 /*
  *----------------------------------------------------------
  *
  *
  *----------------------------------------------------------
  */
-
 void followMasterPrimitive( int primIndex, Matrix4 *m, int tim,
 						   
 						   Point3D *vReturn)
@@ -840,7 +632,8 @@ void followMasterPrimitive( int primIndex, Matrix4 *m, int tim,
 #endif
 	
 	
-	
+//Begin ADD after XXX .......................................................................
+
 	V3PreMul(&v, &rpi);
 	
 #ifdef DEBUG
@@ -851,7 +644,7 @@ void followMasterPrimitive( int primIndex, Matrix4 *m, int tim,
 	
 	
 	
-	/* apply inverse of parent growth */
+	// apply inverse of parent growth
 	
 	V3PreMul(&v, &gpi);
 	
@@ -863,10 +656,6 @@ void followMasterPrimitive( int primIndex, Matrix4 *m, int tim,
 	
 	
 	
-	/* #ifdef RELATIVE
-	 
-     #else */
-	
 	V3PreMul(&v, &sp);
 	
 #ifdef DEBUG
@@ -874,9 +663,7 @@ void followMasterPrimitive( int primIndex, Matrix4 *m, int tim,
 	printMatrixInfo("Parent direct scaling", sp, v);
 	
 #endif
-	
-	/* #endif */
-	
+
 	
 	
 	V3PreMul(&v, &rp);
@@ -886,9 +673,10 @@ void followMasterPrimitive( int primIndex, Matrix4 *m, int tim,
 	printMatrixInfo("Parent direct rotation", rp, v);
 	
 #endif
+
+	//End ADD after XXX .......................................................................
 	
-	
-	
+
 	V3PreMul(&v, &t);
 	
 #ifdef DEBUG
@@ -927,7 +715,7 @@ void followMasterPrimitive( int primIndex, Matrix4 *m, int tim,
 	
 	
 	
-	V3PreMul(&v, &spi); 
+	V3PreMul(&v, &spi); //Modified after from gpi to spi XXX .............................
 	
 #ifdef DEBUG
 	

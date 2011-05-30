@@ -4,7 +4,7 @@
  *	main.c
  *	Start: october 17, 1995
  *	Marcelo Walter
- *	This program implements the onca system
+ *	This program implements the MClone system
  *
  *---------------------------------------------------------
  */
@@ -27,9 +27,9 @@
 
 #include "common.h"
 #include "main.h"
-#include "util/nrutil.h"
-#include "util/voronoi.h"
-#include "util/util.h"
+//#include "util/nrutil.h"
+#include "util/interfaceVoronoi.h"
+#include "util/genericUtil.h"
 #include "simulation/relax.h"
 #include "control/wingEdge.h"
 #include "util/random.h"
@@ -619,7 +619,7 @@ void runNonInteractive( PFMODE mode, RELAXMODE rMode )
 		parametrize();
 		/* creates the random cells */
 		if ( !expFilePresent ){
-			printf("Creating Random Cells...\n");
+			printf("Creating Random Cells... (main.c) \n");
 			createRandomCells( NumberCells, FALSE );
 			printf( "Initial Number of Cells:\n[C] = %d [D] = %d [E] = %d [F] = %d\n",
 				   nCellsType[C], nCellsType[D],

@@ -1,13 +1,13 @@
 /*
- *-------------------------------------------------------
- *	print.c
- *	Useful information "printed" to the screen
- *-------------------------------------------------------
+ *  printInfo.c
+ *  Mclone3D
+ *
+ *  Created by Fabiane Queiroz on 6/10/10.
+ *  Copyright 2010 UFPE. All rights reserved.
+ *
  */
 
-#include "../common.h"
-
-extern int activePrim;
+#include "printInfo.h"
 
 /*
  *-----------------------------------------------------------------
@@ -16,11 +16,11 @@ extern int activePrim;
  */
 void printActivePrim( void )
 {
-	
+
 	int i;
-	
+
 	printf("Primitive Number = %d\n", activePrim);
-	
+
 	if (Prim[activePrim].type == CYLINDER){
 		printf("Cylinder\n");
 		printf("Center "); printPoint3D(Prim[activePrim].center);
@@ -46,7 +46,7 @@ void printActivePrim( void )
 		printf("== Primitive space points definition ==\n");
 		printf("p1 "); printPoint3D(Prim[activePrim].p1);
 		printf("p2 "); printPoint3D(Prim[activePrim].p2);
-		
+
 	}
 	printf("Translation x=%f y=%f z=%f\n",
 		   Prim[activePrim].trans[X],
@@ -69,7 +69,7 @@ void printActivePrim( void )
 void printArray(float **p, int rows, int columns)
 {
 	int i,j;
-	
+
 	for(i=0; i < rows; i++){
 		for(j=0; j < columns; j++){
 			printf("%3.3f ", p[i][j]);
@@ -86,7 +86,7 @@ void printArray(float **p, int rows, int columns)
 void printInfoPrim(int nPrim)
 {
 	int i, j;
-	
+
 	printf("============================\n");
 	printf("    Primitives Information  \n");
 	printf("============================\n");
@@ -164,8 +164,8 @@ void printPoint2D( Point2D p)
 void printFacesInfo(void)
 {
 	int i, j;
-	
-    
+
+
 	printf("=======================\n");
 	printf("    Faces Information  \n");
 	printf("=======================\n");
@@ -180,14 +180,14 @@ void printFacesInfo(void)
 		printf("Geometry vertices: ");
 		for(j=0; j < faces[i].nverts; j++){
 			printf("%d ",faces[i].v[j]);
-		}	
+		}
 		printf("\n");
 		printf("Texture vertices: ");
 		for(j=0; j < faces[i].nverts; j++){
 			printf("%d ",faces[i].vt[j]);
-		}	
+		}
 		printf("\n");
-		printf("prim1 = %d prim2 = %d\n", faces[i].prim1, faces[i].prim2); 
+		printf("prim1 = %d prim2 = %d\n", faces[i].prim1, faces[i].prim2);
 		printf("Plane coef: a = %3.2f b = %3.2f c = %3.2f d = %3.2f\n", faces[i].planeCoef.a,
 			   faces[i].planeCoef.b, faces[i].planeCoef.c, faces[i].planeCoef.d);
 		printf("v1: %3.2f %3.2f %3.2f\n", faces[i].v1.x, faces[i].v1.y, faces[i].v1.z);
@@ -212,7 +212,7 @@ void printFacesInfo(void)
 		printListOfCells( faces[i].head, faces[i].tail);
 		printf("\n");
 	}
-	
+
 }
 
 /*
@@ -223,7 +223,7 @@ void printFacesInfo(void)
 void printVertexInfo(void)
 {
 	int i, j;
-	
+
 	printf("==========================\n");
 	printf("    Vertices Information  \n");
 	printf("==========================\n");
@@ -238,7 +238,7 @@ void printVertexInfo(void)
 			printf("%d ", vert[i].neighFaces[j] );
 		printf("\n");
 	}
-	
+
 	/*printf("text vertex \tu \tv\n");
 	 for (i=0; i < NumberTextureVertices; i++){
 	 printf("%d \t%2.2f \t%2.2f\n", i, vertt[i].x, vertt[i].y);
@@ -267,7 +267,7 @@ void
 printMatrix(Matrix4 m)
 {
 	int i, j;
-	
+
 	/*printf("===========================\n");*/
 	for(i=0;i<4;i++){
 		for(j=0;j<4;j++){
@@ -285,13 +285,13 @@ printMatrix(Matrix4 m)
  */
 void printEdges( void )
 {
-	
+
 	int i;
-	
+
 	printf("==========================\n");
 	printf("    Edges Information     \n");
 	printf("==========================\n");
-	
+
 	/* print the edges */
 	printf("edge \tvstart \tvend \tepcw \tepccw \tencw \tenccw \tpf \tnf\n");
 	for( i = 0; i < NumberEdges; i++){
@@ -316,7 +316,7 @@ void printEdges( void )
 void printCellsInfo( void )
 {
 	int i;
-	
+
 	for( i = 0; i < NumberFaces; i++ ){
 		if ( faces[i].ncells != 0 ){
 			printf("Face %d\n", i );
@@ -334,7 +334,7 @@ void printCellsTimeSplit( void )
 {
 	int i;
 	CELL *c;
-	
+
 	printf( "#type C splitTime\n");
 	for( i = 0; i < NumberFaces; i++ ){
 		if ( faces[i].ncells != 0 ){
@@ -367,9 +367,9 @@ void printCellsTimeSplit( void )
  */
 void printTmpListCells( int whichFace,  SCELL *h, SCELL *t )
 {
-	
+
 	SCELL *runner;
-	
+
 	printf("face %d\n", whichFace );
 	runner = h->next;
 	while( runner != t ){

@@ -1,5 +1,5 @@
 /*
- *	voronoi.h
+ *	interfaceVoronoi.h
  */
 
 void computeVoronoi( void );
