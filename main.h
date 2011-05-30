@@ -14,7 +14,6 @@ void initParam( byte parFilePresent );
 void createFaceSystem(int faceIndex);
 void preProcessFaces( void );
 void preProcessVertices( void );
-void printFinalNumberOfCells( void );
 /*Modified by Fabiane Queiroz in 25/11/2009*/
 void runNonInteractive( PFMODE mode, RELAXMODE rMode );
 

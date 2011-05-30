@@ -379,6 +379,30 @@ void printTmpListCells( int whichFace,  SCELL *h, SCELL *t )
 }
 
 /*
+ *---------------------------------------------------------
+ *	printFinalNumberOfCells
+ *---------------------------------------------------------
+ */
+void printFinalNumberOfCells( int *nCellsType )
+{
+	float totalNumberCells;
+
+	totalNumberCells = nCellsType[C] +
+    nCellsType[D] +
+    nCellsType[E] +
+    nCellsType[F];
+
+	printf( "Final Number of Cells: %d (by printInfo.c)\n", (int) totalNumberCells );
+	printf( "[C] = %d (%3.3f%%) [D] = %d (%3.3f%%) [E]= %d (%3.3f%%) [F] = %d (%3.3f%%)\n",
+		   nCellsType[C], ((float) nCellsType[C]/totalNumberCells)*100.0,
+		   nCellsType[D], ((float) nCellsType[D]/totalNumberCells)*100.0,
+		   nCellsType[E], ((float) nCellsType[E]/totalNumberCells)*100.0,
+		   nCellsType[F], ((float) nCellsType[F]/totalNumberCells)*100.0 );
+	printf( "Average number of cells per face: %3.3f\n",
+		   totalNumberCells / NumberFaces );
+}
+
+/*
  * Mode:
  *	0 - stderr
  *	1 - stdout

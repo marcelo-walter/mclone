@@ -33,6 +33,21 @@
  */
 #include <stdlib.h>
 #include "../common.h"
+#include "../util/random.h"
+
+
+/*
+ *---------------------------------------------------------
+ *	External Prototypes and variables
+ *---------------------------------------------------------
+ */
+extern flag texturePresent;
+extern flag parametOKFlag;
+extern int totalNumberTextures;
+
+// declared in texture.c
+ColChar 	bilinearInterp( double u, double v, int textIdent );
+
 
 /*
  *---------------------------------------------------------------
@@ -44,6 +59,156 @@
 /* head and tail nodes of the global linked list */
 int cellSize = sizeof(CELL);
 int cellSize_S = sizeof(SCELL);
+
+/*
+ *---------------------------------------------------------
+ *	Local Prototypes and variables
+ *---------------------------------------------------------
+ */
+flag cellsCreated = FALSE;
+flag pickRandomFlag = TRUE;
+
+
+/*---------------------------------------------------------------
+ *	Allocates space for cells and create them
+ *	The 'embryoShape' flags if these cells are
+ *	being created in the original model (embryoShape == FALSE)
+ *	or if they are being created in the embryonic shape
+ *---------------------------------------------------------------
+ */
+void createRandomCells( int quantity, int embryoShape )
+{
+	//printf("\n quantity: %d (cellsList.c) \n", quantity);
+	float randomPolygon;
+	float s, t;
+	int whichFace;
+	int i, j, count=0;
+	int prim1, prim2, textID;
+	double u, v;
+	ColChar textValue;
+	Point3D p;
+	Point2D q;
+	CELL *c;
+	CELL_TYPE type;
+
+	for(i=0; i < quantity ; i++)
+	{
+		randomPolygon = ran1( &Seed );
+		//printf("\nrandomPolygon: %f, ", randomPolygon);
+		/* returns an index for which face we are connecting the cell */
+		whichFace = binarySearch( randomPolygon );
+		//printf("whichFace: %d\n ", whichFace );
+		if ( whichFace > NumberFaces )
+			errorMsg( "Not proper face number in 'createRandomCells'!" );
+
+		s = ran1( &Seed );
+		t = ran1( &Seed );
+
+		/*
+		 * Chooses a random point in the polygon.
+		 * p is the returned random position
+		 */
+		square2polygon( whichFace, s, t, &p );
+
+		/*
+		 * Check if the cell will have a type picked at random
+		 * or not
+		 */
+		if ( pickRandomFlag )
+			type = pickType();
+		else
+			type = D;
+
+		c = createCell(p, whichFace, type, 0);
+
+		/*
+		 * The computation of the barycentric coordinates for each
+		 * cell is now computed outside the 'createCell' procedure
+		 */
+		compBarycentricCoord( c );
+
+		if ( parametOKFlag ){
+			assignPrim2Cell( c );
+		}else{
+			//beep();
+			//fprintf( stderr, "Cells will not be parameterized!\n");
+		}
+
+		/*
+		 * I want to check here that the point just created is
+		 * actually inside the polygon
+		 */
+		if ( !pointInPoly2D( whichFace, c->px, c->py ) )
+			errorMsg( "Cell just created is outside the polygon! (distpoints.c)" );
+
+		/* update number of cells this face has */
+		faces[whichFace].ncells++;
+		insertOnListOfCells(c, faces[whichFace].head, faces[whichFace].tail);
+
+		/*
+		 * If there is a texture map to control the creation
+		 * of the cells, we proceed and change the type of
+		 * the cells based on the information on the texture map
+		 *
+		 * The textID[0] is the ID to control this
+		 */
+		if ( texturePresent )
+		{
+			prim1 = faces[whichFace].prim1;
+			if ( prim1 != FALSE ){
+				textID = Prim[prim1].textID[0];
+				//printf("RandonFace: %d Cinlindro: %d, textura: %d\n", whichFace, Prim[prim1], textID);
+				if ( textID < totalNumberTextures && textID != -1 ){
+					compParamCoordOneCell( c );
+					u = c->p1.u;
+					v = c->p1.v;
+					textValue =  bilinearInterp( u, v, textID );
+					if (textValue.redC == 0.0 && c->ctype == C ){
+						//removeFromListOfCells(c, faces[whichFace].head);
+						//faces[whichFace].nCellsType[c->ctype]--;
+						switchCellType( c, D );
+					}
+					/*if (textValue.redC == 0.0 && c->ctype == D ){
+					 switchCellType( c, C );
+					 }*/
+				}
+			}
+		}
+		/* fprintf(stderr, "px %3.2f py %3.2f pz %3.2f  ",p.x, p.y, p.z); */
+	}
+
+	/* check that all cells have faces assigned */
+	for (i=0; i < NumberFaces; i++){
+		count += faces[i].ncells;
+	}
+	if ( count != quantity )
+		errorMsg("Number of cells in polygons != Number of cells given!");
+
+	/* All just created cells are inside the polygon. I have to
+     set this here for the relaxation to work properly */
+	for( i = 0; i < NumberFaces; i++){
+		faces[i].vorFacesList =
+		(faceType *) malloc(sizeof(faceType) * faces[i].ncells );
+		if ( faces[i].vorFacesList == NULL )
+			errorMsg( "Out of space for list of voronoi polygons in voronoi.c!");
+		for ( j = 0; j < faces[i].ncells; j++){
+			faces[i].vorFacesList[j].border = IN;
+		}
+	}
+
+	/* set flag */
+	cellsCreated = TRUE;
+
+	/* put the first round of split events in the queue
+     only if we are not at the embryonic stage, that is
+     we are only growing pattern WITHOUT growth associated
+	 */
+	if ( !embryoShape ) postSplitEventsOnQueue();
+
+	//#ifdef GRAPHICS
+	//  updtNumberOfIndividualCells();
+	//#endif
+}
 
 /*
  *-----------------------------------------------------------
