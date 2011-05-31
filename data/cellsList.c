@@ -44,6 +44,9 @@
 extern flag texturePresent;
 extern flag parametOKFlag;
 extern int totalNumberTextures;
+extern char sessionFileName[128];
+/* keep track of how many cells of each type we have */
+extern int nCellsType[HOW_MANY_TYPES];
 
 // declared in texture.c
 ColChar 	bilinearInterp( double u, double v, int textIdent );
@@ -428,4 +431,111 @@ void changeFacesList(CELL *p, int newFace, int oldFace)
 }
 
 
+/* From genericUtil.c
+ *------------------------------------------------------------
+ *------------------------------------------------------------
+ */
+void saveCellsFile( const char *fileName )
+{
+
+	FILE *fp;
+	int len;
+	char objFileName[128];
+	int i, j;
+	CELL *c;
+
+	fprintf( stderr, "ExpFileName = %s\n", fileName );
+	if( (fp = fopen(fileName, "w")) == NULL )
+		errorMsg("Could not open cells file to white!");
+
+	if ( computingPatternFlag ){
+		len = strlen( fileName );
+		strncpy( objFileName, fileName, len - 3 );
+		objFileName[len-3]='\0';
+	}
+	else{
+		len = strlen( sessionFileName );
+		strncpy( objFileName, sessionFileName, len - 8 );
+		objFileName[len-8]='\0';
+	}
+
+	fprintf( fp, "%s\n", objFileName );
+
+	for( i = 0; i < NumberFaces; i++){
+		fprintf( fp, "%d %d\n", i, faces[i].ncells );
+		c = faces[i].head->next;
+		while ( c != faces[i].tail ){
+			fprintf( fp, "%d %lg %lg %lg\n", c->ctype,
+					c->x, c->y, c->z );
+			c = c->next;
+		}
+	}
+
+	fclose( fp );
+
+	/* inform the user */
+	printf("Cells file saved on file %s\n", fileName );
+}
+
+/* From genericUtil.c
+ *------------------------------------------------------------
+ *------------------------------------------------------------
+ */
+int loadCellsFile( const char *inpFileName )
+{
+	FILE *fp;
+	int len;
+	char objFileName[128], fileName[128];
+	int i, j;
+	CELL *c;
+	CELL_TYPE t;
+	double x, y, z;
+	Point3D p;
+	Point2D q;
+	int whichPolygon, ncells, totalNumberOfCells;
+
+	if( (fp = fopen(inpFileName, "r")) == NULL )
+		errorMsg("Could not open cells file to read!");
+
+	len = strlen( sessionFileName );
+	/*fprintf( stderr, "len %d\n", len );*/
+	strncpy( objFileName, sessionFileName, len - 8 );
+	objFileName[len-8]='\0';
+
+	fscanf( fp, "%s\n", &fileName );
+	if ( strcmp( fileName, objFileName ) ){
+		fprintf( stderr, "fileName = %s objFileName = %s\n",
+				fileName, objFileName);
+		return FALSE;
+	}
+
+	totalNumberOfCells = 0;
+	for( i = 0; i < NumberFaces; i++){
+		fscanf( fp, "%d %d\n", &whichPolygon, &ncells);
+		/*fprintf( stderr, "%d %d\n", whichPolygon, i );*/
+		if ( i != whichPolygon ){
+			fprintf( stderr, "Face read from file = %d current face = %d\n", whichPolygon, i );
+			errorMsg("Faces do not match in read cells!");
+		}
+		faces[i].ncells = ncells;
+		totalNumberOfCells += ncells;
+		for ( j = 0; j < faces[i].ncells; j++){
+			fscanf( fp, "%d %lg %lg %lg\n", &t, &(p.x), &(p.y), &(p.z) );
+			/*fprintf( stderr, "%d %lg %lg %lg\n", t, p.x, p.y, p.z );*/
+			c = createCell(p, i, t, 0);
+			insertOnListOfCells(c, faces[i].head, faces[i].tail);
+			/* Compute this cell's barycentric coordinates */
+			compBarycentricCoord( c );
+
+		}
+	}
+	fclose( fp );
+
+	fprintf( stderr, "Loaded Number of Cells:\n");
+	fprintf( stderr, "[C] = %d [D] = %d [E]= %d [F] = %d\n",
+			nCellsType[C], nCellsType[D],
+			nCellsType[E], nCellsType[F] );
+
+	return totalNumberOfCells;
+}
 

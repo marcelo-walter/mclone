@@ -23,6 +23,11 @@
 
 #include "../common.h"
 #include "../util/transformations.h"
+#include "Anim.h"
+#include "Growth.h"
+
+
+
 
 /*
  *---------------------------------------------------------
@@ -32,6 +37,8 @@
 extern int *nnoprimVertex; // line added by Cadu in 31/10
 extern flag cellsCreated;
 extern flag primFilePresent;
+
+extern char primitivesFileName[128];
 
 /*
  *---------------------------------------------------------
@@ -1017,5 +1024,210 @@ void compUV( Point3D p, double *u, double *v )
 		fprintf( stderr, "x = %lg y = %lg z = %lg d = %lg\n",
 				p.x, p.y, p.z, d );
 		errorMsg( "3D coordinates outside cylindrical space!" );
+	}
+}
+
+
+/*
+ * From genericUtil.c
+ *----------------------------------------------------------
+ *	savePrimitivesFile
+ *----------------------------------------------------------
+ */
+void savePrimitivesFile( char *outFile, int nPrim )
+{
+	FILE *fp;
+	int i;
+
+	/* change cursor to a watch */
+#ifdef GRAPHICS
+	glutSetCursor( GLUT_CURSOR_WAIT );
+#endif
+
+	if( (fp = fopen(outFile,"w")) == NULL)
+		errorMsg("Could not open primitives file to write!");
+
+	fprintf(fp, "%s\n", growthDataFileName);
+	fprintf(fp, "%s\n", animDataFileName);
+	fprintf(fp, "%d\n", nPrim);
+	for(i=0; i < nPrim; i++){
+		fprintf( fp, "#### %d\n", i );
+		fprintf( fp, "%d\n", Prim[i].type);
+		fprintf( fp, "%f %f %f\n",
+				Prim[i].trans[X],
+				Prim[i].trans[Y],
+				Prim[i].trans[Z]);
+		if ( i == WORLD){
+			fprintf( fp, "%f %f %f %f\n",
+					Prim[i].rot[X], Prim[i].rot[Y],
+					Prim[i].rot[Z], Prim[i].rot[W] );
+		}
+		else{
+			fprintf( fp, "%f %f %f\n",
+					rad2deg( Prim[i].rot[X] ),
+					rad2deg( Prim[i].rot[Y] ),
+					rad2deg( Prim[i].rot[Z] ) );
+		}
+		fprintf( fp, "%f %f %f\n",
+				Prim[i].scale[X],
+				Prim[i].scale[Y],
+				Prim[i].scale[Z] );
+		/* write info specific to a CYLINDER or LANDMARK */
+		if ( Prim[i].type == CYLINDER ){
+			fprintf( fp, "%d %d\n", Prim[i].landMarkR, Prim[i].landMarkH );
+			fprintf( fp, "%d\n", Prim[i].parentPrim );
+		}
+		else if ( Prim[i].type == LANDMARK){
+			fprintf(fp, "%d\n", Prim[i].gIndex);
+			fprintf(fp, "%d\n", Prim[i].primInd);
+		}
+		else errorMsg("Trying to write unknown primitive from primitives file!");
+		/*fprintf(fp, "\n");*/
+	}
+	/* close the file */
+	fclose(fp);
+	/* change cursor back to normal */
+#ifdef GRAPHICS
+	glutSetCursor( GLUT_CURSOR_LEFT_ARROW );
+	/* inform the user */
+#endif
+	printf("\tPrimitives saved on file %s\n", outFile);
+
+}
+
+/*
+ * From genericUtil.c
+ *----------------------------------------------------------
+ *	loadPrimitives
+ *	If the file does not exists or could not be
+ *	open this routine will return -1
+ *----------------------------------------------------------
+ */
+int loadPrimitivesFile( char *inFile )
+{
+	FILE *fp;
+	int i, j, nPrim;
+	char line[255];
+
+	if( (fp=fopen(inFile,"r")) == NULL) return(-1);
+
+	/* read name of the file with the growth data */
+	fscanf(fp, "%s\n", growthDataFileName);
+	/* read name of the file with the animation data */
+	fscanf(fp, "%s\n", animDataFileName);
+	/* read number of primitives */
+	fscanf(fp, "%d\n", &nPrim );
+
+	for(i=0; i < nPrim; i++){
+		Getline( line, 255, fp );
+		/*printf( "Read Line %s\n", line );*/
+		fscanf(fp, "%d\n", &(Prim[i].type));
+		/*printf( "Read Prim %d\n", Prim[i].type );*/
+		if ( Prim[i].type == CYLINDER || Prim[i].type == LANDMARK ){
+			Prim[i].center.x = 0.0;
+			Prim[i].center.y = 0.0;
+			Prim[i].center.z = 0.0;
+			Prim[i].h = 1.0;
+			Prim[i].r = 1.0;
+			fscanf(fp, "%f %f %f\n",
+				   &(Prim[i].trans[X]),
+				   &(Prim[i].trans[Y]),
+				   &(Prim[i].trans[Z]));
+			if ( i == WORLD){
+				fscanf(fp, "%f %f %f %f\n",
+					   &(Prim[i].rot[X]), &(Prim[i].rot[Y]),
+					   &(Prim[i].rot[Z]), &(Prim[i].rot[W]) );
+			}
+			else{
+				fscanf(fp, "%f %f %f\n",
+					   &(Prim[i].rot[X]),
+					   &(Prim[i].rot[Y]),
+					   &(Prim[i].rot[Z]));
+				/* convert rotation values into radians */
+				Prim[i].rot[X] = deg2rad( Prim[i].rot[X] );
+				Prim[i].rot[Y] = deg2rad( Prim[i].rot[Y] );
+				Prim[i].rot[Z] = deg2rad( Prim[i].rot[Z] );
+			}
+			fscanf(fp, "%f %f %f\n",
+				   &(Prim[i].scale[X]),
+				   &(Prim[i].scale[Y]),
+				   &(Prim[i].scale[Z]));
+			/* read info specific to a CYLINDER or LANDMARK */
+			if ( Prim[i].type == CYLINDER){
+				fscanf(fp, "%d %d\n", &(Prim[i].landMarkR),&(Prim[i].landMarkH));
+				fscanf(fp, "%d\n", &(Prim[i].parentPrim));
+				Prim[i].gIndex = -1;
+				for( j = 0; j < N_TEXT_PER_PRIM; j++ )
+					Prim[i].textID[j] = -1;
+
+			}
+			else if ( Prim[i].type == LANDMARK){
+				fscanf(fp, "%d\n", &(Prim[i].gIndex));
+				fscanf(fp, "%d\n", &(Prim[i].primInd));
+				Prim[i].parentPrim = -1;
+				Prim[i].landMarkR = -1; Prim[i].landMarkH = -1;
+				Prim[i].q1.x = -5.0;
+				Prim[i].q1.y = 0.0;
+				Prim[i].q1.z = 0.0;
+				Prim[i].q2.x = 5.0;
+				Prim[i].q2.y = 0.0;
+				Prim[i].q2.z = 0.0;
+			}
+		}
+		else{
+			fprintf( stderr, "Primitive file %s\n", inFile );
+			errorMsg("Trying to read unknown primitive from primitives file!");
+		}
+		fscanf(fp, "\n");
+	}
+
+	/* close the file */
+	fclose(fp);
+
+	/* show primitives */
+	/*showPrimitives = TRUE;*/
+
+	/* make sure that all primitives don't have animation
+     information associated. Later on when processing
+     the animation file, the primitives with animation
+     information associated will have this flag switched
+     to TRUE */
+	for(i=1; i < nPrim; i++)
+		Prim[i].animation = -1;
+
+	/* help message for the user */
+	//printf("==========================\n");
+//	printf("Primitives loaded from file %s\n\n", inFile);
+
+	/* returns the number of primitives */
+	return( nPrim );
+}
+
+/*
+ * From genericUtil.c
+ *----------------------------------------------------------
+ *	This routine will check if there exists a primitives
+ *	file and if so will load it beforehand
+ *	Return the number of primitives defined in the
+ *	file. Returns TRUE if there is a
+ *	primitive file (since I always have WORLD as the
+ *	first primitive) and FALSE otherwise
+ *----------------------------------------------------------
+ */
+int checkPrimitivesFile(void)
+{
+	int n;
+
+	n = loadPrimitivesFile( primitivesFileName );
+	if( n != -1){
+		NumberPrimitives = n;
+		primFilePresent = TRUE;	/* set the flag */
+		return TRUE;
+	}
+	else{
+		NumberPrimitives = 1;
+		fprintf(stderr,"This object has no primitives file associated with it!\n");
+		fprintf(stderr,"It just means that there are no primitives defined!\n");
+		return FALSE;
 	}
 }

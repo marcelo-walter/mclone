@@ -22,4 +22,5 @@
  * prototypes
  */
 void readObject(char *name);
+void saveObjFile( const char *fileName );
 int myatoi(char **p);
