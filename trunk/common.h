@@ -5,6 +5,10 @@
  *		start: march, 96
  *------------------------------------------------------------
  */
+
+#ifndef _COMMON_H_
+#define _COMMON_H_
+
 #ifdef GRAPHICS
 #include <GL/gl.h>
 #endif
@@ -347,3 +351,6 @@ void drawVerticesVectorsField(void);
 void drawSecFaces( int ix );
 void drawTerFaces( int ix );
 #endif
+
+
+#endif //_COMMON_H_

@@ -5,6 +5,9 @@
  *----------------------------------------------------------
  */
 
+#ifndef _TYPES_H_
+#define _TYPES_H_
+
 /* define some useful types */
 typedef unsigned char byte;
 typedef byte flag;
@@ -413,3 +416,6 @@ typedef struct vectors{
 	
 	struct cell *next;    /* pointer to the next cell */
 }VECTORARRAY;
+
+
+#endif //_TYPES_H_

@@ -217,3 +217,63 @@ void planarizeSecToTmpList( int whichFace, int sourceFace, Matrix4 m, SCELL *h, 
 		insertOnListOfCells_S(copyCell, h, t);
 	}
 }
+
+
+/*
+ *-----------------------------------------------------------
+ *	NEWELL'S METHOD FOR COMPUTING THE PLANE EQUATION OF
+ *	A POLYGON
+ *	Filippo Tampieri
+ *	Cornell University
+ *
+ *	This code adapted from Graphics Gems III
+ *-----------------------------------------------------------
+ */
+
+/* From genericUtil.c
+ *
+ **  PlaneEquation--computes the plane equation of an arbitrary
+ **  3D polygon using Newell's method.
+ **
+ **  Entry:
+ **      faceIndex - index into the faces array
+ **  Exit:
+ **      plane  - normalized (unit normal) plane equation
+ */
+
+void PlaneEquation(int faceIndex, Point4D *plane)
+{
+	int i, nverts;
+	Point3D refpt, normal, u, v;
+	float len;
+
+	nverts = faces[faceIndex].nverts;
+
+	/*  compute the polygon normal and a reference point on
+	 *  the plane. Note that the actual reference point is
+	 *  refpt / nverts
+	 */
+	V3Zero( &normal );
+	V3Zero( &refpt );
+
+	for(i = 0; i < nverts; i++) {
+		V3Assign( &u, vert[faces[faceIndex].v[i]].pos);
+		V3Assign( &v, vert[faces[faceIndex].v[(i + 1) % nverts]].pos);
+
+		normal.x += (u.y - v.y) * (u.z + v.z);
+		normal.y += (u.z - v.z) * (u.x + v.x);
+		normal.z += (u.x - v.x) * (u.y + v.y);
+
+		V3AddPlus( &refpt, &u);
+	}
+	/* normalize the polygon normal to obtain the first
+	 * three coefficients of the plane equation
+	 */
+	len = V3Length( &normal );
+	plane->a = normal.x / len;
+	plane->b = normal.y / len;
+	plane->c = normal.z / len;
+	/* compute the last coefficient of the plane equation */
+	len *= nverts;
+	plane->d = -V3Dot( &refpt, &normal ) / len;
+}

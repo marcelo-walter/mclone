@@ -26,7 +26,10 @@
 #include <sys/time.h>	/* for the time of the day function */
 
 #include "common.h"
+#include "control/Growth.h"
+#include "control/Anim.h"
 #include "main.h"
+
 //#include "util/nrutil.h"
 //#include "util/interfaceVoronoi.h"
 //#include "util/genericUtil.h"

@@ -6,6 +6,9 @@
  *----------------------------------------------------------
  */
 
+#ifndef _GLOBALS_H_
+#define _GLOBALS_H_
+
 #ifdef MAIN
 #define Global
 #define Init( var, value) var = value
@@ -77,3 +80,4 @@ Global Primitive Prim[N_OF_PRIM+1];
 Global Primitive Prim[N_OF_PRIM+1];
 #endif
 
+#endif //_GLOBALS_H_

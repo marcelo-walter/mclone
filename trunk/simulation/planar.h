@@ -31,3 +31,6 @@ void 	planarizeSecFaces( int whichFace, SCELL *h, SCELL *t );
 void 	planarizeFacesOnHeap( int whichFace , SCELL *h, SCELL *t );
 void 	planarizeSecToTmpList( int whichFace, int sourceFace, Matrix4 m, SCELL *h, SCELL *t );
 
+//From genericUtil.c
+void 	PlaneEquation(int faceIndex, Point4D *plane);
+

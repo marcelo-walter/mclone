@@ -31,6 +31,7 @@ Edge 	*edges;
 /*add by Fabiane Queiroz*/
 //VECTORARRAY *vectors;
 
+extern char sessionFileName[128];
 
 /*
  *--------------------------------------------------
@@ -343,4 +344,66 @@ void readObject(char *name)
     
     
     /*} */
+}
+
+/*
+ *------------------------------------------------------------
+ *------------------------------------------------------------
+ */
+void saveObjFile( const char *fileName )
+{
+	FILE *fp;
+	int i, j, len;
+	char objFileName[128];
+
+	strcat( fileName,".obj" ); //provisório, tem que remover o .session
+	if( (fp = fopen(fileName, "w")) == NULL )
+		errorMsg("Could not open input obj file to write!");
+
+	printf("==========================\n");
+	printf("Saving obj file into file %s\n\n", fileName);
+
+	len = strlen( sessionFileName );
+	strncpy( objFileName, sessionFileName, len - 8 );
+	objFileName[len-8]='\0';
+
+	fprintf(fp, "# Object saved from the 'MClone' program\n");
+	fprintf(fp, "# Marcelo Walter (marcelow@cs.ubc.ca)\n");
+	fprintf(fp, "# The original object file is %s\n\n", objFileName );
+
+	fprintf(fp, "# Vertices info\n");
+	for(i = 0; i < NumberVertices; i++){
+		/* MARCELO */
+		fprintf(fp, "v %3.6f %3.6f %3.6f\n",
+				vert[i].pos.x, vert[i].pos.y, vert[i].pos.z);
+		/*vertDisplay[i].x, vertDisplay[i].y, vertDisplay[i].z );*/
+	}
+
+	fprintf(fp, "# Normals info\n");
+	for(i = 0; i < NumberNormals; i++){
+		fprintf(fp, "vn %3.6f %3.6f %3.6f\n",
+				vertn[i].x, vertn[i].y, vertn[i].z);
+	}
+	fprintf(fp, "\n");
+	fprintf(fp, "# Faces info\n");
+	if ( NumberNormals > 0 ){
+		for(i = 0; i < NumberFaces; i++){
+			fprintf(fp, "f ");
+			for(j = 0; j < faces[i].nverts; j++){
+				fprintf(fp, "%d//%d ", faces[i].v[j]+1, faces[i].vn[j]+1 );
+			}
+			fprintf(fp, "\n");
+		}
+	}
+	else{
+		for(i = 0; i < NumberFaces; i++){
+			fprintf(fp, "f ");
+			for(j = 0; j < faces[i].nverts; j++){
+				fprintf(fp, "%d ", faces[i].v[j]+1 );
+			}
+			fprintf(fp, "\n");
+		}
+	}
+
+	fclose( fp );
 }
