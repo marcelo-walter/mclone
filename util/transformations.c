@@ -10,10 +10,10 @@
  *------------------------------------------------------------
  */
 
+#include "transformations.h"
+
 #include <math.h>
 
-#include "../common.h"
-#include "transformations.h"
 
 extern float **growthData;
 extern float **animData;

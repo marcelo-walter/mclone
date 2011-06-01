@@ -10,6 +10,8 @@
 
 #include "Parameters.h"
 
+#include "../common.h"
+
 extern float 	adhes[HOW_MANY_TYPES][HOW_MANY_TYPES];
 extern float 	swTypes[HOW_MANY_TYPES][HOW_MANY_TYPES];
 extern char 	outputCMfileName[128];

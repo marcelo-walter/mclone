@@ -13,6 +13,9 @@
  *-----------------------------------------
  */
 
+#ifndef _TEXTURE_H_
+#define _TEXTURE_H_
+
 /* for the parsing of the texture data file */
 #define EXISTC 		"EXISTC"
 #define EXISTD 		"EXISTD"
@@ -49,3 +52,6 @@ void 		freeTextures( void );
 /* Changed by Thompson Peter Lied - 24/10/2003 */
 /*void 		assignText2Prim( int cylID, char param[255], char textName[255], int textID);*/
 void assignText2Prim( int cylID, char param[255], int textID );
+
+
+#endif //_TEXTURE_H_

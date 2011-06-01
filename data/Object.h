@@ -4,6 +4,9 @@
  *-------------------------------------------------------
  */
 
+#ifndef _OBJECT_H_
+#define _OBJECT_H_
+
 /* for the parsing of the input file */
 #define VERTEX		"v"
 #define VERTEX_N	"vn"
@@ -24,3 +27,6 @@
 void readObject(char *name);
 void saveObjFile( const char *fileName );
 int myatoi(char **p);
+
+
+#endif //_OBJECT_H_

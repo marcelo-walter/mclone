@@ -6,14 +6,11 @@
  *--------------------------------------------------------
  */
 
+#include "PatternObject.h"
+
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "../common.h"
-//#include "relax.h"
-//#include "texture.h"
-
 
 /*
  *------------------------------------------------------------
@@ -31,28 +28,11 @@ extern flag     voronoiComputed;
 
 int mtl_flag = TRUE;
 int opt_flag = FALSE;
-char mtl_file[256];     /* mtl file name */
-long int vsize, total_vertices;
-
 
 long int *exchange = NULL;
 long int *sort = NULL;
 TVertex *vertex = NULL;
 TVertex  *vertexNew = NULL;
-
-
-
-/*---------------------*/
-void savePatternFile( const char *filename );
-void saveMtl( const char *mtl_file );
-
-int CmpVertex(const void *elem0, const void *elem1);
-void optimizer( FILE *fp );
-void saveVertices( FILE *fpObj );
-void saveFaces( FILE *fpObj );
-
-
-
 
 
 /*

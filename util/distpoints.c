@@ -18,11 +18,11 @@
  *---------------------------------------------------------
  */
 
+#include "distpoints.h"
+
 #include <string.h>
 #include <math.h>
 
-#include "../common.h"
-//#include "../simulation/relax.h"
 
 /*
  *---------------------------------------------------------
@@ -179,15 +179,6 @@ Point3D *square2polygon(int whichFace, float s, float t, Point3D *p )
 	return(p);
 }
 
-/*
- *----------------------------------------------------------
- * Given cell C, computes the canonical coordinates of
- * the cell relative to the primitive it belongs to
- *----------------------------------------------------------
- */
-void compCanonicalCoord( CELL *c )
-{
-}
 /*
  *----------------------------------------------------------
  * Given cell C and its barycentric coordinates

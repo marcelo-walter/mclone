@@ -14,14 +14,14 @@
  *--------------------------------------------------
  */
 
+#include "primitives.h"
+
 #include <math.h>
 
 #ifdef GRAPHICS
-//#include <GLUT/glut.h>
 #include "GL/glut.h"
 #endif
 
-#include "../common.h"
 #include "../util/transformations.h"
 #include "Anim.h"
 #include "Growth.h"

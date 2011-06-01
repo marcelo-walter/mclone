@@ -4,6 +4,9 @@
  *-------------------------------------------------
  */
 
+#ifndef _RELAX_H_
+#define _RELAX_H_
+
 #define	WRP			2.4;
 /* Added by Thompson Peter Lied in 15/07/2002 */
 /*
@@ -54,4 +57,6 @@ void 	initialRelaxation( void );
 void    compOrientation( void );
 void    comp_aniso_effect( void );
 /* end */
+
+#endif //_RELAX_H_
 

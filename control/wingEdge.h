@@ -18,6 +18,9 @@
  *---------------------------------------------------------
  */
 
+#ifndef _WING_EDGE_H_
+#define _WING_EDGE_H_
+
 void 	saveWingEdge( const char *fileName );
 void 	checkWingEdgeFile( const char *fileName );
 void 	buildWingEdge( void  );
@@ -46,3 +49,5 @@ int 	countEdgesFromVertex( int whichVertex );
 int 	findEdgeForFaces( int face1, int face2 );
 int  	findVertex( int firstEdge, int secondEdge );
 void 	initEdgeFieldsNull( void );
+
+#endif //_WING_EDGE_H_

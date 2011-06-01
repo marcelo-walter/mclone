@@ -15,6 +15,10 @@
  *---------------------------------------------------------
  */
 
+#ifndef _CELLS_H_
+#define _CELLS_H_
+
+
 #define COR_TYPE_C_R 	0.4078 	/* 104, 60, 30 brown */
 #define COR_TYPE_C_G	0.2353
 #define COR_TYPE_C_B	0.1176
@@ -51,3 +55,6 @@ double fran(double min, double max);
 float getTimeSplit( float mean );
 void assignPosition2Cell( CELL *c, Point3D p );
 void assignPrevPosition2Cell( CELL *c, Point3D p );
+
+
+#endif //_CELLS_H_

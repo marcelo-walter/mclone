@@ -4,6 +4,10 @@
  *	This file contains all Macros definitions
  *----------------------------------------------------------
  */
+
+#ifndef _MACROS_H_
+#define _MACROS_H_
+
 /* useful constants */
 
 #define PI 		3.141592654
@@ -11,14 +15,14 @@
 #define TRUE 		1
 #define FALSE 		0
 #define ON 		1
-#define BUFSIZE     	256
+#define BUFSIZE    	256
 #define	X		0
 #define	Y		1
 #define	Z		2
 #define	W		3
 #define XY		2
 #define	XYZ		3
-#define	XYZW		4
+#define	XYZW	4
 #define R		0
 #define G		1
 #define B		2
@@ -91,5 +95,5 @@
 
 #endif
 
-
+#endif //_MACROS_H_
 

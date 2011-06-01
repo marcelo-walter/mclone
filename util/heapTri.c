@@ -30,11 +30,10 @@
  *---------------------------------------------------------------
  */
 
-#include "../common.h"
+#include "heapTri.h"
+
 
 extern void copyMatrix( Matrix4 *destiny, Matrix4 source );
-
-HEAPTRI *myheapTri;
 
 /*
  *-----------------------------------------------------------

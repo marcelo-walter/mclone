@@ -7,73 +7,29 @@
  *	vectors and the vector field
  *------------------------------------------------------------
  */
+
+#include "vectorField.h"
+
 #include <math.h>
 #include <stdlib.h>
-#include "../common.h"
+//#include "../common.h"
 #include "texture.h"
 #include "../distance/interfacedistance.h"
 
 /*
  *---------------------------------------------------------------
- *
- * GLOBAL VARIABLES
- *
+ * INIT VARIABLES
  *---------------------------------------------------------------
  */
-/* head and tail nodes of the global linked list */
-VECTORARRAY *headV;
-VECTORARRAY *zedV;
 int vectorSize = sizeof(VECTORARRAY);
-
-float coordsBegin[3];
-float coordsEnd[3];
 
 int nVectors = 0;
 int PointPicking = -1;
 
-VECTORARRAY *NodoAux;
-const float Pi = 3.14159265358979323846264338328;
-const double RadToDeg = (3.14159265358979323846264338328/180);
 
+//Extern Variables
 extern VECTORGEODESICPATH *ArrayGeodesicPath;
 
-
-//extern int *vectorIntCreate(long, long);
-
-int WithInterpolationType;
-
-#define	VECTORID "VECTORID"
-
-/*
- *---------------------------------------------------------------
- *
- * EXTERNAL GLOBAL VARIABLES
- *
- *---------------------------------------------------------------
- */
-flag createVect;
-flag removevect;
-
-flag showAxes;
-
-flag polygonPicking;
-flag vectorPresent;
-char vectorFileName[128];
-
-float **MatrixLUX, **MatrixLUY, **MatrixLUZ, *VectorLUResultX, *VectorLUResultY, *VectorLUResultZ, LUAuxX, LUAuxY, LUAuxZ;
-int NumColunaLinha, *VectorIndexX, *VectorIndexY, *VectorIndexZ;
-
-char vectorcoordFileName[128]; /*Save the vector final coordenates in a file to calculate de erro later*/
-
-
-
-/*
- * LOCAL PROTOTYPES
- */
-
-/*Add by Fabiane Queiroz*/
-void 	morphVectorField( void );
-void createVerticesVectors(void);
 
 
 
