@@ -1,6 +1,10 @@
 /*
  * vect.h
  */
+
+#ifndef _VECTOR_H_
+#define _VECTOR_H_
+
 float *vnew();
 float *vclone(float *v);
 void vcopy(const float *v1, float *v2);
@@ -19,3 +23,6 @@ void vcross(const float *, const float *, float *);
 void vdirection(float *, float *);
 void vreflect(float *, float *, float *);
 void vmultmatrix(float [4][4], float [4][4], float [4][4]);
+
+
+#endif //_VECTOR_H_

@@ -31,8 +31,10 @@
  *   INCLUDES
  *-------------------------------------------------------------------
  */
+
+#include "cellsList.h"
+
 #include <stdlib.h>
-#include "../common.h"
 #include "../util/random.h"
 
 

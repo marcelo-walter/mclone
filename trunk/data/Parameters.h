@@ -6,13 +6,16 @@
  *---------------------------------------------------------
  */
 
-#include <stdlib.h>
+#ifndef _PARAMETERS_H_
+#define _PARAMETERS_H_
 
-#include "../common.h"
 
 /*
  *	Prototypes
  */
 void readParametersFile( const char *fileName );
 void printParamForUser( void );
+
+
+#endif //_PARAMETERS_H_
 

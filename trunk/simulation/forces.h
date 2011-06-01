@@ -13,6 +13,9 @@
  *-------------------------------------------------
  */
 
+#ifndef _FORCES_H_
+#define _FORCES_H_
+
 enum{CW, CCW};
 
 
@@ -50,3 +53,4 @@ void 	compUnfoldingMatrix( int currentSecFace, int inSecFaces,
 int 	insertCellsFromFaceInTmpList( int whichFace, int sourceFace, Matrix4 m,
 									 SCELL *h, SCELL *t );
 
+#endif //_FORCES_H_

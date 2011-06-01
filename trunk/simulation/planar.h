@@ -13,6 +13,9 @@
  *-------------------------------------------------
  */
 
+#ifndef _PLANAR_H_
+#define _PLANAR_H_
+
 enum{CW, CCW};
 
 /* This functions are used in both files (planar.c and forces.c), but are declared in forces.c
@@ -33,4 +36,6 @@ void 	planarizeSecToTmpList( int whichFace, int sourceFace, Matrix4 m, SCELL *h,
 
 //From genericUtil.c
 void 	PlaneEquation(int faceIndex, Point4D *plane);
+
+#endif //_PLANAR_H_
 

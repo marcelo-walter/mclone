@@ -4,20 +4,26 @@
  *---------------------------------------------------------
  */
 
+#include "simulation.h"
+
 #include <math.h>
 
 #ifdef GRAPHICS
-//#include <forms.h>
-//#include <GLUT/glut.h>
 #include "GL/glut.h"
-//#include "sgi/interface.h"
 #endif
 
-#include "../common.h"
 #include "../util/heap.h"
 #include "../util/transformations.h"
 #include "../data/cells.h"
 #include "relax.h"
+
+/*
+ *--------------------------------------------------
+ *	Local Global variables
+ *--------------------------------------------------
+ */
+/*Add by Fabiane Queiroz*/
+flag    originalScale = TRUE;
 
 
 /*
@@ -31,7 +37,7 @@ extern void compMatEdges( int whichEdge );
 extern void computeGeometricCenter( int whichFace, int howManyVert );
 extern void printMatrix( Matrix4 m );
 extern void computeVoronoi( void );
-//extern bool findElement(Array* listFaces, int e);
+
 /*
  *------------------------------------------------------------
  *		External global definitions
@@ -62,52 +68,9 @@ extern double 	AreaOneCell;
 
 extern double wa, Ani;
 
-/*#ifdef GRAPHICS
- extern FD_cm	*myformCM;
- #endif*/
-/*
- *--------------------------------------------------
- *	Local Global variables
- *--------------------------------------------------
- */
-float 	finalTime, currentTime;
-int 	updateTime;
-
-/*Add by Fabiane Queiroz*/
-flag    originalScale = TRUE;
-VECTORARRAY *NodoAux;
-
-/*
- *--------------------------------------------------
- *	Local prototypes
- *--------------------------------------------------
- */
-void 	initSimulationParam( float finaltime, int updtime, float currenttime );
-void 	postSplitEventsOnQueue( void );
-/* Added by Fabiane Queiroz in 25/11/2009 */
-int    findElement(Array* listFaces, int e);
-/* Modified by Fabiane Queiroz in 25/11/2009 */
-void 	pureSimulation( RELAXMODE rMode );
-
-void 	patFormAndGrowthSimulation( RELAXMODE rMode );
-void 	initPatFormAndGrowth( RELAXMODE rMode);
-
-void 	computeBodyEmbryo( int day );
-void 	assignTimeToSplit( void );
-void 	compRatesOfGrowth( void );
-void 	morphCells( void );
-double 	compRateOfSplitting( CELL *c );
-double 	computeTotalAreaObject( void );
-void 	compSplittingRates( FILE *fpOut, int day );
-void 	compSplittingRatesForOneFace( int whichFace );
-void 	updtBaryCentricCoord( void );
-
-
-
-FILE *fpRates;
-
 /*
  *--------------------------------------------------------------
+ *
  *
  *--------------------------------------------------------------
  */

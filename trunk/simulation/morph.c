@@ -18,6 +18,8 @@
  *------------------------------------------------------------
  */
 
+#include "morph.h"
+
 #include <stdlib.h>
 #include <math.h>
 
@@ -26,7 +28,6 @@
 #include "GL/glut.h"
 #endif
 
-#include "../common.h"
 #include "../util/transformations.h"
 
 extern void morphCells( void );
@@ -53,12 +54,6 @@ extern float 	finalTime;
  *		Local definitions
  *------------------------------------------------------------
  */
-
-/* used with the weigthing scheme. How much off the
- cylinder I am considering for weigthing purposes */
-#define	HEIGHT_INCR_FACTOR	0.2
-#define MASTER_PRIM		1
-
 /*
  * Grow or not the model. The idea is that sometimes
  * I want to only animate the model (such as the horse
@@ -67,6 +62,8 @@ extern float 	finalTime;
  */
 flag growthFlag = TRUE;
 flag keepAspectFlag = FALSE;
+
+
 
 /*
  *----------------------------------------------------------

@@ -2,6 +2,11 @@
  *	transformations.h
  */
 
+#ifndef _TRANSFORMATIONS_H_
+#define _TRANSFORMATIONS_H_
+
+#include  "../common.h"
+
 /* Prototypes */
 void buildTransfMatrix(Matrix4 *m, int whichPrim);
 void buildTransfMatrixSpecial(Matrix4 *m, int whichPrim);
@@ -17,3 +22,6 @@ void buildGrowthMatrix(Matrix4 *m, int whichPrim);
 void buildInvGrowthMatrix(Matrix4 *m, int whichPrim);
 void buildTestRot( Matrix4 *m, int primIndex, int t );
 void buildInvTransfMatrixCells(Matrix4 *m, int whichPrim);
+
+#endif //_TRANSFORMATIONS_H_
+

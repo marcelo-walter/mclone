@@ -7,22 +7,14 @@
  *---------------------------------------------------------- 
  */
 
+#include "matrix.h"
+
 #include <math.h> 
 #include "matrixUtil.h"
-#include "../common.h"
 #include "../distance/interfacedistance.h"
 
 
 #define TINY 1.0e-20;
-#define NR_END 1
-#define FREE_ARG char*
-
-void lubksb(float **a, int n, int *indx, float b[]);
-void ludcmp(float **a, int n, int *indx, float *d);
-
-VECTORARRAY *headV;
-VECTORARRAY *zedV;
-VECTORARRAY *AuxNodo1, *AuxNodo2;
 
 extern VECTORGEODESICPATH *ArrayGeodesicPath;
 

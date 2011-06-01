@@ -13,6 +13,9 @@
  *---------------------------------------------------------------
  */
 
+#ifndef _HEAP_H_
+#define _HEAP_H_
+
 /* how much to increase the heap each time */
 #define HEAP_GROW_FACTOR 	100
 
@@ -46,3 +49,5 @@ EVENT *HeapRemove(HEAP *h);
 void HeapDown(HEAP *h, int k);
 void EmptyHeap(HEAP *h);
 HEAP *ClearHeap(HEAP *h);
+
+#endif //_HEAP_H_

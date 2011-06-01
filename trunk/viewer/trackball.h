@@ -47,6 +47,10 @@
  * The resulting rotation is returned as a quaternion rotation in the
  * first paramater.
  */
+
+#ifndef _TRACKBALL_H_
+#define _TRACKBALL_H_
+
 #include "../util/vect.h"
 void
 trackball(float q[4], float p1x, float p1y, float p2x, float p2y);
@@ -103,3 +107,6 @@ void vhalf(float *, float *, float *);
 void vdirection(float *, float *);
 void vreflect(float *, float *, float *);
 void vmultmatrix(float [4][4], float [4][4], float [4][4]);
+
+
+#endif //_TRACKBALL_H_

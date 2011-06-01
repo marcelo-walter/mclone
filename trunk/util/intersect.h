@@ -12,6 +12,11 @@
  *	intersect.h
  *-----------------------------------------------------
  */
+
+#ifndef _INTERSECT_H_
+#define _INTERSECT_H_
+
+
 int  intersect( int whichFace, double v0x, double v0y,
 			   double v1x, double v1y, Point2D *p );
 int  oldlinesIntersect( double x1, double y1, double x2, double y2,
@@ -30,3 +35,6 @@ int  intersect( int whichFace, double v0x, double v0y, double v1x, double v1y,
 int  oldlinesIntersect(double x1, double y1, double x2, double y2,
 					   double x3, double y3, double x4, double y4,
 					   double *x, double *y);
+
+
+#endif //_INTERSECT_H_

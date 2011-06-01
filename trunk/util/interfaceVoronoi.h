@@ -2,6 +2,10 @@
  *	interfaceVoronoi.h
  */
 
+#ifndef _INTERFACE_VORONOI_H_
+#define _INTERFACE_VORONOI_H_
+
+
 void computeVoronoi( void );
 CELL *findSite( CELL *c );
 byte checkInsideOutside( int whichFace, double x, double y );
@@ -32,3 +36,6 @@ void countNeighborsByType( int whichFace, int *nOfC, int *nOfD,
 void compVoronoiForFace( int whichFace );
 void getSpaceForVorPts( int whichFace, int howMany );
 void getSpaceForVorPol( int whichFace, int howMany );
+
+
+#endif //_INTERFACE_VORONOI_H_
