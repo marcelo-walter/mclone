@@ -10,8 +10,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "../data/Globals.h"
-
 #include "relax.h"
 #include "../util/heapTri.h"
 #include "../control/wingEdge.h"

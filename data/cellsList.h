@@ -42,12 +42,17 @@
 /* keep track of how many cells of each type we have */
 extern int nCellsType[HOW_MANY_TYPES];
 
+extern int 	NumberCells; //From Globals.h
+extern int 	Seed; //From Globals.h
+
 extern flag cellsCreated;
 extern flag pickRandomFlag;
 
 /* head and tail nodes of the global linked list */
 extern int cellSize;
 extern int cellSize_S;
+
+
 
 
 void createRandomCells( int quantity, int embryoShape );

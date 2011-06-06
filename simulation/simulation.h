@@ -24,6 +24,8 @@ extern flag    originalScale;
 
 extern FILE *fpRates;
 
+extern int computingPatternFlag; //From Globals.h
+
 
 /*
  *--------------------------------------------------

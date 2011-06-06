@@ -14,17 +14,11 @@
 
 #include <math.h>
 
-#include "../data/Globals.h"
-
+#include "../control/primitives.h"
 #include "../control/Anim.h"
 #include "../data/Matrix4.h"
 #include "../util/genericUtil.h"
-
-
-//extern float **growthData;
-//extern float **animData;
-
-//flag animFlag = FALSE; //moved to anim.cpp
+#include "../simulation/simulation.h"
 
 /*
  *----------------------------------------------------------

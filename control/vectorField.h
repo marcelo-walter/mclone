@@ -41,7 +41,7 @@ extern int WithInterpolationType;
 /*
  *---------------------------------------------------------------
  *
- * EXTERNAL GLOBAL VARIABLES
+ * GLOBAL VARIABLES
  *
  *---------------------------------------------------------------
  */

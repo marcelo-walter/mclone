@@ -11,13 +11,40 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../data/Globals.h"
-
 #include "../util/genericUtil.h"
 #include "../simulation/relax.h" //REVER TODO
 #include "../simulation/simulation.h" //REVER TODO
-#include "../data/cells.h" //REVER TODO
+#include "cells.h" //REVER TODO
+#include "cellsList.h"
 #include "../temporary.h" //REVER TODO
+
+/*
+ * --------------------------------------------------------------------------
+ *	Variables
+ * --------------------------------------------------------------------------
+ */
+
+/*
+ * How to consider the neighboring faces for a given
+ * face. The possible values are: PRIMFACES, STRIPFAN, TURK
+ * The default value is to consider only the primary
+ * faces, ie, the faces which share an edge with the
+ * face being computed
+ */
+NEIGHMODE	neighborsFaceMode = NOSECFACES; //From Globals.h
+
+RNDDIST 	RandomTypeDist = RNONE; //From Globals.h
+PFMODE		pfMode = WOUTGROWTH; //From Globals.h
+
+RELAXMODE	relaxMode = GLOBALRELAX; //From Globals.h
+
+/*
+ * Ortcell holds the information about splitting rates for
+ * cells and probabilities for a given type to occur.
+ * These probabilities are only used when there is no
+ * external input experiment file
+ */
+TYPE Ortcell[HOW_MANY_TYPES]; //From Globals.h
 
 
 /* Added by Fabiane Queiroz in 15/11/2009 */

@@ -8,8 +8,6 @@
 
 #include <stdlib.h>
 
-#include "../data/Globals.h"
-
 #include "../simulation/relax.h"
 #include "../simulation/forces.h"
 #include "../control/wingEdge.h"
@@ -38,6 +36,8 @@ extern "C" void getVoronoi( SCELL *headCell, SCELL *tailCell,
 flag voronoiFlag = TRUE;  /*FALSE; */
 flag voronoiComputed = FALSE;
 flag voronoiColorFlag = FALSE;
+
+int NumberVoronoiVert = 0; //From Globals.h
 
 /*
  *--------------------------------------------------------------------

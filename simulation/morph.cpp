@@ -28,8 +28,6 @@
 #include "GL/glut.h"
 #endif
 
-#include "../data/Globals.h"
-
 #include "../temporary.h"
 
 #include "simulation.h"

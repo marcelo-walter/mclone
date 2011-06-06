@@ -13,8 +13,6 @@
 #include <unistd.h>
 #include <GL/glut.h>
 
-#include "../data/Globals.h"
-
 #include "graph.h"
 #include "drawing.h"
 #include "utilGraph.h"

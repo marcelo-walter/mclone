@@ -18,8 +18,7 @@
 #include "graph.h"
 #include "drawing.h"
 
-#include "../data/Globals.h"
-
+#include "../control/primitives.h"
 #include "../util/genericUtil.h"
 
 /*

@@ -29,16 +29,13 @@
 
 #include "main.h"
 
-#include "data/Globals.h"
-
 #include "temporary.h"
 
-#include "data/Object.h"
 #include "control/vectorField.h"
 #include "control/wingEdge.h"
 #include "control/Growth.h"
 #include "control/Anim.h"
-#include "util/random.h"
+#include "control/texture.h"
 #include "simulation/relax.h"
 #include "simulation/simulation.h"
 #include "simulation/forces.h"
@@ -47,12 +44,13 @@
 #include "util/printInfo.h"
 #include "util/distPoints.h"
 #include "util/genericUtil.h"
+#include "util/random.h"
+#include "data/Object.h"
 #include "data/cells.h"
 #include "data/cellsList.h"
 #include "data/Parameters.h"
-#include "control/texture.h"
-#include "distance/interfacedistance.h"
 #include "data/Matrix4.h"
+#include "distance/interfacedistance.h"
 
 #include "control/primitives.h" //only for the name of file
 
@@ -113,7 +111,6 @@ int numberOfDir;
 int main( int argc, char *argv[] )
 {
 	char inFileName[256],
-	fullInFileName[256],
 	parFileName[128],
 	wingedEdgeFileName[128],
 	vectorfieldFileName[128],
@@ -124,10 +121,8 @@ int main( int argc, char *argv[] )
 	ra,
 	ca;
 	byte 	objFile = FALSE,
-	foundInFile = FALSE,
 	parFile = FALSE,
 	primFile = FALSE;
-	FILE	*fp;
 	int 	i, len;
 	struct timeval pt;		/* for the random seed */
 	struct timezone zpt;
@@ -699,8 +694,7 @@ void setEnv( void )
 	j,
 	k;
 	char 	*completeObjectPath,
-	*runnerOnPath,
-	*p;
+	*runnerOnPath;
 	
 	completeObjectPath = (char *) malloc( sizeof( 256 ));
 	runnerOnPath = (char *) malloc( sizeof( 256 ));
@@ -736,7 +730,6 @@ void setEnv( void )
 void createFaceSystem(int faceIndex)
 {
 	Point3D normal, axleY, v2;
-	Matrix4 tmp;
 	
 	axleY.x = 0.0;
 	axleY.y = 1.0;

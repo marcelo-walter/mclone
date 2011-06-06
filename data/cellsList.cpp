@@ -37,8 +37,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "Globals.h"
-
 #include "cells.h"
 #include "Object.h"
 #include "../util/random.h"
@@ -54,22 +52,6 @@
 
 
 /*
- *---------------------------------------------------------
- *	External Prototypes and variables
- *---------------------------------------------------------
- */
-//extern flag texturePresent;
-//extern flag parametOKFlag;
-//extern int totalNumberTextures;
-//extern char sessionFileName[128];
-/* keep track of how many cells of each type we have */
-//extern int nCellsType[HOW_MANY_TYPES];
-
-// declared in texture.c
-//ColChar 	bilinearInterp( double u, double v, int textIdent );
-
-
-/*
  *---------------------------------------------------------------
  *
  * GLOBAL VARIABLES
@@ -78,6 +60,9 @@
  */
 /* keep track of how many cells of each type we have */
 int nCellsType[HOW_MANY_TYPES];
+
+int NumberCells = 0; //From Globals.h
+int Seed = -11; //From Globals.h
 
 /* head and tail nodes of the global linked list */
 int cellSize = sizeof(CELL);

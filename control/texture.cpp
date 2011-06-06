@@ -24,11 +24,10 @@
 #include <time.h>
 #include <magick/api.h>
 
-#include "../data/Globals.h"
-
 #include "primitives.h"
 #include "../simulation/relax.h"
 #include "../data/Object.h"
+#include "../data/Parameters.h"
 #include "../util/interfaceVoronoi.h"
 #include "../util/genericUtil.h"
 
