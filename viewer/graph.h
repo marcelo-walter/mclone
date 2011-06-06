@@ -11,7 +11,7 @@
 #define _GRAPH_H_
 
 #include <GL/glut.h>
-#include "../common.h"
+#include "../data/Types.h"
 
 /*
  *------------------------------------------------------------

@@ -16,7 +16,7 @@
 #ifndef _HEAP_H_
 #define _HEAP_H_
 
-#include "../common.h"
+#include "../data/Types.h"
 
 /* how much to increase the heap each time */
 #define HEAP_GROW_FACTOR 	100

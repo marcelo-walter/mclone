@@ -8,7 +8,7 @@
 #ifndef _TEMPORARY_H_
 #define _TEMPORARY_H_
 
-#include "common.h"
+#include "data/Types.h"
 
 /*
  *--------------------------------------------------

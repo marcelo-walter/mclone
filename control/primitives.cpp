@@ -17,29 +17,26 @@
 #include "primitives.h"
 
 #include <math.h>
+#include <stdlib.h>
 
 #ifdef GRAPHICS
 #include "GL/glut.h"
+#include "../viewer/graph.h"
 #endif
 
-#include "../util/transformations.h"
+#include "../data/Globals.h"
+
 #include "Anim.h"
 #include "Growth.h"
 #include "../data/cellsList.h"
+#include "../data/Object.h"
+#include "../data/Point3D.h"
+#include "../data/Matrix4.h"
 #include "../util/genericUtil.h"
+#include "../util/transformations.h"
 
 #include "../temporary.h"
 
-/*
- *---------------------------------------------------------
- *	External Prototypes and variables
- *---------------------------------------------------------
- */
-//extern int *nnoprimVertex; // line added by Cadu in 31/10
-//extern flag cellsCreated;
-//extern flag primFilePresent;
-
-//extern char primitivesFileName[128];
 
 /*
  *---------------------------------------------------------

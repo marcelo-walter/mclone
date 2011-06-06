@@ -13,7 +13,7 @@
 
 #include "Point3D.h"
 
-#include "../common.h"
+#include "Types.h"
 
 /*
 typedef struct Matrix4Struct {	// 4-by-4 matrix

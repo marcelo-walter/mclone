@@ -5,7 +5,7 @@
 #ifndef _INTERFACE_VORONOI_H_
 #define _INTERFACE_VORONOI_H_
 
-#include "../common.h"
+#include "../data/Types.h"
 
 /*
  *--------------------------------------------------------------------

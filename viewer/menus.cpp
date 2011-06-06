@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include <GL/glut.h>
 
-#include "../common.h"
+#include "../data/Globals.h"
 
 #include "graph.h"
 #include "drawing.h"
@@ -26,8 +26,10 @@
 #include "../control/primitives.h"
 #include "../data/cellsList.h"
 #include "../data/PatternObject.h"
+#include "../data/Object.h"
 #include "../util/interfaceVoronoi.h"
 #include "../util/genericUtil.h"
+#include "../util/printInfo.h"
 
 
 #include "../main.h"

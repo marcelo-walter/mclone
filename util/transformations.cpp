@@ -14,7 +14,11 @@
 
 #include <math.h>
 
+#include "../data/Globals.h"
+
 #include "../control/Anim.h"
+#include "../data/Matrix4.h"
+#include "../util/genericUtil.h"
 
 
 //extern float **growthData;

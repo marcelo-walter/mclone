@@ -15,12 +15,16 @@
 
 #include "cells.h"
 
+#include "Globals.h"
+
 #include "cellsList.h"
+#include "Object.h"
 #include "../simulation/relax.h"
-#include "../util/random.h"
 #include "../simulation/simulation.h"
+#include "../util/random.h"
 #include "../util/heap.h"
 #include "../util/genericUtil.h"
+#include "../util/distPoints.h"
 
 /*
  *---------------------------------------------------------------
@@ -381,8 +385,7 @@ void switchCellType(CELL *c, CELL_TYPE newType)
  *------------------------------------------------------------------------
  *------------------------------------------------------------------------
  */
-CELL_TYPE
-getNewType( int type )
+CELL_TYPE getNewType( int type )
 {
 	float x;
 	
@@ -400,8 +403,7 @@ getNewType( int type )
  * uniform distribution
  *--------------------------------------------------------------
  */
-double
-fran(double min, double max)
+double fran(double min, double max)
 {
 	return(min + ran1(&Seed)*(max-min));
 }
@@ -411,8 +413,7 @@ fran(double min, double max)
  *  This function initializes the information about the cell's types
  *------------------------------------------------------------------------
  */
-void
-initCellsInfo(void)
+void initCellsInfo(void)
 {
 	double sumOfRatesOfSplitting;
 	

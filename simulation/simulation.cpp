@@ -7,6 +7,7 @@
 #include "simulation.h"
 
 #include <math.h>
+#include <stdlib.h>
 
 #ifdef GRAPHICS
 #include "GL/glut.h"
@@ -14,18 +15,23 @@
 
 #include "../temporary.h"
 
+#include "../data/Globals.h"
+
 #include "../control/vectorField.h"
 #include "../control/wingEdge.h"
 #include "../control/primitives.h"
 #include "../control/Growth.h"
 #include "../util/heap.h"
-#include "../data/cellsList.h"
 #include "../util/genericUtil.h"
-#include "../data/Object.h"
-
+#include "../util/distPoints.h"
 #include "../util/transformations.h"
+#include "../data/cellsList.h"
+#include "../data/Object.h"
+#include "../data/Point3D.h"
+#include "../data/Matrix4.h"
 #include "../data/cells.h"
 #include "relax.h"
+#include "morph.h"
 
 /*
  *--------------------------------------------------

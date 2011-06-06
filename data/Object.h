@@ -7,7 +7,7 @@
 #ifndef _OBJECT_H_
 #define _OBJECT_H_
 
-#include "../common.h"
+#include "Types.h"
 
 /* for the parsing of the input file */
 #define VERTEX		"v"

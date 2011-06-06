@@ -13,8 +13,12 @@
 #include <math.h>
 #include <string.h>
 
+#include "../data/Globals.h"
+
 #include "../util/genericUtil.h"
 #include "../util/transformations.h"
+#include "../data/Point3D.h"
+#include "../data/Matrix4.h"
 
 #ifdef GRAPHICS
 #include "GL/glut.h"

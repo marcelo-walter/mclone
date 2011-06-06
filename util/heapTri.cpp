@@ -32,7 +32,10 @@
 
 #include "heapTri.h"
 
+#include <stdlib.h>
+
 #include "genericUtil.h"
+#include "../data/Matrix4.h"
 
 /*
  *-----------------------------------------------------------

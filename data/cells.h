@@ -18,7 +18,7 @@
 #ifndef _CELLS_H_
 #define _CELLS_H_
 
-#include "../common.h"
+#include "Types.h"
 
 #define COR_TYPE_C_R 	0.4078 	/* 104, 60, 30 brown */
 #define COR_TYPE_C_G	0.2353
@@ -62,12 +62,17 @@ extern float swTypes[HOW_MANY_TYPES][HOW_MANY_TYPES];
  * Prototypes
  */
 void initAdhesInfo( void );
+void initCellsInfo(void);
 CELL_TYPE pickType( void );
 void pickRandomPosition( CELL *c, Point3D *p );
 double fran(double min, double max);
 float getTimeSplit( float mean );
 void assignPosition2Cell( CELL *c, Point3D p );
 void assignPrevPosition2Cell( CELL *c, Point3D p );
+void switchCellType(CELL *c, CELL_TYPE newType);
+void handleSplit( CELL *c );
+CELL_TYPE getNewType( int type );
+CELL* createCell(Point3D pos, int whichFace, CELL_TYPE t, byte g);
 
 
 #endif //_CELLS_H_

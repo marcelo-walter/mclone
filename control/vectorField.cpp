@@ -14,14 +14,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../distance/interfacedistance.h"
-#include "../util/matrix.h"
-#include "../simulation/relax.h"
+#include "../data/Globals.h"
+
 #include "texture.h"
+#include "../distance/interfacedistance.h"
+#include "../simulation/relax.h"
+#include "../data/Object.h"
+#include "../data/Matrix4.h"
 #include "../util/genericUtil.h"
+#include "../util/matrix.h"
+#include "../util/printInfo.h"
+#include "../util/distPoints.h"
 
 #include "../viewer/graph.h" //Remover isso, nao deveria usar esse arquivo
-
+#include "../viewer/ui.h"
 
 /*
  *---------------------------------------------------------------

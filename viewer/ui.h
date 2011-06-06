@@ -11,8 +11,9 @@
 #ifndef _UI_H_
 #define _UI_H_
 
-#include "../common.h"
 #include <GL/glut.h>
+
+#include "../data/Types.h"
 
 /*
  *------------------------------------------------------------

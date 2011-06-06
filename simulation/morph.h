@@ -21,7 +21,7 @@
 #ifndef _MORPH_H_
 #define _MORPH_H_
 
-#include "../common.h"
+#include "../data/Types.h"
 
 /*
  *------------------------------------------------------------

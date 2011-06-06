@@ -9,7 +9,9 @@
 #ifndef _PATTERN_OBJECT_H_
 #define _PATTERN_OBJECT_H_
 
-#include "../common.h"
+#include <stdio.h>
+
+#include "Types.h"
 
 /*
  *------------------------------------------------------------

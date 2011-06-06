@@ -16,7 +16,7 @@
 #ifndef _PLANAR_H_
 #define _PLANAR_H_
 
-#include "../common.h"
+#include "../data/Types.h"
 
 /* This functions are used in both files (planar.c and forces.c), but are declared in forces.c
 enum{CW, CCW};

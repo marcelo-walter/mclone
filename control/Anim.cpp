@@ -13,7 +13,8 @@
 #include <math.h>
 #include <string.h>
 
-#include "../common.h"
+#include "../data/Globals.h"
+
 #include "../util/genericUtil.h"
 #include "../util/printInfo.h"
 

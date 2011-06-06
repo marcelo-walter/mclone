@@ -19,6 +19,7 @@
 
 #include "../simulation/relax.h"
 #include "../control/wingEdge.h"
+#include "../data/Object.h"
 #include "genericUtil.h"
 
 //extern void mapOntoPolySpace(int whichFace, double x, double y, double z, Point2D *p);

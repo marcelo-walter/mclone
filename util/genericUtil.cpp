@@ -7,41 +7,25 @@
  *------------------------------------------------------------
  */
 
+#include "genericUtil.h"
+
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+
+#include "../data/Globals.h"
 
 #include "../data/cellsList.h"
 #include "../data/Matrix4.h"
 #include "../simulation/simulation.h"
 #include "../simulation/relax.h"
-#include "genericUtil.h"
 #include "transformations.h"
 
 
 #ifdef GRAPHICS
 #include "GL/glut.h"
+#include "../viewer/graph.h"
 #endif
-
-/*
- *------------------------------------------------------------
- *	External function definitions
- *------------------------------------------------------------
- */
-
-/* declared in simulation.c */
-//extern void postSplitEventsOnQueue( void );
-
-/*
- *------------------------------------------------------------
- *		External global definitions
- *------------------------------------------------------------
- */
-//extern int activePrim;
-//extern flag cellsCreated;
-//extern flag primFilePresent;
-
-
 
 /*
  *----------------------------------------------------------

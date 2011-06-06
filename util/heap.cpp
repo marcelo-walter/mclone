@@ -29,6 +29,8 @@
 
 #include "heap.h"
 
+#include <stdlib.h>
+
 #include "genericUtil.h"
 
 HEAP *myheap;

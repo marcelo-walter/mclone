@@ -5,7 +5,7 @@
 #ifndef _TRANSFORMATIONS_H_
 #define _TRANSFORMATIONS_H_
 
-#include  "../common.h"
+#include "../data/Types.h"
 
 /* Prototypes */
 void buildTransfMatrix(Matrix4 *m, int whichPrim);

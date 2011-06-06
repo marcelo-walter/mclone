@@ -19,12 +19,18 @@
 #include "ui.h"
 #include "menus.h"
 
+#include "../data/Globals.h"
 #include "../main.h"
 #include "../temporary.h"
 
 #include "../control/vectorField.h"
 #include "../control/Growth.h"
 #include "../util/transformations.h"
+#include "../util/genericUtil.h"
+#include "../util/printInfo.h"
+#include "../data/Object.h"
+#include "../data/Matrix4.h"
+#include "../data/cells.h"
 
 #include "../util/vect.h"
 
