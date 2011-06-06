@@ -15,8 +15,6 @@
 
 #include "../temporary.h"
 
-#include "../data/Globals.h"
-
 #include "../control/vectorField.h"
 #include "../control/wingEdge.h"
 #include "../control/primitives.h"
@@ -30,6 +28,7 @@
 #include "../data/Point3D.h"
 #include "../data/Matrix4.h"
 #include "../data/cells.h"
+#include "../data/Parameters.h"
 #include "relax.h"
 #include "morph.h"
 
@@ -45,6 +44,8 @@ int 	updateTime;
 flag    originalScale = TRUE;
 
 FILE *fpRates;
+
+int computingPatternFlag = 0; //From Globals.h
 
 
 /*
@@ -461,7 +462,7 @@ void initPatFormAndGrowth( ) //Remove parameter  RELAXMODE rMode by Bins
 	
 	/* Check cell's parametrization */
 	checkCellsParametrization();
-	;
+
 	/* we have to recompute the radius of repulsion */
 	compRadiusRepulsion( TRUE );
 	

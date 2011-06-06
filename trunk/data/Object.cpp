@@ -33,6 +33,15 @@ Face	*faces;
 VECTORARRAY	*vectors;
 Edge 	*edges;
 
+double 	TotalAreaOfObject = 0; //From Globals.h
+double	InitAreaOfObject = 0; //From Globals.h
+int 	NumberVertices = 0; //From Globals.h
+int 	NumberTextureVertices = 0; //From Globals.h
+int 	NumberNormals = 0; //From Globals.h
+int 	NumberFaces = 0; //From Globals.h
+int 	NumberEdges = 0; //From Globals.h
+int 	NumberGroups = 0; //From Globals.h
+
 
 /*
  *--------------------------------------------------
@@ -130,9 +139,8 @@ void readObject(char *name)
 		
 		else if (!strcmp (input, POLYGON)){
 			NumberFaces++;
-		NumberVectors++;		}
-			
-			
+			//NumberVectors++; //Don't used
+		}
 		
 		else if (!strcmp (input, VERTEX_T))
 			NumberTextureVertices++;

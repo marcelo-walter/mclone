@@ -23,6 +23,12 @@
  *	Local Variables
  *---------------------------------------------------------
  */
+
+/* data structure for the primitives*/
+extern Primitive Prim[N_OF_PRIM+1];
+
+extern int NumberPrimitives;
+
 extern char primitivesFileName[128]; //From main.h
 
 /* which primitive is currently active */

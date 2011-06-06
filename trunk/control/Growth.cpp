@@ -13,8 +13,7 @@
 #include <math.h>
 #include <string.h>
 
-#include "../data/Globals.h"
-
+#include "primitives.h"
 #include "../util/genericUtil.h"
 #include "../util/transformations.h"
 #include "../data/Point3D.h"

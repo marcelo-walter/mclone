@@ -24,8 +24,6 @@
 #include "../viewer/graph.h"
 #endif
 
-#include "../data/Globals.h"
-
 #include "Anim.h"
 #include "Growth.h"
 #include "../data/cellsList.h"
@@ -43,6 +41,12 @@
  *	Local Prototypes and variables
  *---------------------------------------------------------
  */
+
+/* data structure for the primitives*/
+Primitive Prim[N_OF_PRIM+1];
+
+int NumberPrimitives = 1;
+
 char primitivesFileName[128]; //From main.h
 
 /* which primitive is currently active */

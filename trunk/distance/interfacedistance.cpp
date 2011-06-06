@@ -7,12 +7,7 @@
 
 #include "surface.h"
 
-#include "../data/Globals.h"
 #include "../data/Object.h"
-
-//Vertex 	*vert;
-//Face	*faces;
-//VECTORARRAY *vectors;
 
 /*---VARIABLES---*/
 // geodesic computation

@@ -16,6 +16,8 @@ extern flag voronoiFlag;
 extern flag voronoiComputed;
 extern flag voronoiColorFlag;
 
+extern int NumberVoronoiVert; //From Globals.h
+
 /*
  *--------------------------------------------------------------------
  * 	PROTOTYPES

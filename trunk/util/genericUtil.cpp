@@ -13,8 +13,7 @@
 #include <math.h>
 #include <string.h>
 
-#include "../data/Globals.h"
-
+#include "../control/primitives.h"
 #include "../data/cellsList.h"
 #include "../data/Matrix4.h"
 #include "../simulation/simulation.h"

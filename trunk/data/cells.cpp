@@ -15,10 +15,9 @@
 
 #include "cells.h"
 
-#include "Globals.h"
-
 #include "cellsList.h"
 #include "Object.h"
+#include "Parameters.h"
 #include "../simulation/relax.h"
 #include "../simulation/simulation.h"
 #include "../util/random.h"

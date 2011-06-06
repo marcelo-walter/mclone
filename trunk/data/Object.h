@@ -37,6 +37,15 @@ extern Face	*faces;
 extern VECTORARRAY	*vectors;
 extern Edge 	*edges;
 
+extern double 	TotalAreaOfObject; //From Globals.h
+extern double	InitAreaOfObject; //From Globals.h
+extern int 	NumberVertices; //From Globals.h
+extern int 	NumberTextureVertices; //From Globals.h
+extern int 	NumberNormals; //From Globals.h
+extern int 	NumberFaces; //From Globals.h
+extern int 	NumberEdges; //From Globals.h
+extern int 	NumberGroups; //From Globals.h
+
 /*
  * prototypes
  */

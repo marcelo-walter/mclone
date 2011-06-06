@@ -23,8 +23,6 @@
 #include <string.h>
 #include <math.h>
 
-#include "../data/Globals.h"
-
 #include "genericUtil.h"
 #include "../data/Point3D.h"
 #include "../data/Object.h"

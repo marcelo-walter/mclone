@@ -19,8 +19,6 @@
 #include "drawing.h"
 #include "utilGraph.h"
 
-#include "../data/Globals.h"
-
 #include "../control/primitives.h"
 #include "../control/vectorField.h"
 #include "../simulation/simulation.h"

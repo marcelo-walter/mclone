@@ -11,8 +11,6 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "../data/Globals.h"
-
 #include "forces.h"
 #include "../data/cellsList.h"
 #include "../data/cells.h"

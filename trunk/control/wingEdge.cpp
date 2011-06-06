@@ -26,7 +26,6 @@
 #include <math.h>
 
 #include "../data/Types.h"
-#include "../data/Globals.h"
 
 #include "../util/genericUtil.h"
 #include "../data/Matrix4.h"

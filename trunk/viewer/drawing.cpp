@@ -18,7 +18,6 @@
 #include "graph.h"
 #include "ui.h"
 
-#include "../data/Globals.h"
 #include "../main.h"
 #include "../temporary.h"
 
@@ -27,6 +26,7 @@
 #include "../util/genericUtil.h"
 #include "../data/cellsList.h"
 #include "../data/Object.h"
+#include "../data/Parameters.h"
 #include "../control/Growth.h"
 #include "../control/primitives.h"
 #include "../control/texture.h"

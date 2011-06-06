@@ -14,8 +14,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../data/Globals.h"
-
 #include "texture.h"
 #include "../distance/interfacedistance.h"
 #include "../simulation/relax.h"
@@ -52,7 +50,7 @@ int WithInterpolationType;
 /*
  *---------------------------------------------------------------
  *
- * EXTERNAL GLOBAL VARIABLES
+ * GLOBAL VARIABLES
  *
  *---------------------------------------------------------------
  */
