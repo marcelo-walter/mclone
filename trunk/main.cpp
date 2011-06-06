@@ -23,17 +23,21 @@
 #include <string.h>
 #include <ctype.h>
 #include <math.h>
+#include <stdlib.h>
+
 #include <sys/time.h>	/* for the time of the day function */
 
 #include "main.h"
 
-#include "common.h"
+#include "data/Globals.h"
 
 #include "temporary.h"
 
 #include "data/Object.h"
 #include "control/vectorField.h"
 #include "control/wingEdge.h"
+#include "control/Growth.h"
+#include "control/Anim.h"
 #include "util/random.h"
 #include "simulation/relax.h"
 #include "simulation/simulation.h"
@@ -41,14 +45,20 @@
 #include "util/heap.h"
 #include "util/heapTri.h"
 #include "util/printInfo.h"
-#include "data/cellsList.h"
+#include "util/distPoints.h"
 #include "util/genericUtil.h"
+#include "data/cells.h"
+#include "data/cellsList.h"
 #include "data/Parameters.h"
 #include "control/texture.h"
 #include "distance/interfacedistance.h"
 #include "data/Matrix4.h"
 
 #include "control/primitives.h" //only for the name of file
+
+#ifdef GRAPHICS
+#include "viewer/ui.h"
+#endif
 
 /*
  *--------------------------------------------------

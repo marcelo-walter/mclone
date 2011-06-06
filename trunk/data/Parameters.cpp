@@ -11,7 +11,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../common.h"
+#include "../data/Globals.h"
+
 #include "../util/genericUtil.h"
 #include "../simulation/relax.h" //REVER TODO
 #include "../simulation/simulation.h" //REVER TODO

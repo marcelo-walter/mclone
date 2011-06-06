@@ -11,7 +11,7 @@
 #ifndef _VECTOR_FIELD_H_
 #define _VECTOR_FIELD_H_
 
-#include "../common.h"
+#include "../data/Types.h"
 
 /*
  *---------------------------------------------------------------

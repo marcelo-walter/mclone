@@ -28,16 +28,21 @@
 #include "GL/glut.h"
 #endif
 
+#include "../data/Globals.h"
+
 #include "../temporary.h"
 
-//#include "../main.h"
 #include "simulation.h"
 #include "relax.h"
 #include "../control/wingEdge.h"
 #include "../control/primitives.h"
 #include "../control/Growth.h"
 #include "../data/cellsList.h"
+#include "../data/Object.h"
+#include "../data/Point3D.h"
+#include "../data/Matrix4.h"
 #include "../util/genericUtil.h"
+#include "../util/distPoints.h"
 
 #include "../util/transformations.h"
 

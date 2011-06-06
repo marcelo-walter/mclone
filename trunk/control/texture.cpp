@@ -22,10 +22,13 @@
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
-//#include <sys/types.h>
 #include <magick/api.h>
 
+#include "../data/Globals.h"
+
+#include "primitives.h"
 #include "../simulation/relax.h"
+#include "../data/Object.h"
 #include "../util/interfaceVoronoi.h"
 #include "../util/genericUtil.h"
 

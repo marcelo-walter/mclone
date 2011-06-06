@@ -25,9 +25,12 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "../common.h"
+#include "../data/Types.h"
+#include "../data/Globals.h"
+
 #include "../util/genericUtil.h"
 #include "../data/Matrix4.h"
+#include "../data/Object.h"
 
 #define	VSTART	0
 #define VEND	1

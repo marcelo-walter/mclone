@@ -10,7 +10,7 @@
 #ifndef _GROWTH_H_
 #define _GROWTH_H_
 
-#include "../common.h"
+#include "../data/Types.h"
 
 /*
  * Begin from genericUtil.c

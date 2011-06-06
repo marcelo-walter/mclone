@@ -18,12 +18,10 @@
  *---------------------------------------------------------
  */
 
-#ifndef _DISTPOINTS_H_
-#define _DISTPOINTS_H_
+#ifndef _DIST_POINTS_H_
+#define _DIST_POINTS_H_
 
-
-#include "../common.h"
-
+#include "../data/Types.h"
 
 void partialSumArea( double totalArea );
 double triangleAreas( void );
@@ -36,4 +34,4 @@ double areaTriangle( Point3D p1, Point3D p2, Point3D p3 );
 int binarySearch(float value);
 
 
-#endif //_DISTPOINTS_H_
+#endif //_DIST_POINTS_H_

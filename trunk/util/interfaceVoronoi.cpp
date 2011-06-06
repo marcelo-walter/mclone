@@ -8,9 +8,13 @@
 
 #include <stdlib.h>
 
+#include "../data/Globals.h"
+
 #include "../simulation/relax.h"
 #include "../simulation/forces.h"
 #include "../control/wingEdge.h"
+#include "../data/Object.h"
+#include "../data/cellsList.h"
 #include "genericUtil.h"
 #include "intersect.h"
 

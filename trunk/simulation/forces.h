@@ -16,7 +16,7 @@
 #ifndef _FORCES_H_
 #define _FORCES_H_
 
-#include "../common.h"
+#include "../data/Types.h"
 
 enum{CW, CCW};
 

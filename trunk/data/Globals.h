@@ -9,6 +9,8 @@
 #ifndef _GLOBALS_H_
 #define _GLOBALS_H_
 
+#include "Types.h"
+
 #ifdef MAIN
 #define Global
 #define Init( var, value) var = value

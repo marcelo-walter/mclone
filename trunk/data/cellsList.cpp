@@ -37,13 +37,18 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "Globals.h"
+
 #include "cells.h"
+#include "Object.h"
 #include "../util/random.h"
 #include "../util/genericUtil.h"
+#include "../util/distPoints.h"
 #include "../simulation/relax.h"
 #include "../simulation/simulation.h"
 #include "../control/primitives.h"
 #include "../control/texture.h"
+
 
 #include "../temporary.h"
 

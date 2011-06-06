@@ -3,8 +3,12 @@
 #include "interfacedistance.h"
 //}
 
+#include <stdio.h>
+
 #include "surface.h"
-#include "../common.h"
+
+#include "../data/Globals.h"
+#include "../data/Object.h"
 
 //Vertex 	*vert;
 //Face	*faces;

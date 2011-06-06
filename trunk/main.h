@@ -5,7 +5,7 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#include "common.h"
+#include "data/Types.h"
 
 /* for the simulation. Default final time */
 #define	FINAL_TIME	10

@@ -9,7 +9,13 @@
 
 #include "matrix.h"
 
-#include <math.h> 
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#include "../data/Types.h"
+#include "../data/Globals.h"
+
 #include "matrixUtil.h"
 #include "../distance/interfacedistance.h"
 #include "../control/vectorField.h"

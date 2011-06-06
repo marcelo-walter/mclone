@@ -11,7 +11,6 @@
 #define _MATRIX_H_
 
 
-#include "../common.h"
 
 #define NR_END 1
 #define FREE_ARG char*

@@ -8,11 +8,17 @@
 #include "forces.h"
 
 #include <math.h>
+#include <stdlib.h>
+
+#include "../data/Globals.h"
 
 #include "relax.h"
 #include "../util/heapTri.h"
 #include "../control/wingEdge.h"
 #include "../data/cells.h"
+#include "../data/cellsList.h"
+#include "../data/Object.h"
+#include "../data/Matrix4.h"
 #include "../util/genericUtil.h"
 
 /*

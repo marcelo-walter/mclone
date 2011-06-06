@@ -9,8 +9,9 @@
 #ifndef _DRAWING_H_
 #define _DRAWING_H_
 
-#include "../common.h"
 #include <GL/glut.h>
+
+#include "../data/Types.h"
 
 #define MY_CIRCLE_LIST 	1	/* used with the display list */
 #define MY_AXES_LIST	2	/* creates a display list for drawing

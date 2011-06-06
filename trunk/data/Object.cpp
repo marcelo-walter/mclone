@@ -12,6 +12,9 @@
 
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
+
+#include "Globals.h"
 
 #include "../temporary.h"
 #include "../util/genericUtil.h"

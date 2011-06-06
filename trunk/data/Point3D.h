@@ -11,7 +11,7 @@
 #ifndef _POINT3D_H_
 #define _POINT3D_H_
 
-#include "../common.h"
+#include "Types.h"
 
 /*typedef struct point3d{
 	double x,y,z;

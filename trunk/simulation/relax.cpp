@@ -11,9 +11,14 @@
 #include <math.h>
 #include <stdio.h>
 
+#include "../data/Globals.h"
+
 #include "forces.h"
 #include "../data/cellsList.h"
 #include "../data/cells.h"
+#include "../data/Object.h"
+#include "../data/Matrix4.h"
+#include "../control/primitives.h"
 #include "../control/wingEdge.h"
 #include "../util/intersect.h"
 #include "../util/genericUtil.h"

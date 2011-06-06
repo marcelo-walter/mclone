@@ -7,10 +7,14 @@
 
 #include "temporary.h"
 
-#include "common.h"
+#include <stdlib.h>
+
+#include "data/Types.h"
 
 #include "data/Matrix4.h"
+#include "data/Object.h"
 #include "simulation/relax.h"
+#include "simulation/planar.h"
 
 /*
  *--------------------------------------------------

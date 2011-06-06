@@ -12,10 +12,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "Globals.h"
+
 #include "../util/genericUtil.h"
 #include "../util/interfaceVoronoi.h"
 #include "../distance/interfacedistance.h"
 #include "../simulation/relax.h"
+#include "Object.h"
 
 /*
  *------------------------------------------------------------

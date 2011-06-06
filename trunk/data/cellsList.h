@@ -29,8 +29,8 @@
 #ifndef _CELLS_LIST_H_
 #define _CELLS_LIST_H_
 
-
-#include "../common.h"
+#include "Types.h"
+#include "Macros.h"
 
 /*
  *---------------------------------------------------------------

@@ -13,11 +13,12 @@
 
 #include <stdio.h>
 
-#include "../common.h"
 #include <GL/glut.h>
 
 #include "graph.h"
 #include "drawing.h"
+
+#include "../data/Globals.h"
 
 #include "../util/genericUtil.h"
 

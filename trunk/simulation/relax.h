@@ -7,7 +7,7 @@
 #ifndef _RELAX_H_
 #define _RELAX_H_
 
-#include "../common.h"
+#include "../data/Types.h"
 
 #define	WRP			2.4;
 /* Added by Thompson Peter Lied in 15/07/2002 */
