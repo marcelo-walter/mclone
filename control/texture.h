@@ -16,6 +16,8 @@
 #ifndef _TEXTURE_H_
 #define _TEXTURE_H_
 
+#include "../common.h"
+
 /* for the parsing of the texture data file */
 #define EXISTC 		"EXISTC"
 #define EXISTD 		"EXISTD"
@@ -32,7 +34,28 @@
 /* define resolution for z axis: 1 == gray scale, 3 == RGB - Cadu Moreira 14/05/02 */
 #define ZResolution 3
 
-/* prototypes */
+
+/*
+ *------------------------------------------------------------
+ *	Local definitions
+ *------------------------------------------------------------
+ */
+/* Flags if there is or not a texture file <file name>.txtr */
+extern flag texturePresent;
+
+/* flag to tell if we computed or not texture coordinates */
+extern flag textCoordComputed;
+
+extern TEXTARRAY textArray[MAX_N_TEXTURES];
+
+extern int totalNumberTextures;
+
+
+/*
+ *------------------------------------------------------------
+ *	Local prototypes
+ *------------------------------------------------------------
+ */
 void 		writeInventorOutput( const char *filename );
 ColChar 	bilinearInterp( double u, double v, int textIdent );
 void 		readAllTextures( char *fileName );
@@ -53,5 +76,6 @@ void 		freeTextures( void );
 /*void 		assignText2Prim( int cylID, char param[255], char textName[255], int textID);*/
 void assignText2Prim( int cylID, char param[255], int textID );
 
+int textureAlreadyDefined ( char *textName, int numberTextRead );
 
 #endif //_TEXTURE_H_

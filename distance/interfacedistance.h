@@ -7,6 +7,9 @@
  *
  */
 
+#ifndef _INTERFACE_DISTANCE_H_
+#define _INTERFACE_DISTANCE_H_
+
 /*
  *--------------------------------------------------------------
  * Added by Vinicius Mello at 22/03/2005
@@ -19,7 +22,20 @@ typedef struct GeodesicDistance
 		float Distance;
 	} VECTORGEODESICPATH;
 
+
+/*---VARIABLES---*/
+// geodesic computation
+extern int fini, fend;
+
+extern int LenghtVetorGeodesic, PosicaoFinalVetorGeodesicPath;
+extern VECTORGEODESICPATH *ArrayGeodesicPath;
+
+
+/*---PROTOTYPES---*/
 void ReallocMemory(int NewLenght);
 void AllocMemory(int Lenght);
 //void CreatePathDistances(char *NomeArquivo, int Inicio);
 void CreatePathDistances(char *NomeArquivo);
+
+
+#endif //_INTERFACE_DISTANCE_H_

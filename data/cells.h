@@ -18,6 +18,7 @@
 #ifndef _CELLS_H_
 #define _CELLS_H_
 
+#include "../common.h"
 
 #define COR_TYPE_C_R 	0.4078 	/* 104, 60, 30 brown */
 #define COR_TYPE_C_G	0.2353
@@ -44,6 +45,18 @@
 #define INIT_RATE_DIV_D	60
 #define INIT_RATE_DIV_E	0
 #define INIT_RATE_DIV_F	0
+
+/*
+ *---------------------------------------------------------------
+ *	Local global variables
+ *---------------------------------------------------------------
+ */
+/* store adhesion values between the different types of cells */
+extern float adhes[HOW_MANY_TYPES][HOW_MANY_TYPES];
+
+/* store probabilities for switching types */
+extern float swTypes[HOW_MANY_TYPES][HOW_MANY_TYPES];
+
 
 /*
  * Prototypes

@@ -7,6 +7,8 @@
 #ifndef _GENERIC_UTIL_H_
 #define _GENERIC_UTIL_H_
 
+#include "../common.h"
+
 /* for the parsing of the growth data file */
 #define	DATA	"data"
 #define	SIZE	"size"
@@ -19,6 +21,8 @@ void readExpFile( const char *fileName );
 float **allocate2DArrayFloat( int r, int c );
 char **allocate2DArrayChar( int r, int c );
 byte **allocate2DArrayByte( int r, int c );
+
+void errorMsg( char error_text[] );
 
 //From splineInter.c
 void linint(float xa[], float ya[], int n, float x, float *y);

@@ -10,7 +10,6 @@
 
 #include "../common.h"
 
-extern int activePrim;
 
 void printActivePrim( void );
 void printArray(float **p, int rows, int columns);

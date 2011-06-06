@@ -16,6 +16,8 @@
 #ifndef _HEAP_H_
 #define _HEAP_H_
 
+#include "../common.h"
+
 /* how much to increase the heap each time */
 #define HEAP_GROW_FACTOR 	100
 
@@ -37,6 +39,8 @@ typedef struct heap{
 	int   size;
 	int   max;
 }HEAP;
+
+extern HEAP *myheap;
 
 /* HEAP.C */
 void HeapUp(HEAP *h, int k);

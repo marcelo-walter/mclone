@@ -21,21 +21,20 @@
  *---------------------------------------------------------------
  */
 /* head and tail nodes of the global linked list */
-VECTORARRAY *headV;
-VECTORARRAY *zedV;
+extern VECTORARRAY *headV;
+extern VECTORARRAY *zedV;
 extern int vectorSize;
 
-float coordsBegin[3];
-float coordsEnd[3];
+extern float coordsBegin[3];
+extern float coordsEnd[3];
 
 extern int nVectors;
 extern int PointPicking;
 
-VECTORARRAY *NodoAux;
 const float Pi = 3.14159265358979323846264338328;
 const double RadToDeg = (3.14159265358979323846264338328/180);
 
-int WithInterpolationType;
+extern int WithInterpolationType;
 
 #define	VECTORID "VECTORID"
 
@@ -46,19 +45,17 @@ int WithInterpolationType;
  *
  *---------------------------------------------------------------
  */
-flag createVect;
-flag removevect;
+extern flag createVect;
+extern flag removevect;
 
-flag showAxes;
+extern flag polygonPicking;
+extern flag vectorPresent;
+extern char vectorFileName[128];
 
-flag polygonPicking;
-flag vectorPresent;
-char vectorFileName[128];
+extern float **MatrixLUX, **MatrixLUY, **MatrixLUZ, *VectorLUResultX, *VectorLUResultY, *VectorLUResultZ, LUAuxX, LUAuxY, LUAuxZ;
+extern int NumColunaLinha, *VectorIndexX, *VectorIndexY, *VectorIndexZ;
 
-float **MatrixLUX, **MatrixLUY, **MatrixLUZ, *VectorLUResultX, *VectorLUResultY, *VectorLUResultZ, LUAuxX, LUAuxY, LUAuxZ;
-int NumColunaLinha, *VectorIndexX, *VectorIndexY, *VectorIndexZ;
-
-char vectorcoordFileName[128]; /*Save the vector final coordenates in a file to calculate de erro later*/
+extern char vectorcoordFileName[128]; /*Save the vector final coordenates in a file to calculate de erro later*/
 
 
 

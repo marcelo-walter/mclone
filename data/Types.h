@@ -8,6 +8,8 @@
 #ifndef _TYPES_H_
 #define _TYPES_H_
 
+
+
 /* define some useful types */
 typedef unsigned char byte;
 typedef byte flag;
@@ -113,7 +115,7 @@ typedef struct{
 	float	relRate;	
 }TYPE;
 
-typedef struct Matrix4Struct {	/* 4-by-4 matrix */
+typedef struct Matrix4Struct {	// 4-by-4 matrix
 	double element[4][4];
 }Matrix4;
 
@@ -402,7 +404,7 @@ typedef struct tagTVertex
 
 /*
  *--------------------------------------------------------------
- * Texture array 
+ * Vectors array
  * Added by Thompson Peter Lied at 04/03/2004 *
  *--------------------------------------------------------------
  */
@@ -414,7 +416,8 @@ typedef struct vectors{
 	/*add by Fabiane queiroz*/
 	Param3D baryBegin, baryEnd; /*angle whit the abscissa axis */
 	
-	struct cell *next;    /* pointer to the next cell */
+	//Edited by Ricardo: Tava cell no lugar de vectors
+	struct vectors *next;    /* pointer to the next vectors */
 }VECTORARRAY;
 
 

@@ -7,6 +7,8 @@
 #ifndef _RELAX_H_
 #define _RELAX_H_
 
+#include "../common.h"
+
 #define	WRP			2.4;
 /* Added by Thompson Peter Lied in 15/07/2002 */
 /*
@@ -26,6 +28,49 @@
 /* Added by Thompson Peter Lied in 15/07/2002 */
 #define ORIENTATION             0.0;
 /* end */
+
+
+/*
+ *--------------------------------------------------
+ *	Local Defined Global variables
+ *--------------------------------------------------
+ */
+extern double 	radiusRep;
+extern double  radiusRepSquare;
+extern double 	wrp;		/* weight for the repulsive radius */
+extern int 	iterPerUnitTime;
+
+/* global weight for relaxation forces: steady and initial */
+/* double 	wForce, initWForce; */
+extern double wd, initWForce;           /* Added by Thompson Peter Lied in 16/07/2002 */
+
+/* weights for anisotropic effects */
+/* double 	wx, wy; */
+extern double wa;           /* Added by Thompson Peter Lied in 16/07/2002 */
+
+/* area of one cell */
+extern double  AreaOneCell;
+
+/* initial number of steps for the relaxation */
+extern int 	initNumRelax;
+
+/* Debug information. How many times cells changed
+ faces */
+extern int nChangeFaces;
+
+/* Added by Thompson Peter Lied in 15/07/2002 */
+/* orientation vector */
+extern double Ox, Oy, OxSq, OySq;
+
+/* orientation in degrees for the anisotropy */
+extern float orientation;
+
+/* Anisotropy effects */
+extern double AniX, AniY, AniCommon;
+
+extern double Ani;
+
+/*---PROTOTYPES---*/
 
 void 	compRadiusRepulsion( int firstTime );
 /* Modified by Fabiane Queiroz in 25/11/2009 */
@@ -56,6 +101,9 @@ void 	initialRelaxation( void );
 /* Added by Thompson Peter Lied in 15/07/2002 */
 void    compOrientation( void );
 void    comp_aniso_effect( void );
+
+//Not implemented, end used only one time
+void killCell(CELL *c);
 /* end */
 
 #endif //_RELAX_H_

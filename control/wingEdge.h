@@ -21,6 +21,7 @@
 #ifndef _WING_EDGE_H_
 #define _WING_EDGE_H_
 
+
 void 	saveWingEdge( const char *fileName );
 void 	checkWingEdgeFile( const char *fileName );
 void 	buildWingEdge( void  );
@@ -40,6 +41,7 @@ int  	ecwForFace( int whichEdge, int whichFace );
 int  	ecwForVertex( int whichEdge, int whichVertex );
 void 	findPrimAdjFaces( int whichFace );
 void 	findSecAdjFaces( int whichFace );
+double compAngleFaces(int whichEdge, int face1, int face2);
 double 	compAngleFaces1(int face1, int face2);
 void 	checkInfoEdge( int whichEdge );
 void 	compMatEdges( int whichEdge );
