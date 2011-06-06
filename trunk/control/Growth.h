@@ -10,6 +10,7 @@
 #ifndef _GROWTH_H_
 #define _GROWTH_H_
 
+#include "../common.h"
 
 /*
  * Begin from genericUtil.c
@@ -21,18 +22,27 @@
  *  the current time we want the growth data, eg,
  *  3 months, 18 months and so on
  */
-int growthTime;
-int FINAL_GROWTH_TIME;
+extern int growthTime;
+extern int FINAL_GROWTH_TIME;
 
 /* growth data array */
-float **growthData;
-float **originalGrowthData;
+extern float **growthData;
+extern float **originalGrowthData;
 
 /* default growth data array */
 extern char growthDataFileName[];
 
 /* default totalnumber of frames */
 extern int numberOfInBet; //Init in .c file
+
+/*
+ * Grow or not the model. The idea is that sometimes
+ * I want to only animate the model (such as the horse
+ * walking) without actually growing it at the same
+ * time
+ */
+extern flag growthFlag;
+extern flag keepAspectFlag;
 
 
 /*

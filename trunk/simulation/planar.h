@@ -16,10 +16,10 @@
 #ifndef _PLANAR_H_
 #define _PLANAR_H_
 
-enum{CW, CCW};
+#include "../common.h"
 
 /* This functions are used in both files (planar.c and forces.c), but are declared in forces.c
-
+enum{CW, CCW};
 void 	rotatePointAroundEdge( Point3D *r, int whichEdge, int whichFace );
 void 	findByteAndBit( int faceIndex, int *byte, int *bit );
 SCELL 	*makeCopyCellSimpler( double px, double py, CELL *c, int process );

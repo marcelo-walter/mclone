@@ -16,9 +16,35 @@
 #ifndef _FORCES_H_
 #define _FORCES_H_
 
+#include "../common.h"
+
 enum{CW, CCW};
 
+/*
+ *--------------------------------------------------
+ *	Locally Defined Global variables
+ *--------------------------------------------------
+ */
+extern int totalNumOfForcesComputation, nOfNeighBelowIdeal;
 
+/*
+ * The initing flag flags to the relaxation
+ * routine that we DO NOT want the adhesion
+ * between cells to play any role at this
+ * stage. It is only used in this context.
+ */
+extern flag 	initingFlag;
+
+//For using Vector Fiels defined in vertices
+//OBS: Vector Field is defined in Faces by Default
+extern flag verticesVectorFieldFlag;
+
+
+/*
+ *--------------------------------------------------
+ *	PROTOTYPES
+ *--------------------------------------------------
+ */
 double 	linearForceFunction( double distance );
 void 	force( Point2D p, Point2D q,
 			  CELL_TYPE ptype, CELL_TYPE qtype,

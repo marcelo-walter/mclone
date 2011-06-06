@@ -57,10 +57,6 @@ extern MMODE 	modelMode;
 /* declared in simulation.c */
 extern Point3D 	*vertBody;
 
-/* in myLinkCode.c */
-void
-getVoronoi(SCELL *headCell, SCELL *tailCell, 
-           voronoiType **vorList, faceType **faceList, int *howManyVert);
 /*
  * declarations in myvect.c
  */
@@ -104,7 +100,7 @@ void savePrimitivesFile(char *outFile, int nPrim);
 int loadPrimitivesFile(char *inFile);
 void beep ( void );
 float rad2deg(float angle);
-void errorMsg(char error_text[]);
+//void errorMsg(char error_text[]);
 void switchFlag(byte *flag);
 int checkPrimitivesFile(void);
 double distance(Point3D p, Point3D q);

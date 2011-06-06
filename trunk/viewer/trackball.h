@@ -51,47 +51,32 @@
 #ifndef _TRACKBALL_H_
 #define _TRACKBALL_H_
 
-#include "../util/vect.h"
-void
-trackball(float q[4], float p1x, float p1y, float p2x, float p2y);
+#include "../common.h"
 
 /*
- * Given two quaternions, add them together to get a third quaternion.
- * Adding quaternions to get a compound rotation is analagous to adding
- * translations to get a compound translation.  When incrementally
- * adding rotations, the first argument here should be the new
- * rotation, the second and third the total rotation (which will be
- * over-written with the resulting new total rotation).
+ * This size should really be based on the distance from the center of
+ * rotation to the point on the object underneath the mouse.  That
+ * point would then track the mouse as closely as possible.  This is a
+ * simple example, though, so that is left as an Exercise for the
+ * Programmer.
  */
-void
-add_quats(float *q1, float *q2, float *dest);
+#define TRACKBALLSIZE  (1.0)
 
 /*
- * A useful function, builds a rotation matrix in Matrix based on
- * given quaternion.
+ * Local function prototypes (not defined in trackball.h)
  */
-void
-build_rotmatrix(Matrix4 *m, float q[4]);
+static float tb_project_to_sphere(float, float, float);
+static void normalize_quat(float [4]);
+void trackball(float q[4], float p1x, float p1y, float p2x, float p2y);
+void add_quats(float *q1, float *q2, float *dest);
+void build_rotmatrix(Matrix4 *m, float q[4]);
+void axis_to_quat(float a[3], float phi, float q[4]);
+void normalize_euler(float *e);
+void add_eulers(float *e1, float *e2, float *dest);
 
 /*
- * This function computes a quaternion based on an axis (defined by
- * the given vector) and an angle about which to rotate.  The angle is
- * expressed in radians.  The result is put into the third argument.
- */
-void
-axis_to_quat(float a[3], float phi, float q[4]);
-
-void
-normalize_euler(float *e);
-
-void
-add_eulers(float *e1, float *e2, float *dest);
-
-
-/* originally from vect.h */
 float *vnew();
 float *vclone(float *v);
-//void vcopy(const float *v1, float *v2);
 void vprint(float *v);
 //void vset(float *v, float x, float y, float z);
 //void vzero(float *v);
@@ -107,6 +92,6 @@ void vhalf(float *, float *, float *);
 void vdirection(float *, float *);
 void vreflect(float *, float *, float *);
 void vmultmatrix(float [4][4], float [4][4], float [4][4]);
-
+*/
 
 #endif //_TRACKBALL_H_

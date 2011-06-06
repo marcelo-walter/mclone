@@ -14,14 +14,14 @@
  *	Local Global variables
  *--------------------------------------------------
  */
-float 	finalTime, currentTime;
-int 	updateTime;
+extern float finalTime, currentTime;
+extern int 	updateTime;
 
 /*Add by Fabiane Queiroz*/
 extern flag    originalScale;
-VECTORARRAY *NodoAux;
 
-FILE *fpRates;
+extern FILE *fpRates;
+
 
 /*
  *--------------------------------------------------
@@ -36,7 +36,7 @@ int    findElement(Array* listFaces, int e);
 void 	pureSimulation( RELAXMODE rMode );
 
 void 	patFormAndGrowthSimulation( RELAXMODE rMode );
-void 	initPatFormAndGrowth( RELAXMODE rMode);
+void 	initPatFormAndGrowth( ); //Remove parameter  RELAXMODE rMode by Bins
 
 void 	computeBodyEmbryo( int day );
 void 	assignTimeToSplit( void );

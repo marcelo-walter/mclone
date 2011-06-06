@@ -23,6 +23,8 @@
  *	Local Variables
  *---------------------------------------------------------
  */
+extern char primitivesFileName[128]; //From main.h
+
 /* which primitive is currently active */
 extern int activePrim;
 

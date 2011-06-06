@@ -5,6 +5,26 @@
 #ifndef _MENUS_H_
 #define _MENUS_H_
 
+/*
+ *--------------------------------------------------
+ *	Local Global variables
+ *--------------------------------------------------
+ */
+/* menu identifiers */
+extern int mainMenuIdent, primitiveMenuIdent, printMenuIdent;
+extern int dispMenuIdent, viewMenuIdent, renderMenuIdent;
+extern int vectorMenuIdent;
+extern int savingMenuIdent;
+
+extern int typeDistanciaMenuIdent;
+extern int typeVectorFieldMenuIdent;
+
+
+/*
+ *--------------------------------------------------
+ *	Local Prototypes
+ *--------------------------------------------------
+ */
 void mainMenu(int item);
 void primitiveMenu( int item );
 void dispMenu( int item );

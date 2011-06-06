@@ -20,9 +20,8 @@
 extern int mtl_flag;
 extern int opt_flag;
 
-char mtl_file[256];     /* mtl file name */
-long int vsize, total_vertices;
-
+extern char mtl_file[256];     /* mtl file name */
+extern long int vsize, total_vertices;
 
 extern long int *exchange;
 extern long int *sort;

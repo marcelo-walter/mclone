@@ -17,11 +17,6 @@
 #define FREE_ARG char*
 
 
-VECTORARRAY *headV;
-VECTORARRAY *zedV;
-VECTORARRAY *AuxNodo1, *AuxNodo2;
-
-
 void lubksb(float **a, int n, int *indx, float b[]);
 void ludcmp(float **a, int n, int *indx, float *d);
 void inverseMatrix(float **a, int n, float **y);

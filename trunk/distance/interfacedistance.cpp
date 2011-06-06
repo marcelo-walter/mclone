@@ -1,15 +1,16 @@
-extern "C" 
-{
+//extern "C"
+//{
 #include "interfacedistance.h"
-}
+//}
 
 #include "surface.h"
 #include "../common.h"
 
-Vertex 	*vert;
-Face	*faces;
-VECTORARRAY *vectors;
+//Vertex 	*vert;
+//Face	*faces;
+//VECTORARRAY *vectors;
 
+/*---VARIABLES---*/
 // geodesic computation
 int fini, fend;
 
@@ -38,14 +39,14 @@ void AllocMemory(int Lenght)
 }
 
 //extern "C" void CreatePathDistances(char *NomeArquivo, int Inicio)
-extern "C" void CreatePathDistances(char *NomeArquivo)
+//extern "C" void CreatePathDistances(char *NomeArquivo)
+void CreatePathDistances(char *NomeArquivo)
 {	
-	int i, j, Star, IndexFaceStart, IndexFaceEnd;
+	int i, Star, IndexFaceStart, IndexFaceEnd;
 	int *fvert; //Ponteiro de inteiros.
 	FILE *arqDistance;
 	
 	int NumVerticesPlusNumFace, NumFacesDot3;
-	double x, y, z;
 	
 	arqDistance = fopen(NomeArquivo,"r");
 	

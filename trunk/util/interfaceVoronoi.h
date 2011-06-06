@@ -5,7 +5,22 @@
 #ifndef _INTERFACE_VORONOI_H_
 #define _INTERFACE_VORONOI_H_
 
+#include "../common.h"
 
+/*
+ *--------------------------------------------------------------------
+ * 	Global Variables
+ *--------------------------------------------------------------------
+ */
+extern flag voronoiFlag;
+extern flag voronoiComputed;
+extern flag voronoiColorFlag;
+
+/*
+ *--------------------------------------------------------------------
+ * 	PROTOTYPES
+ *--------------------------------------------------------------------
+ */
 void computeVoronoi( void );
 CELL *findSite( CELL *c );
 byte checkInsideOutside( int whichFace, double x, double y );

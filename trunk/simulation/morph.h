@@ -34,14 +34,6 @@
 #define	HEIGHT_INCR_FACTOR	0.2
 #define MASTER_PRIM		1
 
-/*
- * Grow or not the model. The idea is that sometimes
- * I want to only animate the model (such as the horse
- * walking) without actually growing it at the same
- * time
- */
-extern flag growthFlag;
-extern flag keepAspectFlag;
 
 /*
  *----------------------------------------------------------
