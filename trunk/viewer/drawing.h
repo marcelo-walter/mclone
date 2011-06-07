@@ -44,6 +44,9 @@ extern flag drawVector;
 extern flag drawVectorField;
 extern flag drawVerticesVectorField;
 
+extern flag fillingFlag;	/* draw or not filled polygons */ //From main.h
+extern flag edgesFlag;		/* draw or not edges */ //From main.h
+
 /* color definitions */
 extern float backColor[XYZ];
 extern float foreColor[XYZ];

@@ -33,9 +33,6 @@
 #include "../util/genericUtil.h"
 #include "../util/transformations.h"
 
-#include "../temporary.h"
-
-
 /*
  *---------------------------------------------------------
  *	Local Prototypes and variables
@@ -55,6 +52,10 @@ int activePrim=WORLD;
 /* parametrization was computed or not */
 flag parametOKFlag = FALSE;	
 
+/* Flags if there is or not a primitive file specified */
+flag primFilePresent = FALSE; //From main.cpp
+
+int *nnoprimVertex = NULL; // line added by Cadu in 31/10 //From main.cpp
 
 /*
  *--------------------------------------------------

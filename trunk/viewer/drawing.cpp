@@ -18,9 +18,6 @@
 #include "graph.h"
 #include "ui.h"
 
-#include "../main.h"
-#include "../temporary.h"
-
 #include "../util/interfaceVoronoi.h"
 #include "../util/transformations.h"
 #include "../util/genericUtil.h"
@@ -54,6 +51,9 @@ flag degreeVector = FALSE;	/* Thompson 07/11/2003 */
 flag drawVector = TRUE;
 flag drawVectorField = FALSE;
 flag drawVerticesVectorField = FALSE;
+
+flag fillingFlag = TRUE;	/* draw or not filled polygons */ //From main.h
+flag edgesFlag = TRUE;		/* draw or not edges */ //From main.h
 
 /* color definitions */
 float backColor[XYZ] = {0.0, 0.0, 0.0};

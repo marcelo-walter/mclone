@@ -19,9 +19,6 @@
 #include "ui.h"
 #include "menus.h"
 
-#include "../main.h"
-#include "../temporary.h"
-
 #include "../control/vectorField.h"
 #include "../control/Growth.h"
 #include "../control/primitives.h"
@@ -31,6 +28,7 @@
 #include "../data/Object.h"
 #include "../data/Matrix4.h"
 #include "../data/cells.h"
+#include "../data/fileManager.h"
 #include "../simulation/simulation.h"
 
 #include "../util/vect.h"
