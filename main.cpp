@@ -13,23 +13,22 @@
  * appears here and enables the initialization of
  * the globals
  */
-#define MAIN
+//#define MAIN //Don't use anymore
 
 /*
  *--------------------------------------------------
  *	Includes
  *--------------------------------------------------
  */
+
+#include "main.h"
+
 #include <string.h>
 #include <ctype.h>
 #include <math.h>
 #include <stdlib.h>
 
 #include <sys/time.h>	/* for the time of the day function */
-
-#include "main.h"
-
-#include "temporary.h"
 
 #include "control/vectorField.h"
 #include "control/wingEdge.h"
@@ -39,6 +38,7 @@
 #include "simulation/relax.h"
 #include "simulation/simulation.h"
 #include "simulation/forces.h"
+#include "simulation/morph.h"
 #include "util/heap.h"
 #include "util/heapTri.h"
 #include "util/printInfo.h"
@@ -50,6 +50,7 @@
 #include "data/cellsList.h"
 #include "data/Parameters.h"
 #include "data/Matrix4.h"
+#include "data/fileManager.h"
 #include "distance/interfacedistance.h"
 
 #include "control/primitives.h" //only for the name of file
@@ -63,44 +64,14 @@
  *	Local Defined Global variables
  *--------------------------------------------------
  */
-//char sessionFileName[128]; moved to temporary.h
-//char primitivesFileName[128];
-/* name of the output CM file */
-//char outputCMfileName[128]; moved to temporary.h
-char outputObjFileName[128];
-//char expFileName[128];
-char textureFileName[128];
 
 /* Added by Thompson Peter Lied at 31/10/2003 */
-char argvv[256]; // execution path
-
-/*
- * various flags
- */
-flag fillingFlag = TRUE;	/* draw or not filled polygons */
-flag edgesFlag = TRUE;		/* draw or not edges */
-
-/* flag if there is or not an experiment file <file name>.cm */
-byte expFilePresent = FALSE;
-
-
-/* Added bu Vinicius at 21/07/2005 */
-/* This flag say that we loaded the file that have all the vectors for each face */
-flag vectorfieldPresent = FALSE;
-
-flag calculatesDistances = FALSE;
-//flag calculatesDistances = TRUE;
-
-flag useGeodeiscDistances = FALSE;
-
-/* keep the maximum and minimum coordinates of
- the geometric model */
-Point3D minSet, maxSet;
+char argvv[256]; // execution path //LOCAL
 
 /* names of possible object directories */
-char **pathDir;
+char **pathDir; //LOCAL
 /* number of directories defined in the env variable ONCA_PATH */
-int numberOfDir;
+int numberOfDir; //LOCAL
 
 
 /*
@@ -924,8 +895,7 @@ checkCCWordering( int whichFace, int howManyVert )
  *------------------------------------------------
  *------------------------------------------------
  */
-void
-preProcessVertices( void )
+void preProcessVertices( void )
 {
 	int i;
 	

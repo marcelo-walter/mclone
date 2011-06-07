@@ -14,10 +14,8 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-#include "Globals.h"
-
-#include "../temporary.h"
 #include "../util/genericUtil.h"
+#include "../data/fileManager.h"
 
 /*
  *--------------------------------------------------
@@ -42,6 +40,9 @@ int 	NumberFaces = 0; //From Globals.h
 int 	NumberEdges = 0; //From Globals.h
 int 	NumberGroups = 0; //From Globals.h
 
+/* keep the maximum and minimum coordinates of
+ the geometric model */
+Point3D minSet, maxSet;
 
 /*
  *--------------------------------------------------

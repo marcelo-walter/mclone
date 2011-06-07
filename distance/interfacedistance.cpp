@@ -16,6 +16,9 @@ int fini, fend;
 int LenghtVetorGeodesic, PosicaoFinalVetorGeodesicPath;
 VECTORGEODESICPATH *ArrayGeodesicPath;
 
+unsigned char calculatesDistances = FALSE;
+unsigned char useGeodeiscDistances = FALSE;
+
 /*
  OBS: O vetor ArrayGeodesicPath esta tendo sua memoria alocada, porem nao esta sendo liberada.
  PS: The vector ArrayGeodesicPath is reciving memory, but this memory is not being free.

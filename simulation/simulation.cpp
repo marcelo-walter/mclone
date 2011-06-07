@@ -13,8 +13,6 @@
 #include "GL/glut.h"
 #endif
 
-#include "../temporary.h"
-
 #include "../control/vectorField.h"
 #include "../control/wingEdge.h"
 #include "../control/primitives.h"
@@ -47,48 +45,6 @@ FILE *fpRates;
 
 int computingPatternFlag = 0; //From Globals.h
 
-
-/*
- *------------------------------------------------------------
- *		External prototypes
- *------------------------------------------------------------
- */
-//extern void compMappingMatrices( int whichFace );
-//extern void compCellsPolygonCoordinates(Array* listFaces);
-//extern void compMatEdges( int whichEdge );
-//extern void computeGeometricCenter( int whichFace, int howManyVert );
-//extern void printMatrix( Matrix4 m );
-//extern void computeVoronoi( void );
-
-/*
- *------------------------------------------------------------
- *		External global definitions
- *------------------------------------------------------------
- */
-/*
- * The initing flag flags to the relaxation
- * routine that we DO NOT want the adhesion
- * between cells to play any role at this
- * stage. It is only used in this context.
- */
-//extern flag 	initingFlag;
-
-//extern float 	**growthData;
-//extern HEAP 	*myheap;
-//extern int 	iterPerUnitTime;
-//extern flag 	parametOKFlag;	/* primitives.c */
-//extern flag 	cellsCreated;	/* distpoints.c */
-//extern flag 	showAxes;
-//extern flag 	vectorPresent;
-//extern double 	wForce;
-//extern int 	nCellsType[HOW_MANY_TYPES];
-
-//extern double  	radiusRep;			/* declared in relax.c */
-//extern double  	radiusRepSquare;
-//extern double	wrp;
-//extern double 	AreaOneCell;
-
-//extern double wa, Ani;
 
 /*
  *--------------------------------------------------------------

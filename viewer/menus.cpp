@@ -25,13 +25,11 @@
 #include "../data/cellsList.h"
 #include "../data/PatternObject.h"
 #include "../data/Object.h"
+#include "../data/fileManager.h"
 #include "../util/interfaceVoronoi.h"
 #include "../util/genericUtil.h"
 #include "../util/printInfo.h"
-
-
-#include "../main.h"
-#include "../temporary.h"
+#include "../distance/interfacedistance.h"
 
 /*
  *--------------------------------------------------

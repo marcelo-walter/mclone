@@ -30,6 +30,9 @@ extern int fini, fend;
 extern int LenghtVetorGeodesic, PosicaoFinalVetorGeodesicPath;
 extern VECTORGEODESICPATH *ArrayGeodesicPath;
 
+extern unsigned char calculatesDistances;
+extern unsigned char useGeodeiscDistances;
+
 
 /*---PROTOTYPES---*/
 void ReallocMemory(int NewLenght);

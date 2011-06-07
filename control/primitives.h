@@ -37,6 +37,10 @@ extern int activePrim;
 /* parametrization was computed or not */
 extern flag parametOKFlag;
 
+/* Flags if there is or not a primitive file */
+extern flag primFilePresent; //From main.h
+
+extern int *nnoprimVertex; //From main.h
 
 /*
  *--------------------------------------------------

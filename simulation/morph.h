@@ -51,4 +51,7 @@ void growRadiusHeight( int whichPrim, float *h, float *r, int t);
 void morphOneStep( int direction );
 int getGrowthData( int day );
 
+void computeGeometricCenter( int whichFace, int howManyVert ); //from main.h
+void compMappingMatrices( int whichFace );//from main.h
+
 #endif //_MORPH_H_

@@ -46,6 +46,10 @@ extern int 	NumberFaces; //From Globals.h
 extern int 	NumberEdges; //From Globals.h
 extern int 	NumberGroups; //From Globals.h
 
+/* keep the maximum and minimum coordinates of
+ the geometric model */
+extern Point3D minSet, maxSet; //From main.h
+
 /*
  * prototypes
  */
