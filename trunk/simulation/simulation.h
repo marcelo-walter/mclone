@@ -16,14 +16,6 @@
  *	Local Global variables
  *--------------------------------------------------
  */
-extern float finalTime, currentTime;
-extern int 	updateTime;
-
-/*Add by Fabiane Queiroz*/
-extern flag    originalScale;
-
-extern FILE *fpRates;
-
 extern int computingPatternFlag; //From Globals.h
 
 
@@ -32,7 +24,7 @@ extern int computingPatternFlag; //From Globals.h
  *	Local prototypes
  *--------------------------------------------------
  */
-void 	initSimulationParam( float finaltime, int updtime, float currenttime );
+void 	initSimulationParam( float finaltime, float currenttime );
 void 	postSplitEventsOnQueue( void );
 /* Added by Fabiane Queiroz in 25/11/2009 */
 int    findElement(Array* listFaces, int e);

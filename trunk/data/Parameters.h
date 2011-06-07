@@ -17,6 +17,8 @@
  * --------------------------------------------------------------------------
  */
 
+extern float finalTime, currentTime;
+
 /*
  * How to consider the neighboring faces for a given
  * face. The possible values are: PRIMFACES, STRIPFAN, TURK

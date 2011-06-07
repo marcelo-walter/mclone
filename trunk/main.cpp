@@ -8,12 +8,6 @@
  *
  *---------------------------------------------------------
  */
-/*
- * This is a directive for the Global variables. It only
- * appears here and enables the initialization of
- * the globals
- */
-//#define MAIN //Don't use anymore
 
 /*
  *--------------------------------------------------
@@ -183,11 +177,6 @@ int main( int argc, char *argv[] )
 					 * not finished yet! It is here for in the future
 					 * add one direction per cell.
 					 */
-					/*
-					 * The use of this flag (vectorfieldPresent) is
-					 * not finished yet! It is here for in the future
-					 * add one direction per cell.
-					 */
 				case 'c':
 					i++;
 					if ( i >= argc ) 
@@ -209,14 +198,14 @@ int main( int argc, char *argv[] )
 					//#endif
 		  		default:
 					printf( "Bad command-line parameter: %s\n", argv[i] );
+					usage();
 					exit( 1 );
 					break;
 			}
 		}
 		else 
 		{
-			
-		  	printf( "Bad command-line parameter: %s\n", argv[i] );
+			printf( "Bad command-line parameter: %s\n", argv[i] );
 		  	usage();
 		  	exit( 1 );
 		}
@@ -597,7 +586,7 @@ void initParam( byte parFilePresent )
 		 simulation, the final time, the update time
 		 (which I am NOT using anymore) and current time
 		 */
-		initSimulationParam( FINAL_TIME, 0, 0 );
+		initSimulationParam( FINAL_TIME, 0 );
 	}
 	
 	/* init heap pointer */
@@ -846,7 +835,7 @@ void getMemAdjacentFacesList( int whichFace, int howManyAdjFaces )
 	
 	faces[whichFace].rotAngles = (double *) malloc ( sizeof( double ) * howManyAdjFaces );
 	if ( faces[whichFace].rotAngles == NULL )
-		errorMsg("No space left for angles of adjacent faces!");
+		errorMsg("No space left for angles of adjacent faces! (main.c)");
 	
 	faces[whichFace].primEdges = (int *) malloc ( sizeof( int ) * howManyAdjFaces );
 	if ( faces[whichFace].primEdges == NULL )
@@ -887,7 +876,7 @@ checkCCWordering( int whichFace, int howManyVert )
 		
 		if ( (v.x * p.y - p.x * v.y) < 0.0 ){
 			fprintf( stderr, "face %d z = %lg\n", whichFace, v.x * p.y - p.x * v.y );
-			errorMsg("Face not given in clockwise order!");
+			errorMsg("Face not given in clockwise order! (main.c)");
 		}
 	}
 }

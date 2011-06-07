@@ -59,7 +59,7 @@ void openParseAnimData( int *r, int *c )
 	int animTime;
 
 	if( (fpin=fopen(animDataFileName,"r")) == NULL )
-		errorMsg("Could not open input animation file to read!");
+		errorMsg("Could not open input animation file to read! (Anim.cpp)");
 
 	printf("==========================\n");
 	printf("Animation data loaded from file %s\n\n", animDataFileName);
@@ -93,7 +93,7 @@ void openParseAnimData( int *r, int *c )
 			fscanf(fpin,"%d",&primNumber);
 			/*printf("prim number = %d\n",primNumber);*/
 			if (Prim[primNumber].type != CYLINDER)
-				errorMsg("Trying to assign animation info to a Landmark!");
+				errorMsg("Trying to assign animation info to a Landmark! (Anim.cpp)");
 			else{
 				Prim[primNumber].animation = animTime;
 				fscanf(fpin,"%d",&(Prim[primNumber].axis));
@@ -105,7 +105,7 @@ void openParseAnimData( int *r, int *c )
 			animTime++;
 		}
 		else{
-			errorMsg("Got token not readable in input anim file...");
+			errorMsg("Got token not readable in input anim file... (Anim.cpp)");
 		}
 	}
 
@@ -135,7 +135,7 @@ void openParseAnimData1( int *r, int *c )
 	int rows, columns, i, j, primNumber;
 
 	if( (fpin=fopen(animDataFileName,"r")) == NULL )
-		errorMsg("Could not open input animation file to read!");
+		errorMsg("Could not open input animation file to read! (Anim.cpp)");
 
 	printf("==========================\n");
 	printf("Animation data loaded from file %s\n\n", animDataFileName);
@@ -162,7 +162,7 @@ void openParseAnimData1( int *r, int *c )
 		fscanf(fpin,"%d",&primNumber);
 		/*printf("prim number = %d\n",primNumber);*/
 		if (Prim[primNumber].type != CYLINDER)
-			errorMsg("Trying to assign animation info to a Landmark!");
+			errorMsg("Trying to assign animation info to a Landmark! (Anim.cpp)");
 		else{
 			Prim[primNumber].animation = i;
 			fscanf(fpin,"%d",&(Prim[primNumber].axis));
@@ -222,7 +222,7 @@ void linearInterpAnimData( int rowsAnimData, int columnsAnimData, int firstTime)
 		if ( ca > rg ){
 			printf("rows in growth data = %d\n", rg);
 			printf("columns in animation data = %d\n", ca);
-			errorMsg("There is more animation data than growth...\n");
+			errorMsg("There is more animation data than growth...(Anim.cpp)\n");
 		}
 		for(i=1; i < ca-1; i++){
 			dataX[i] = originalGrowthData[i][MONTH];
