@@ -74,7 +74,7 @@ void openParseGrowthData( int *r, int *c )
 	growthTime = 0;
 
 	if( (fpin=fopen(growthDataFileName,"r")) == NULL )
-		errorMsg("Could not open input growth file to read!");
+		errorMsg("Could not open input growth file to read! (Growth.cpp)");
 
 	printf("==========================\n");
 	printf("Growth data loaded from file %s\n\n", growthDataFileName);
@@ -106,7 +106,7 @@ void openParseGrowthData( int *r, int *c )
 			growthTime++;
 		}
 		else{
-			errorMsg("Got token not readable in input growth file...");
+			errorMsg("Got token not readable in input growth file...(Growth.cpp)");
 		}
 	}
 	fclose(fpin);

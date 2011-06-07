@@ -21,38 +21,6 @@
 
 /*
  *--------------------------------------------------
- *	Externally Defined Functions
- *--------------------------------------------------
- */
-//extern int  findEdgeForFaces( int face1, int face2 );
-//extern void copyMatrix( Matrix4 *destiny, Matrix4 source );
-
-/*
- *--------------------------------------------------
- *	Externally Defined Global variables
- *--------------------------------------------------
- */
-//extern float	adhes[HOW_MANY_TYPES][HOW_MANY_TYPES];
-//extern double 	radiusRep;
-//extern double  	radiusRepSquare;
-//extern HEAPTRI  *myheapTri;
-
-/* Added by Thompson Peter Lied in 16/07/2002 */
-/* Anisotropy effects */
-//extern double AniX, AniY, AniCommon;
-
-//extern double Ani;
-
-/*Add By Fabiane Queiroz at 22/09/2010
- 
-/*
- *--------------------------------------------------
- *	Local Defines
- *--------------------------------------------------
- */
-#define IDEAL_N_NEIGHBORS	4
-/*
- *--------------------------------------------------
  *	Locally Defined Global variables
  *--------------------------------------------------
  */
@@ -68,7 +36,7 @@ flag 	initingFlag = FALSE;
 
 //For using Vector Fiels defined in vertices
 //OBS: Vector Field is defined in Faces by Default
-flag verticesVectorFieldFlag = FALSE;
+flag verticesVectorFieldFlag = FALSE; //LOCAL
 
 
 /*
@@ -78,12 +46,9 @@ flag verticesVectorFieldFlag = FALSE;
 
 void compForcesForFace( int whichFace )
 {
-	Point3D p1,p2,p3,p4,p5,p6;
 	Point3D q;
 	Point3D v;
 	Point2D v2D;
-	
-	double xV1,yV1,zV1;
 	
 	//printf("FACE: %d\n", whichFace);
 	SCELL *h, *t;
@@ -101,7 +66,6 @@ void compForcesForFace( int whichFace )
 	
 	/* Add by Fabiane queiroz at 24/02/2010
 	 Compute orientation vector for anisotropy effects*/
-	double vx,vy;
 	
 	if(verticesVectorFieldFlag)
 	{
@@ -384,7 +348,7 @@ int processHeapNeighFaces( int whichFace , SCELL *h, SCELL *t )
 	/* Get space for the visited faces array */
 	facesAlreadyVisited = (unsigned char *) calloc(numberOfBytes, sizeof(unsigned char));
 	if ( facesAlreadyVisited == NULL )
-		errorMsg("Not enough space for list of visited faces on forces.c!");
+		errorMsg("Not enough space for list of visited faces on (forces.c)!");
 	
 	/*
 	 * I want to make sure that the original face and the primary adjacent
@@ -687,7 +651,7 @@ void rotatePointAroundEdge( Point3D *p, int whichEdge, int whichFace )
 		V3PreMul( p, &(edges[whichEdge].np));
 	else{
 		fprintf( stderr, "face %d edge %d\n", whichFace, whichEdge );
-		errorMsg("Could not find a face in rotatePointAroundEdge (relax.c)!");
+		errorMsg("Could not find a face in rotatePointAroundEdge (forces.c)!");
 	}
 }
 
@@ -757,7 +721,7 @@ void formListOfSecEdges( int *listOfSecFaces, int nSecFaces , int *list )
 		else{
 			fprintf( stderr, "faces %d and %d\n",
 					listOfSecFaces[i], listOfSecFaces[i+1] );
-			errorMsg( "Could not find edge between faces (relax.c)!" );
+			errorMsg( "Could not find edge between faces (forces.c)!" );
 		}
 	}
 }
@@ -776,7 +740,7 @@ void rotateCellAroundEdge( Point3D *r, int whichEdge, int whichFace, CELL *c )
 		V3PreMul( r, &(edges[whichEdge].pn));
 	else if ( edges[whichEdge].pf == whichFace )
 		V3PreMul( r, &(edges[whichEdge].np));
-	else errorMsg("Could not find a face in rotateCellAroundEdge (relax.c)!");
+	else errorMsg("Could not find a face in rotateCellAroundEdge (forces.c)!");
 }
 
 

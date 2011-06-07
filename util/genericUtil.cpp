@@ -55,7 +55,7 @@ void readExpFile( const char *fileName )
 		printf("\tExperiment file %s\n", fileName );
 	}
 	else{
-		errorMsg("Could not load cells file!");
+		errorMsg("Could not load cells file! (genericUtil.cpp)");
 	}
 }
 
@@ -70,7 +70,7 @@ int* myIntMalloc( int quantity )
 	
 	tmp = (int *) malloc( sizeof (int) * quantity );
 	if ( tmp == NULL ){
-		errorMsg( "Out of memory space in util.c (int)!");
+		errorMsg( "Out of memory space in util.c (int)! (genericUtil.cpp)");
 		return NULL;
 	}else
 		return ( tmp );
@@ -212,7 +212,7 @@ char **allocate2DArrayChar( int r, int c )
 		tmp[i] = (char *)malloc(c * sizeof (char ));
 	}
 	if ( tmp == NULL )
-		errorMsg( "No space for array of chars in allocate2DArrayChar!\n");
+		errorMsg( "No space for array of chars in allocate2DArrayChar! (genericUtil.cpp)\n");
 	
 	return( tmp );
 }
@@ -234,7 +234,7 @@ byte **allocate2DArrayByte( int r, int c )
 		tmp[i] = (byte *)malloc(c * sizeof (byte));
 	}
 	if ( tmp == NULL )
-		errorMsg( "No space for array of chars in allocate2DArrayByte!\n");
+		errorMsg( "No space for array of chars in allocate2DArrayByte! (genericUtil.cpp)\n");
 	
 	return( tmp );
 }
@@ -257,7 +257,7 @@ int **allocate2DArrayInt( int r, int c )
 		tmp[i] = (int *)malloc(c * sizeof (int));
 	}
 	if ( tmp == NULL )
-		errorMsg( "No space for array of ints in allocate2DArrayInt!\n");
+		errorMsg( "No space for array of ints in allocate2DArrayInt! (genericUtil.cpp)\n");
 	
 	return( tmp );
 }
@@ -280,7 +280,7 @@ float **allocate2DArrayFloat( int r, int c )
 		tmp[i] = (float *)malloc(c * sizeof(float));
 	}
 	if ( tmp == NULL )
-		errorMsg( "No space for array of floats in allocate2DArray!\n");
+		errorMsg( "No space for array of floats in allocate2DArray! (genericUtil.cpp)\n");
 	
 	return( tmp );
 }

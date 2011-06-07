@@ -22,6 +22,13 @@ enum{CW, CCW};
 
 /*
  *--------------------------------------------------
+ *	Local Defines
+ *--------------------------------------------------
+ */
+#define IDEAL_N_NEIGHBORS	4
+
+/*
+ *--------------------------------------------------
  *	Locally Defined Global variables
  *--------------------------------------------------
  */
@@ -34,10 +41,6 @@ extern int totalNumOfForcesComputation, nOfNeighBelowIdeal;
  * stage. It is only used in this context.
  */
 extern flag 	initingFlag;
-
-//For using Vector Fiels defined in vertices
-//OBS: Vector Field is defined in Faces by Default
-extern flag verticesVectorFieldFlag;
 
 
 /*

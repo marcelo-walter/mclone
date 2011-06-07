@@ -35,15 +35,13 @@
  *	Local Global variables
  *--------------------------------------------------
  */
-float 	finalTime, currentTime;
-int 	updateTime;
-
-/*Add by Fabiane Queiroz*/
-flag    originalScale = TRUE;
-
-FILE *fpRates;
 
 int computingPatternFlag = 0; //From Globals.h
+
+/*Add by Fabiane Queiroz*/
+flag    originalScale = TRUE; //LOCAL
+
+FILE *fpRates; //LOCAL
 
 
 /*
@@ -869,7 +867,6 @@ void pureSimulation( RELAXMODE rMode )
 						listFaces.size = i;
 					}
 				}
-				//printf("\n");
 			}
 		}
 		
@@ -890,10 +887,9 @@ void pureSimulation( RELAXMODE rMode )
  *
  *--------------------------------------------------------------
  */
-void initSimulationParam( float finaltime, int updtime, float currenttime )
+void initSimulationParam( float finaltime, float currenttime )
 {
 	finalTime = finaltime;
-	updateTime = updtime;
 	currentTime = currenttime;
 }
 
