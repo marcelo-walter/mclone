@@ -18,6 +18,7 @@
 #include "../util/transformations.h"
 #include "../data/Point3D.h"
 #include "../data/Matrix4.h"
+#include "../data/fileManager.h"
 
 #ifdef GRAPHICS
 #include "GL/glut.h"
@@ -40,18 +41,9 @@ int FINAL_GROWTH_TIME;
 float **growthData;
 float **originalGrowthData;
 
-/* default growth data array */
-char growthDataFileName[128] = {"/home/pgs/mclone/onca/data/growth/fakeGrowth.data"};
 /* default totalnumber of frames */
 int numberOfInBet = 0;
 
-/*
- * Grow or not the model. The idea is that sometimes
- * I want to only animate the model (such as the horse
- * walking) without actually growing it at the same
- * time
- */
-flag growthFlag = TRUE;
 flag keepAspectFlag = FALSE;
 
 /*

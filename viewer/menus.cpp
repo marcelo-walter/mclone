@@ -23,6 +23,7 @@
 #include "../control/Anim.h"
 #include "../control/primitives.h"
 #include "../data/cellsList.h"
+#include "../data/Parameters.h"
 #include "../data/PatternObject.h"
 #include "../data/Object.h"
 #include "../data/fileManager.h"

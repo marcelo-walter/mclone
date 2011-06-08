@@ -51,15 +51,11 @@
  *	Local global variables
  *---------------------------------------------------------------
  */
-/* store adhesion values between the different types of cells */
-extern float adhes[HOW_MANY_TYPES][HOW_MANY_TYPES];
-
-/* store probabilities for switching types */
-extern float swTypes[HOW_MANY_TYPES][HOW_MANY_TYPES];
-
 
 /*
- * Prototypes
+ *---------------------------------------------------------------
+ *	Prototypes
+ *---------------------------------------------------------------
  */
 void initAdhesInfo( void );
 void initCellsInfo(void);

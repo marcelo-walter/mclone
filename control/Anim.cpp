@@ -16,14 +16,10 @@
 #include "primitives.h"
 #include "../util/genericUtil.h"
 #include "../util/printInfo.h"
-
-//#include "../simulation/relax.h"
-//#include "transformations.h"
+#include "../data/fileManager.h"
 
 #ifdef GRAPHICS
-//#include <GLUT/glut.h>
 #include "GL/glut.h"
-//#include "sgi/myforms.h"
 #endif
 
 
@@ -37,13 +33,10 @@ float **animData;
 float **originalAnimData;
 int FINAL_ANIM_TIME;
 
-/* default growth data array */
-char animDataFileName[128] = {"/home/pgs/mclone/onca/data/animation/fakeAnim.anim"};
 /* how to interpret the values in the animation file,
  either as relative or absolute */
 flag absRotValuesFlag = FALSE;
 
-flag animFlag = FALSE; //From transformation.cpp
 
 /*
  *-----------------------------------------------------------------

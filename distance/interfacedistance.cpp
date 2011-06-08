@@ -11,9 +11,9 @@
 
 /*---VARIABLES---*/
 // geodesic computation
-int fini, fend;
+int fini, fend; //LOCAL
 
-int LenghtVetorGeodesic, PosicaoFinalVetorGeodesicPath;
+int LenghtVetorGeodesic, PosicaoFinalVetorGeodesicPath; //LOCAL
 VECTORGEODESICPATH *ArrayGeodesicPath;
 
 unsigned char calculatesDistances = FALSE;

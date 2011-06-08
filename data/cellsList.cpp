@@ -59,7 +59,6 @@
 /* keep track of how many cells of each type we have */
 int nCellsType[HOW_MANY_TYPES];
 
-int NumberCells = 0; //From Globals.h
 int Seed = -11; //From Globals.h
 
 /* head and tail nodes of the global linked list */

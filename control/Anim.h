@@ -25,14 +25,9 @@ extern float **animData;
 extern float **originalAnimData;
 extern int FINAL_ANIM_TIME;
 
-/* default growth data array */
-extern char animDataFileName[];
-
 /* how to interpret the values in the animation file,
  either as relative or absolute */
-extern flag absRotValuesFlag;//Inicialization in .c file
-
-extern flag animFlag;  //From transformation.h
+extern flag absRotValuesFlag;
 
 
 /*

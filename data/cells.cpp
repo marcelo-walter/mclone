@@ -27,44 +27,10 @@
 
 /*
  *---------------------------------------------------------------
- * External definitions
- *---------------------------------------------------------------
- */
-//extern int 	nCellsType[HOW_MANY_TYPES]; 	/* declared in main.c */
-//extern double  	radiusRep;			/* declared in relax.c */
-//extern HEAP 	*myheap;			/* declared in heap.c */
-
-//extern void 	compSplittingRatesForOneFace( int whichFace );
-/*
- *---------------------------------------------------------------
- * 	Global variables
- *---------------------------------------------------------------
- */
-//#ifdef GRAPHICS
-//extern FD_cm *myformCM;
-//void updtNumberOfIndividualCells( void );
-//#endif
-
-/*
- *---------------------------------------------------------------
  *	Local global variables
  *---------------------------------------------------------------
  */
-/* store adhesion values between the different types of cells */
-float adhes[HOW_MANY_TYPES][HOW_MANY_TYPES] = {
-{0.7, 0.0, 0.0, 0.0},
-{0.0, 0.8, 0.0, 0.0},
-{0.0, 0.0, 0.5, 0.0},
-{0.0, 0.0, 0.0, 0.5},
-};
 
-/* store probabilities for switching types */
-float swTypes[HOW_MANY_TYPES][HOW_MANY_TYPES] = {
-{1.0, 0.0, 0.0, 0.0},
-{0.0, 1.0, 0.0, 0.0},
-{0.0, 0.0, 1.0, 0.0},
-{0.0, 0.0, 0.0, 1.0},
-};
 
 /*
  *-----------------------------------------------------------------------

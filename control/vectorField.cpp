@@ -18,6 +18,7 @@
 #include "../distance/interfacedistance.h"
 #include "../simulation/relax.h"
 #include "../data/Object.h"
+#include "../data/fileManager.h"
 #include "../data/Matrix4.h"
 #include "../util/genericUtil.h"
 #include "../util/matrix.h"
@@ -58,15 +59,9 @@ flag createVect;
 flag removevect;
 
 flag polygonPicking = FALSE;
-flag vectorPresent = FALSE;
-char vectorFileName[128];
 
 float **MatrixLUX, **MatrixLUY, **MatrixLUZ, *VectorLUResultX, *VectorLUResultY, *VectorLUResultZ, LUAuxX, LUAuxY, LUAuxZ;
 int NumColunaLinha, *VectorIndexX, *VectorIndexY, *VectorIndexZ;
-
-char vectorcoordFileName[128]; /*Save the vector final coordenates in a file to calculate de erro later*/
-
-
 
 /*
  * Project the vector on the face.

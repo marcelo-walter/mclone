@@ -29,16 +29,11 @@ extern Primitive Prim[N_OF_PRIM+1];
 
 extern int NumberPrimitives;
 
-extern char primitivesFileName[128]; //From main.h
-
 /* which primitive is currently active */
 extern int activePrim;
 
 /* parametrization was computed or not */
 extern flag parametOKFlag;
-
-/* Flags if there is or not a primitive file */
-extern flag primFilePresent; //From main.h
 
 extern int *nnoprimVertex; //From main.h
 
