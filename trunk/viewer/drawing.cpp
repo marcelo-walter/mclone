@@ -24,6 +24,7 @@
 #include "../data/cellsList.h"
 #include "../data/Object.h"
 #include "../data/Parameters.h"
+#include "../data/fileManager.h"
 #include "../control/Growth.h"
 #include "../control/primitives.h"
 #include "../control/texture.h"

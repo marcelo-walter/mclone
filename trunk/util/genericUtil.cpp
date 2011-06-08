@@ -15,6 +15,7 @@
 
 #include "../control/primitives.h"
 #include "../data/cellsList.h"
+#include "../data/Parameters.h"
 #include "../data/Matrix4.h"
 #include "../simulation/simulation.h"
 #include "../simulation/relax.h"

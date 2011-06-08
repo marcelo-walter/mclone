@@ -36,6 +36,7 @@
 #include "../control/Growth.h"
 #include "../data/cellsList.h"
 #include "../data/Object.h"
+#include "../data/fileManager.h"
 #include "../data/Point3D.h"
 #include "../data/Matrix4.h"
 #include "../util/genericUtil.h"

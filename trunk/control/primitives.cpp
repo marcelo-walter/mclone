@@ -27,6 +27,7 @@
 #include "Anim.h"
 #include "Growth.h"
 #include "../data/cellsList.h"
+#include "../data/fileManager.h"
 #include "../data/Object.h"
 #include "../data/Point3D.h"
 #include "../data/Matrix4.h"
@@ -44,16 +45,11 @@ Primitive Prim[N_OF_PRIM+1];
 
 int NumberPrimitives = 1;
 
-char primitivesFileName[128]; //From main.h
-
 /* which primitive is currently active */
 int activePrim=WORLD;
 
 /* parametrization was computed or not */
 flag parametOKFlag = FALSE;	
-
-/* Flags if there is or not a primitive file specified */
-flag primFilePresent = FALSE; //From main.cpp
 
 int *nnoprimVertex = NULL; // line added by Cadu in 31/10 //From main.cpp
 

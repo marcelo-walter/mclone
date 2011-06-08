@@ -49,14 +49,9 @@ extern flag createVect;
 extern flag removevect;
 
 extern flag polygonPicking;
-extern flag vectorPresent;
-extern char vectorFileName[128];
 
 extern float **MatrixLUX, **MatrixLUY, **MatrixLUZ, *VectorLUResultX, *VectorLUResultY, *VectorLUResultZ, LUAuxX, LUAuxY, LUAuxZ;
 extern int NumColunaLinha, *VectorIndexX, *VectorIndexY, *VectorIndexZ;
-
-extern char vectorcoordFileName[128]; /*Save the vector final coordenates in a file to calculate de erro later*/
-
 
 
 /*

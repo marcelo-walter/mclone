@@ -15,6 +15,7 @@
 #include "../data/cellsList.h"
 #include "../data/cells.h"
 #include "../data/Object.h"
+#include "../data/Parameters.h"
 #include "../data/Matrix4.h"
 #include "../data/fileManager.h"
 #include "../control/primitives.h"
@@ -27,40 +28,23 @@
  *	Local Defined Global variables
  *--------------------------------------------------
  */
-double 	radiusRep = 0.0;
-double  radiusRepSquare = 0.0;
-double 	wrp;		/* weight for the repulsive radius */
-int 	iterPerUnitTime;
-
-/* global weight for relaxation forces: steady and initial */
-/* double 	wForce, initWForce; */
-double wd, initWForce;           /* Added by Thompson Peter Lied in 16/07/2002 */
-
-/* weights for anisotropic effects */
-/* double 	wx, wy; */
-double wa;           /* Added by Thompson Peter Lied in 16/07/2002 */
+double 	radiusRep = 0.0;  //Relax and forces
+double  radiusRepSquare = 0.0; //Relax and forces
 
 /* area of one cell */
-double  AreaOneCell;
+double  AreaOneCell; //Relax and simulation
 
-/* initial number of steps for the relaxation */
-int 	initNumRelax;
-
-/* Debug information. How many times cells changed
- faces */
-int nChangeFaces = 0;
+/* Debug information. How many times cells changed faces */
+int nChangeFaces = 0; //LOCAL but printed in main.cpp
 
 /* Added by Thompson Peter Lied in 15/07/2002 */
 /* orientation vector */
-double Ox, Oy, OxSq, OySq;
-
-/* orientation in degrees for the anisotropy */
-float orientation;
+double Ox, Oy, OxSq, OySq; //LOCAL //REMOVE?
 
 /* Anisotropy effects */
-double AniX, AniY, AniCommon;
+double AniX, AniY, AniCommon; //Relax and forces
 
-double Ani;
+double Ani; //Relax and forces //only copy of Wa
 
 
 
@@ -162,8 +146,6 @@ void compRadiusRepulsion( int firstTime )
 void compOrientation( void )
 {
 	double rad;
-	
-	//orientation =0.0;
 	
 	rad = orientation * PI / 180.0;
 	Ox = cos(rad);

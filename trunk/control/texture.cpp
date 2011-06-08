@@ -38,25 +38,9 @@
 
 /*
  *------------------------------------------------------------
- *	External definitions
- *------------------------------------------------------------
- */
-//int round( double value ); // Cadu Moreira 13/05/02
-//extern float **allocate2DArrayFloat( int r, int c );
-//extern int DecodeHeader( int *xRes, int *yRes, int *zRes, FILE *fp );
-//extern int DecodeCCLine( int xRes, int zRes, ColChar scanLine[PNG_RESOLUTION], FILE *fp ); 
-// "RLE_RESOLUTION" before. Cadu Moreira 30/04/02
-//extern flag voronoiComputed;
-
-//extern char argvv[256]; // from main.c // Cadu Moreira - 06/05/02
-
-/*
- *------------------------------------------------------------
  *	Local definitions
  *------------------------------------------------------------
  */
-/* Flags if there is or not a texture file <file name>.txtr */
-flag texturePresent = FALSE; //from main.c
 
 /* flag to tell if we computed or not texture coordinates */
 flag textCoordComputed = FALSE;

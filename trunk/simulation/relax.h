@@ -37,33 +37,13 @@
  */
 extern double 	radiusRep;
 extern double  radiusRepSquare;
-extern double 	wrp;		/* weight for the repulsive radius */
-extern int 	iterPerUnitTime;
-
-/* global weight for relaxation forces: steady and initial */
-/* double 	wForce, initWForce; */
-extern double wd, initWForce;           /* Added by Thompson Peter Lied in 16/07/2002 */
-
-/* weights for anisotropic effects */
-/* double 	wx, wy; */
-extern double wa;           /* Added by Thompson Peter Lied in 16/07/2002 */
 
 /* area of one cell */
 extern double  AreaOneCell;
 
-/* initial number of steps for the relaxation */
-extern int 	initNumRelax;
-
 /* Debug information. How many times cells changed
  faces */
 extern int nChangeFaces;
-
-/* Added by Thompson Peter Lied in 15/07/2002 */
-/* orientation vector */
-extern double Ox, Oy, OxSq, OySq;
-
-/* orientation in degrees for the anisotropy */
-extern float orientation;
 
 /* Anisotropy effects */
 extern double AniX, AniY, AniCommon;

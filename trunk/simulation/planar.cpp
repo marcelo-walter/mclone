@@ -64,7 +64,7 @@ void writeTmpListCells( SCELL *h, SCELL *t )
 
 	outfile = fopen( "planarObject", "w" );
 	if ( outfile == NULL )
-		errorMsg("Could not open planarObject file to write!");
+		errorMsg("Could not open planarObject file to write! (planar.cpp)");
 
 	runner = h->next;
 	while( runner != t ){

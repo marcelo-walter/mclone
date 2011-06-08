@@ -12,10 +12,6 @@
 #include <string.h>
 
 #include "../util/genericUtil.h"
-#include "../simulation/relax.h" //REVER TODO
-#include "../simulation/simulation.h" //REVER TODO
-#include "cells.h" //REVER TODO
-#include "cellsList.h"
 #include "../data/fileManager.h"
 
 /*
@@ -25,6 +21,48 @@
  */
 
 float 	finalTime, currentTime;
+
+int NumberCells = 0; //From Globals.h
+
+double 	wrp;		/* weight for the repulsive radius */ //From relax.cpp
+int 	iterPerUnitTime; //From relax.cpp
+
+/* global weight for relaxation forces: steady and initial */
+/* double 	wForce, initWForce; */
+double wd, initWForce;          /* Added by Thompson Peter Lied in 16/07/2002 */ //From relax.cpp
+
+/* weights for anisotropic effects */
+double wa;           /* Added by Thompson Peter Lied in 16/07/2002 */ //From relax.cpp
+
+/* initial number of steps for the relaxation */
+int 	initNumRelax; //From relax.cpp
+
+/* orientation in degrees for the anisotropy */
+float orientation; //From relax.cpp
+
+/* store adhesion values between the different types of cells */
+float adhes[HOW_MANY_TYPES][HOW_MANY_TYPES] = {
+{0.7, 0.0, 0.0, 0.0},
+{0.0, 0.8, 0.0, 0.0},
+{0.0, 0.0, 0.5, 0.0},
+{0.0, 0.0, 0.0, 0.5},
+};
+
+/* store probabilities for switching types */
+float swTypes[HOW_MANY_TYPES][HOW_MANY_TYPES] = {
+{1.0, 0.0, 0.0, 0.0},
+{0.0, 1.0, 0.0, 0.0},
+{0.0, 0.0, 1.0, 0.0},
+{0.0, 0.0, 0.0, 1.0},
+};
+
+/*
+ * Ortcell holds the information about splitting rates for
+ * cells and probabilities for a given type to occur.
+ * These probabilities are only used when there is no
+ * external input experiment file
+ */
+TYPE Ortcell[HOW_MANY_TYPES]; //From Globals.h
 
 /*
  * How to consider the neighboring faces for a given
@@ -40,13 +78,6 @@ PFMODE		pfMode = WOUTGROWTH; //From Globals.h
 
 RELAXMODE	relaxMode = GLOBALRELAX; //From Globals.h
 
-/*
- * Ortcell holds the information about splitting rates for
- * cells and probabilities for a given type to occur.
- * These probabilities are only used when there is no
- * external input experiment file
- */
-TYPE Ortcell[HOW_MANY_TYPES]; //From Globals.h
 
 
 /* Added by Fabiane Queiroz in 15/11/2009 */

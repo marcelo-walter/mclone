@@ -79,9 +79,6 @@ extern flag morphedFlag;
 /* cell picking mode active or not */
 extern flag cellPicking;
 
-/* point picking mode active or not */
-/*Tira*///Nunca foi usado; flag pointPicking = FALSE;	/* Added by Thompson at 04/12/2003 */
-
 /* uses Open GL lights or not */
 extern flag lightFlag;
 

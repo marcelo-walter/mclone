@@ -24,10 +24,7 @@ typedef struct GeodesicDistance
 
 
 /*---VARIABLES---*/
-// geodesic computation
-extern int fini, fend;
 
-extern int LenghtVetorGeodesic, PosicaoFinalVetorGeodesicPath;
 extern VECTORGEODESICPATH *ArrayGeodesicPath;
 
 extern unsigned char calculatesDistances;

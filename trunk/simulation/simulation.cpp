@@ -450,8 +450,8 @@ void initPatFormAndGrowth( ) //Remove parameter  RELAXMODE rMode by Bins
 	
     
     //printf("saving test files...\n");
-    savePrimitivesFile("teste.prim", NumberPrimitives);
-    saveObjFile( "teste.obj" );
+    //savePrimitivesFile("teste.prim", NumberPrimitives);
+    //saveObjFile( "teste.obj" );
 	// saveCellsFile("teste.cm");
     printf("initPatFormAndGrowth Done....\n\n");
 }

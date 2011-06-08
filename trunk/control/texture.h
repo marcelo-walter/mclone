@@ -41,8 +41,6 @@
  *	Local definitions
  *------------------------------------------------------------
  */
-/* Flags if there is or not a texture file <file name>.txtr */
-extern flag texturePresent;
 
 /* flag to tell if we computed or not texture coordinates */
 extern flag textCoordComputed;

@@ -29,6 +29,7 @@
 #include "control/Growth.h"
 #include "control/Anim.h"
 #include "control/texture.h"
+#include "control/primitives.h"
 #include "simulation/relax.h"
 #include "simulation/simulation.h"
 #include "simulation/forces.h"
@@ -46,8 +47,6 @@
 #include "data/Matrix4.h"
 #include "data/fileManager.h"
 #include "distance/interfacedistance.h"
-
-#include "control/primitives.h" //only for the name of file
 
 #ifdef GRAPHICS
 #include "viewer/ui.h"
