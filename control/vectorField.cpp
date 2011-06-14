@@ -46,9 +46,6 @@ float coordsEnd[3];
 int nVectors = 0;
 int PointPicking = -1;
 
-const float Pi = 3.14159265358979323846264338328;
-const double RadToDeg = (3.14159265358979323846264338328/180);
-
 int WithInterpolationType;
 
 /*

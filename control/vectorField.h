@@ -31,8 +31,8 @@ extern float coordsEnd[3];
 extern int nVectors;
 extern int PointPicking;
 
-const float Pi;
-const double RadToDeg;
+const float Pi = 3.14159265358979323846264338328;
+const double RadToDeg = (3.14159265358979323846264338328/180);
 
 extern int WithInterpolationType;
 
