@@ -37,9 +37,6 @@ double wa;           /* Added by Thompson Peter Lied in 16/07/2002 */ //From rel
 /* initial number of steps for the relaxation */
 int 	initNumRelax; //From relax.cpp
 
-/* orientation in degrees for the anisotropy */
-float orientation; //From relax.cpp
-
 /* store adhesion values between the different types of cells */
 float adhes[HOW_MANY_TYPES][HOW_MANY_TYPES] = {
 {0.7, 0.0, 0.0, 0.0},
@@ -130,7 +127,7 @@ void readParametersFile( const char *fileName )
 	fscanf(fp,"%f %f %f\n", &(Ortcell[F].color[R]), &(Ortcell[F].color[G]), &(Ortcell[F].color[B]) );
 	fscanf(fp,"%s\n", &outputCMfileName );
   	/* Added by Thompson Peter Lied at 31/10/2003 */
-	fscanf(fp,"%f\n", &orientation);
+	//fscanf(fp,"%f\n", &orientation); //Not used anymore
 	
 	fclose(fp);
 	
@@ -212,6 +209,6 @@ void printParamForUser( void )
 	printf("Color for F cells: [R] = %f [G] = %f [B] = %f\n",
 		   Ortcell[F].color[R], Ortcell[F].color[G], Ortcell[F].color[B] );
 	printf("Output CM file: %s\n", outputCMfileName );
-	printf("Orientation: %f \n", orientation);
+	//printf("Orientation: %f \n", orientation); //Not used anymore
 }
 
