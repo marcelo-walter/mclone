@@ -10,12 +10,7 @@
 #include "../data/Types.h"
 
 #define	WRP			2.4;
-/* Added by Thompson Peter Lied in 15/07/2002 */
-/*
- #define WFORCE		0.067;
- #define WX			1.0;
- #define WY			1.0;
- */
+
 #define WD			0.066;
 #define WA                      0.000;
 #define	INITWFORCE		0.005;
@@ -24,11 +19,6 @@
 #define TIME_UPDATE		10;
 #define	NCELLS			500;
 #define ITER_PER_UNIT_TIME 	4;
-
-/* Added by Thompson Peter Lied in 15/07/2002 */
-#define ORIENTATION             0.0;
-/* end */
-
 
 /*
  *--------------------------------------------------
@@ -79,7 +69,6 @@ void	compCellsPolygonCoordinatesBary( void );
 void 	initialRelaxation( void );
 
 /* Added by Thompson Peter Lied in 15/07/2002 */
-void    compOrientation( void );
 void    comp_aniso_effect( void );
 
 //Not implemented, end used only one time

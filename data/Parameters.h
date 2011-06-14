@@ -34,9 +34,6 @@ extern double wa;  /* Added by Thompson Peter Lied in 16/07/2002 */ //From relax
 /* initial number of steps for the relaxation */
 extern int 	initNumRelax; //From relax.h
 
-/* orientation in degrees for the anisotropy */
-extern float orientation; //From relax.h
-
 /* store adhesion values between the different types of cells */
 extern float adhes[HOW_MANY_TYPES][HOW_MANY_TYPES];
 

@@ -39,6 +39,7 @@ flag 	initingFlag = FALSE;
 flag verticesVectorFieldFlag = FALSE; //LOCAL
 
 
+
 /*
  * -----------------------------------------------
  * ------------------------------------------------

@@ -37,15 +37,10 @@ double  AreaOneCell; //Relax and simulation
 /* Debug information. How many times cells changed faces */
 int nChangeFaces = 0; //LOCAL but printed in main.cpp
 
-/* Added by Thompson Peter Lied in 15/07/2002 */
-/* orientation vector */
-double Ox, Oy, OxSq, OySq; //LOCAL //REMOVE?
-
 /* Anisotropy effects */
 double AniX, AniY, AniCommon; //Relax and forces
 
 double Ani; //Relax and forces //only copy of Wa
-
 
 
 /*
@@ -105,7 +100,6 @@ void initRelax( void )
 	 */
 	wd = WD;
 	wa = WA;
-	orientation = ORIENTATION;
 	initWForce = INITWFORCE;
 	initNumRelax = INITNUMRELAX;
 	NumberCells = NCELLS;
@@ -136,27 +130,6 @@ void compRadiusRepulsion( int firstTime )
 	// TotalAreaOfObject/ NumberFaces, AreaOneCell );
 }
 
-
-
-/*
- *-----------------------------------------------------------------------
- *      Added by Thompson Peter Lied in 16/07/2002
- *-----------------------------------------------------------------------
- */
-void compOrientation( void )
-{
-	double rad;
-	
-	rad = orientation * PI / 180.0;
-	Ox = cos(rad);
-	Oy = sin(rad);
-	OxSq = Ox * Ox;
-	OySq = Oy * Oy;
-	fprintf(stderr,"\nOrientation = %f \n", orientation);
-	fprintf(stderr,"rad = %f  Ox = %f  Oy = %f \n", rad, Ox, Oy);
-}
-
-
 /* Added by Thompson Peter Lied in 16/07/2002 */
 /*
  *-----------------------------------------------------------------
@@ -165,10 +138,6 @@ void compOrientation( void )
  */
 void comp_aniso_effect( void )
 {
-	// AniX = wa * wd * Ox;
-	// AniY = wa * wd * Oy;
-	//AniX = wa * Ox;
-	//AniY = wa * Oy;
 	Ani = wa; 
 	AniCommon = (1 - wa) * wd;
 	fprintf(stderr,"wa = %f, wd = %f \n", wa, wd);
