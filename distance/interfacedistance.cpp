@@ -1,7 +1,7 @@
-//extern "C"
-//{
+extern "C"
+{
 #include "interfacedistance.h"
-//}
+}
 
 #include <stdio.h>
 
@@ -41,8 +41,8 @@ void AllocMemory(int Lenght)
 }
 
 //extern "C" void CreatePathDistances(char *NomeArquivo, int Inicio)
-//extern "C" void CreatePathDistances(char *NomeArquivo)
-void CreatePathDistances(char *NomeArquivo)
+extern "C" void CreatePathDistances(char *NomeArquivo)
+//void CreatePathDistances(char *NomeArquivo)
 {	
 	int i, Star, IndexFaceStart, IndexFaceEnd;
 	int *fvert; //Ponteiro de inteiros.
