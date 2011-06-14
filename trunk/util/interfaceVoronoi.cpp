@@ -24,7 +24,7 @@
  *--------------------------------------------------------------------
  */
 /* Michael's code for computing the voronoi */
-/*extern "C"*/ void getVoronoi( SCELL *headCell, SCELL *tailCell,
+extern "C" void getVoronoi( SCELL *headCell, SCELL *tailCell,
                                 voronoiType **vorList, faceType **faceList,
                                 int *howManyVert );
 
