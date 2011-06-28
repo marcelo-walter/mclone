@@ -179,6 +179,7 @@ void initMenus( void )
     glutAddMenuEntry("Grow", 10);
     glutAddMenuEntry("Animate", 11);
     glutAddMenuEntry("Exit", 12);
+    glutAddMenuEntry("Optimize Voronoi", 13);
 	
     /* specify which mouse button activates the menu */
     glutAttachMenu( GLUT_RIGHT_BUTTON );
@@ -417,6 +418,9 @@ void mainMenu(int item)
 			break;
 		case 12:
 			exit(0);
+		case 13:
+			optimizeVoronoiPoligons();
+			break;
 		default:
 			break;
 	}

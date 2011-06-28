@@ -41,6 +41,8 @@ void optimizer( FILE *fp );
 void saveVertices( FILE *fpObj );
 void saveFaces( FILE *fpObj );
 
+void optimizeVoronoiPoligons( void );
+
 
 #endif //_PATTERN_OBJECT_H_
 
