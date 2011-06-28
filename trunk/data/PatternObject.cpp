@@ -47,9 +47,10 @@ TVertex  *vertexNew = NULL;
  */
 void savePatternFile( const char *filename )
 {
-    FILE *fpObj;
+    FILE *fpObj, *fpObjOpt;
     int i, j, k, len, whichFace, nVorVerts;
 	char outObjFileName[128] = "";
+	char outObjOptFileName[128] = "";
 	char mtl_file[256];     /* mtl file name */
     Point3D q;
 	
@@ -69,6 +70,7 @@ void savePatternFile( const char *filename )
     strncpy( outObjFileName, filename, len - 3);
     outObjFileName[len - 3]='\0';
     strcat( outObjFileName, "Pat.obj" );
+
 	
 	/* Save mtl file */
 	strncpy( mtl_file, filename, len - 3);
@@ -84,28 +86,58 @@ void savePatternFile( const char *filename )
         errorMsg("Could not open inventor file to write!");
 	
     fprintf( fpObj, "\n \n               \t\t\t\t\t\t\t\t \n"); /* linhas em branco para o rewind */
-    fprintf( fpObj, "# Object saved from the 'onca' program \n");
+    fprintf( fpObj, "# Object saved from the 'MClone' program \n");
     fprintf( fpObj, "# Thompson Peter Lied and Marcelo Walter \n" );
     fprintf( fpObj, "#\t{tlied|marcelow}@exatas.unisinos.br \n\n");
 	
 	fprintf( fpObj, "mtllib %s \n\n", mtl_file );
 	
 	
-	//	if( opt_flag == FALSE )
-	//	{
+	//OPTIMIZER BEGIN
+
+	strncpy( outObjOptFileName, filename, len - 3);
+	outObjOptFileName[len - 3]='\0';
+	strcat( outObjOptFileName, "PatOpt.obj" );
+
+	fprintf( stderr, "\n Saving the pattern OPTIMIZED file into file %s... ", outObjOptFileName );
+
+    /* open the file to write */
+    if( (fpObjOpt = fopen(outObjOptFileName,"w")) == NULL)
+        errorMsg("Could not open inventor file to write! - Opt");
+
+    fprintf( fpObjOpt, "\n \n               \t\t\t\t\t\t\t\t \n"); /* linhas em branco para o rewind */
+    fprintf( fpObjOpt, "# Object saved from the 'MClone' program \n");
+    fprintf( fpObjOpt, "# Thompson Peter Lied and Marcelo Walter \n" );
+    fprintf( fpObjOpt, "#\t{tlied|marcelow}@exatas.unisinos.br \n\n");
+
+	fprintf( fpObjOpt, "mtllib %s \n\n", mtl_file );
+
+	if( opt_flag == FALSE )
+	{
 	/* Optimize vertices */
-	/*		optimizer( fpObj );
+			optimizer( fpObjOpt );
 	 opt_flag = TRUE;
 	 }
-	 */
+
+	 printf("\n optimizer() END \n");
+
 	/* Save vertices info */
-	//	saveVertices( fpObj );
+		saveVertices( fpObjOpt );
 	
-	
+	printf("\n saveVertices END \n");
+
 	/* Save faces info */
-	//	saveFaces( fpObj );
+		saveFaces( fpObjOpt );
 	
-	
+	printf("\n saveFaces END \n");
+
+	fclose( fpObjOpt );
+
+	printf("OPTIMIZER END \n");
+	//OPTIMIZER END
+
+
+
 	
 	/******************************/
 	vert_index = 1;
@@ -146,7 +178,7 @@ void savePatternFile( const char *filename )
 	    {
 			//* definiÁ„o das cores
 			c = faces[whichFace].vorFacesList[i].site;
-	        if( current_type != c->ctype )
+	        if( c != NULL and current_type != c->ctype ) //TODO add c!= NULL, provisorio
 	        {
                 switch( c->ctype )
 		        {
@@ -409,6 +441,8 @@ int CmpVertex(const void *elem0, const void *elem1)
  */
 void optimizer( FILE *fp )
 {
+
+
 	int i, j, k, l;
 	int nVorVerts, whichFace;
 	int cont, length;
@@ -511,7 +545,7 @@ void optimizer( FILE *fp )
         }
     }
 	total_vertices = j;
-	
+
 }
 
 
@@ -546,6 +580,7 @@ void saveFaces( FILE *fpObj )
 	CELL *p;
 	CELL_TYPE current_type = C;
 	
+	printf("\n SV INIT \n");
 	
 	fprintf( fpObj, "# Faces info\n");
 	
@@ -554,15 +589,23 @@ void saveFaces( FILE *fpObj )
 	/* Save faces info */
 	for( whichFace = 0; whichFace < NumberFaces; whichFace++)
     {
+		printf("\n SV FOR 1 - Face = %d \n", whichFace);
+
+		if(whichFace == 42){
+			whichFace = whichFace;
+		}
+
         for ( i = 0; i < faces[whichFace].nVorPol; i++)
 	    {
+        	printf("\n SV FOR 2 - VOR = %d \n", i);
             nVorVerts = faces[whichFace].vorFacesList[i].faceSize;
 			
 			/* Color definitions */
 			p = faces[whichFace].vorFacesList[i].site;
 			
 			//if( mtl_flag )
-			if( current_type != p->ctype )
+			//if( current_type != p->ctype )
+			if( p!=NULL and current_type != p->ctype ) //edited by BINS, provisorio TODO
 			{
 				switch( p->ctype )
 				{
@@ -611,7 +654,55 @@ void saveFaces( FILE *fpObj )
 		}
 		
     }
+	printf("\n SV END FORs\n");
+
 	fprintf( fpObj, "# %d faces \n", nFaces );
 	
-	
+	printf("\n SV END \n");
+}
+
+void optimizeVoronoiPoligons( void )
+{
+	int whichFace;
+	int i, j, k;
+	CELL* cellType;
+	Point2D q;
+	bool equalType = true;
+
+	fprintf( stderr, "\n Init optimizer voronoi poligons \n");
+
+	for( whichFace = 0; whichFace < NumberFaces; whichFace++){
+		equalType = true;
+		cellType = NULL;
+
+		for ( i = 0; i < faces[whichFace].nVorPol; i++){
+
+			if(cellType == NULL){
+				cellType = faces[whichFace].vorFacesList[i].site;
+			} else
+
+				if(faces[whichFace].vorFacesList[i].site != NULL and
+						cellType->ctype != faces[whichFace].vorFacesList[i].site->ctype){
+					equalType = false;
+					break;
+				}
+		}
+
+		if(equalType){
+			faces[whichFace].nVorPol = 1;
+
+			faces[whichFace].vorFacesList[0].faceSize = (int)faces[whichFace].nverts;
+
+			for (j = 0; j < faces[whichFace].nverts; j++){
+				//k = faces[whichFace].vorFacesList[0].vorPts[j];
+				mapOntoPolySpace(whichFace, vert[faces[whichFace].v[j]].pos.x,
+					vert[faces[whichFace].v[j]].pos.y, vert[faces[whichFace].v[j]].pos.z, &q);
+				faces[whichFace].vorFacesList[0].vorPts[j] = j;
+				faces[whichFace].vorPoints[j].x = q.x;
+				faces[whichFace].vorPoints[j].y = q.y;
+			}
+
+		}
+	}
+	fprintf( stderr, "\n End optimizer voronoi poligons \n");
 }
