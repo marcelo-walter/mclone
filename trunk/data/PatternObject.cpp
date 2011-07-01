@@ -591,9 +591,7 @@ void saveFaces( FILE *fpObj )
     {
 		printf("\n SV FOR 1 - Face = %d \n", whichFace);
 
-		if(whichFace == 42){
-			whichFace = whichFace;
-		}
+
 
         for ( i = 0; i < faces[whichFace].nVorPol; i++)
 	    {
@@ -706,3 +704,240 @@ void optimizeVoronoiPoligons( void )
 	}
 	fprintf( stderr, "\n End optimizer voronoi poligons \n");
 }
+
+void optimizeVoronoiPoligons2( void )
+{
+	int whichFace;
+	int i, j, k, m, n, o, first_m, first_n, second_m, second_n;
+	CELL* cellType;
+	Point2D q;
+	bool equalVert = true;
+
+	fprintf( stderr, "\n Init optimizer voronoi poligons \n");
+
+	for( whichFace = 0; whichFace < 10; whichFace++){
+		i = j = 0;
+		//printf(" %d ", whichFace);
+		if(whichFace%100 == 0){
+			fprintf( stderr," %d ", whichFace);
+		}
+		while ( i < faces[whichFace].nVorPol){
+			j = i+1;
+
+			while ( j < faces[whichFace].nVorPol){
+
+				if(faces[whichFace].vorFacesList[i].site == NULL or
+					faces[whichFace].vorFacesList[j].site == NULL or
+					faces[whichFace].vorFacesList[i].site->ctype == faces[whichFace].vorFacesList[j].site->ctype)
+				{
+					k=0;
+
+					for (m = 0; m < faces[whichFace].vorFacesList[i].faceSize; m++){
+						for (n = 0; n < faces[whichFace].vorFacesList[j].faceSize; n++){
+
+							if((faces[whichFace].vorPoints[faces[whichFace].vorFacesList[i].vorPts[m]].x == faces[whichFace].vorPoints[faces[whichFace].vorFacesList[j].vorPts[n]].x) &&
+									(faces[whichFace].vorPoints[faces[whichFace].vorFacesList[i].vorPts[m]].y == faces[whichFace].vorPoints[faces[whichFace].vorFacesList[j].vorPts[n]].y)){
+							//if(faces[whichFace].vorFacesList[i].vorPts[m] == faces[whichFace].vorFacesList[j].vorPts[n]){
+								//fprintf( stderr," Y ", whichFace);
+								if(k<=0){
+									first_m = m;
+									first_n = n;
+									k++;
+								}else{
+									second_m = m;
+									second_n = n;
+									k++;
+									break;
+								}
+							}
+
+						}
+						if(k >= 2){
+							break;
+						}
+					}
+					if(k >= 2){
+
+						fprintf( stderr," X%d ", whichFace);
+
+						for (m = 0; m <= first_m; m++){
+							faces[whichFace].vorFacesList[i].vorPtsChanged[m] = faces[whichFace].vorFacesList[i].vorPts[m];
+						}
+						m = first_m+1;
+						for (n = first_n-1; n >= 0; n--){
+							faces[whichFace].vorFacesList[i].vorPtsChanged[m] = faces[whichFace].vorFacesList[j].vorPts[n];
+							m++;
+						}
+						for (n = faces[whichFace].vorFacesList[j].faceSize-1; n > second_n; n--){
+							faces[whichFace].vorFacesList[i].vorPtsChanged[m] = faces[whichFace].vorFacesList[j].vorPts[n];
+							m++;
+						}
+						for (n = second_m; n < faces[whichFace].vorFacesList[i].faceSize; n++){
+							faces[whichFace].vorFacesList[i].vorPtsChanged[m] = faces[whichFace].vorFacesList[i].vorPts[n];
+							m++;
+						}
+						faces[whichFace].vorFacesList[i].faceSize = m;
+
+						//equalVert = false;
+						m = o = 0;
+						while (o <= faces[whichFace].vorFacesList[i].faceSize){
+							for (n = o+1; n <= faces[whichFace].vorFacesList[i].faceSize; n++){
+								if(faces[whichFace].vorFacesList[i].vorPtsChanged[o] == faces[whichFace].vorFacesList[i].vorPtsChanged[n]){
+									//equalVert = true;
+									o = n;
+									break;
+								}
+							}
+							//if(!equalVert){
+								faces[whichFace].vorFacesList[i].vorPts[m] = faces[whichFace].vorFacesList[i].vorPtsChanged[o];
+								//o++;
+							//}else{
+							//	equalVert = false;
+							//}
+							o++;
+							m++;
+						}
+						faces[whichFace].vorFacesList[i].faceSize = m;
+						faces[whichFace].vorFacesList[j].faceSize = 0;
+					}//else{
+					//	old_m = m;
+					//	old_n = n;
+					//}
+					break;
+				}else{
+					j++;
+				}
+			}
+			i++;
+		}
+
+//		if(equalType){
+//			faces[whichFace].nVorPol = 1;
+//
+//			faces[whichFace].vorFacesList[0].faceSize = (int)faces[whichFace].nverts;
+//
+//			for (j = 0; j < faces[whichFace].nverts; j++){
+//				//k = faces[whichFace].vorFacesList[0].vorPts[j];
+//				mapOntoPolySpace(whichFace, vert[faces[whichFace].v[j]].pos.x,
+//					vert[faces[whichFace].v[j]].pos.y, vert[faces[whichFace].v[j]].pos.z, &q);
+//				faces[whichFace].vorFacesList[0].vorPts[j] = j;
+//				faces[whichFace].vorPoints[j].x = q.x;
+//				faces[whichFace].vorPoints[j].y = q.y;
+//			}
+//		}
+	}
+	fprintf( stderr, "\n End optimizer voronoi poligons \n");
+}
+
+/*
+ *  Optimize vertices
+ */
+void unifyVertex( )
+{
+
+
+	int i, j, k, l;
+	int nVorVerts, whichFace;
+	int cont, length;
+	double d[XY];
+	long int countNew;
+    int newIndex;
+	Point3D q;
+
+
+	vsize = 0;
+	for( whichFace = 0; whichFace < NumberFaces; whichFace++ )
+    {
+        for ( i = 0; i < faces[whichFace].nVorPol; i++)
+	    {
+            nVorVerts = faces[whichFace].vorFacesList[i].faceSize;
+            for (j = 0; j < nVorVerts; j++)
+		    {
+				faces[whichFace].vorFacesList[i].vorPtsChanged[j] = faces[whichFace].vorFacesList[i].vorPts[j];
+                faces[whichFace].vorFacesList[i].vorPtsChanged[j] = vsize;
+				vsize++;
+            }
+        }
+    }
+
+
+    vertex = (TVertex*)malloc(sizeof(TVertex)*vsize);
+
+
+	l = 0;
+    for( whichFace = 0; whichFace < NumberFaces; whichFace++)
+    {
+        for ( i = 0; i < faces[whichFace].nVorPol; i++)
+	    {
+            nVorVerts = faces[whichFace].vorFacesList[i].faceSize;
+            for (j = 0; j < nVorVerts; j++)
+		    {
+	            k = faces[whichFace].vorFacesList[i].vorPts[j];
+
+	    	    //mapFromPolySpace(whichFace, faces[whichFace].vorPoints[k].x,
+				//				 faces[whichFace].vorPoints[k].y, &q);
+				vertex[l].x = faces[whichFace].vorPoints[k].x;
+				vertex[l].y = faces[whichFace].vorPoints[k].y;
+				vertex[l].z = 0;
+
+				l++;
+            }
+        }
+    }
+
+
+	// Make ordenation array
+    sort = (long int*)malloc( sizeof(long int)*vsize );
+    for ( i = 0; i < vsize; i++)
+    {
+        sort[i] = i;
+		//printf("Sort[i] = %d  i = %d \n", sort[i], i);
+    }
+
+    //fprintf( stderr, "\nSorting sort array... " );
+    qsort( sort, vsize, sizeof(long int), CmpVertex );
+    //fprintf( stderr, "Ok \n" );
+
+
+    /* Optimizing sort array and creating exchange table */
+    exchange = (long int*)malloc(sizeof(long int)*vsize);
+    countNew = vsize;
+    exchange[sort[0]] = 0;
+    //fprintf(stderr, "Optimizing sort array and creating exchange table... ");
+    for ( i = 1; i < vsize; i++)
+    {
+        if( (vertex[sort[i-1]].x == vertex[sort[i]].x) &&
+		   (vertex[sort[i-1]].y == vertex[sort[i]].y) &&
+		   (vertex[sort[i-1]].z == vertex[sort[i]].z) )
+        {
+            exchange[sort[i]] = exchange[sort[i-1]];
+	        sort[i] = sort[i-1];
+            countNew--;
+        }
+        else
+        {
+            exchange[sort[i]] = exchange[sort[i-1]]+1;
+        }
+		//fprintf(stderr, "%d  %ld  %d  %d\n", i, exchange[i], sort[i], exchange[sort[i]]);
+    }
+	//fprintf( stderr, "Ok \n" );
+
+
+    /* Generates new array of vertices */
+    vertexNew = (TVertex*)malloc(sizeof(TVertex)*countNew);
+
+
+    vertexNew[0] = vertex[sort[0]];
+	j = 1;
+    for( i = 1; i < vsize; i++)
+    {
+        if (sort[i-1] != sort[i])
+        {
+            vertexNew[j] = vertex[sort[i]];
+			j++;
+        }
+    }
+	total_vertices = j;
+
+}
+
