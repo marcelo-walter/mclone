@@ -29,13 +29,8 @@ int mtl_flag = TRUE;
 int opt_flag = FALSE;
 
 char mtl_file[256];     /* mtl file name */
-long int vsize, total_vertices;
 
-long int *exchange = NULL;
-long int *sort = NULL;
-TVertex *vertex = NULL;
-TVertex  *vertexNew = NULL;
-
+TVertex *vertex = NULL; //Local Aux
 
 /*
  *------------------------------------------------------------
@@ -112,28 +107,18 @@ void savePatternFile( const char *filename )
 
 	fprintf( fpObjOpt, "mtllib %s \n\n", mtl_file );
 
-	if( opt_flag == FALSE )
-	{
+	//if( opt_flag == FALSE )
+	//{
 	/* Optimize vertices */
-			optimizer( fpObjOpt );
-	 opt_flag = TRUE;
-	 }
+			saveOptimizerPatternFile( fpObjOpt );
+	 //opt_flag = TRUE;
+	 //}
 
 	 printf("\n optimizer() END \n");
 
-	/* Save vertices info */
-		saveVertices( fpObjOpt );
-	
-	printf("\n saveVertices END \n");
-
-	/* Save faces info */
-		saveFaces( fpObjOpt );
-	
-	printf("\n saveFaces END \n");
+	//Moved to end of saveOptimezer...
 
 	fclose( fpObjOpt );
-
-	printf("OPTIMIZER END \n");
 	//OPTIMIZER END
 
 
@@ -288,9 +273,6 @@ void savePatternFile( const char *filename )
  */
 void saveMtl( const char *mtl_file )
 {
-    int number_of_vert, i, j, k, l;
-    int cont, length;
-	double d[XY];
 	FILE *fpMtl;
 	
 	
@@ -393,7 +375,7 @@ void saveMtl( const char *mtl_file )
 /*
  * Compare vertex -> qsort
  */
-int CmpVertex(const void *elem0, const void *elem1)
+int CmpVertex3D(const void *elem0, const void *elem1)
 {
     int *val0=(int *)elem0;
     int *val1=(int *)elem1;
@@ -434,24 +416,23 @@ int CmpVertex(const void *elem0, const void *elem1)
     }
 }
 
-
-
 /*
  *  Optimize vertices
  */
-void optimizer( FILE *fp )
+void saveOptimizerPatternFile( FILE *fp )
 {
-
 
 	int i, j, k, l;
 	int nVorVerts, whichFace;
-	int cont, length;
-	double d[XY];
 	long int countNew;
-    int newIndex;
-	Point3D q;
+    Point3D q;
 	
-	
+	long int *sort = NULL;
+	long int *exchange = NULL;
+	TVertex  *vertexNew = NULL;
+
+	long int vsize, total_vertices;
+
 	vsize = 0;
 	for( whichFace = 0; whichFace < NumberFaces; whichFace++ )
     {
@@ -460,7 +441,7 @@ void optimizer( FILE *fp )
             nVorVerts = faces[whichFace].vorFacesList[i].faceSize;
             for (j = 0; j < nVorVerts; j++)
 		    {
-				faces[whichFace].vorFacesList[i].vorPtsChanged[j] = faces[whichFace].vorFacesList[i].vorPts[j];
+				//faces[whichFace].vorFacesList[i].vorPtsChanged[j] = faces[whichFace].vorFacesList[i].vorPts[j];
                 faces[whichFace].vorFacesList[i].vorPtsChanged[j] = vsize;
 				vsize++;
             }
@@ -502,7 +483,7 @@ void optimizer( FILE *fp )
     }
 	
     //fprintf( stderr, "\nSorting sort array... " );
-    qsort( sort, vsize, sizeof(long int), CmpVertex );
+    qsort( sort, vsize, sizeof(long int), CmpVertex3D );
     //fprintf( stderr, "Ok \n" );
 	
 	
@@ -546,13 +527,19 @@ void optimizer( FILE *fp )
     }
 	total_vertices = j;
 
+	/* Save vertices info */
+	saveOptVertices( fp, total_vertices, vertexNew );
+
+	/* Save faces info */
+	saveOptFaces( fp, exchange );
+
 }
 
 
 /*
  *  Save Vertices
  */
-void saveVertices( FILE *fpObj )
+void saveOptVertices( FILE *fpObj, long int total_vertices, TVertex *vertexNew )
 {
     int j;
 	
@@ -571,7 +558,7 @@ void saveVertices( FILE *fpObj )
 /*
  *  Save Faces
  */
-void saveFaces( FILE *fpObj )
+void saveOptFaces( FILE *fpObj, long int *exchange )
 {
     int i, j, k;
 	int whichFace, nVorVerts;
@@ -580,8 +567,6 @@ void saveFaces( FILE *fpObj )
 	CELL *p;
 	CELL_TYPE current_type = C;
 	
-	printf("\n SV INIT \n");
-	
 	fprintf( fpObj, "# Faces info\n");
 	
 	nFaces = 0;
@@ -589,13 +574,9 @@ void saveFaces( FILE *fpObj )
 	/* Save faces info */
 	for( whichFace = 0; whichFace < NumberFaces; whichFace++)
     {
-		printf("\n SV FOR 1 - Face = %d \n", whichFace);
-
-
 
         for ( i = 0; i < faces[whichFace].nVorPol; i++)
 	    {
-        	printf("\n SV FOR 2 - VOR = %d \n", i);
             nVorVerts = faces[whichFace].vorFacesList[i].faceSize;
 			
 			/* Color definitions */
@@ -652,11 +633,8 @@ void saveFaces( FILE *fpObj )
 		}
 		
     }
-	printf("\n SV END FORs\n");
 
 	fprintf( fpObj, "# %d faces \n", nFaces );
-	
-	printf("\n SV END \n");
 }
 
 void optimizeVoronoiPoligons( void )
@@ -831,7 +809,7 @@ void optimizeVoronoiPoligons2( void )
 
 /*
  *  Optimize vertices
- */
+ * /
 void unifyVertex( )
 {
 
@@ -899,7 +877,7 @@ void unifyVertex( )
     //fprintf( stderr, "Ok \n" );
 
 
-    /* Optimizing sort array and creating exchange table */
+    // Optimizing sort array and creating exchange table
     exchange = (long int*)malloc(sizeof(long int)*vsize);
     countNew = vsize;
     exchange[sort[0]] = 0;
@@ -923,7 +901,7 @@ void unifyVertex( )
 	//fprintf( stderr, "Ok \n" );
 
 
-    /* Generates new array of vertices */
+    // Generates new array of vertices
     vertexNew = (TVertex*)malloc(sizeof(TVertex)*countNew);
 
 
@@ -940,4 +918,5 @@ void unifyVertex( )
 	total_vertices = j;
 
 }
+*/
 

@@ -388,6 +388,7 @@ void mainMenu(int item)
 			break;
 		case 5:
 			computeVoronoi();
+			optimizeVoronoiVertex();
 			break;
 		case 6:    /* added by Thompson 21/05/2002 */
 			cellPicking = !cellPicking;
@@ -419,7 +420,7 @@ void mainMenu(int item)
 		case 12:
 			exit(0);
 		case 13:
-			optimizeVoronoiPoligons();
+			optimizeVoronoiPoligons2();
 			break;
 		default:
 			break;

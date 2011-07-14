@@ -8,6 +8,7 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 
 #ifdef GRAPHICS
 #include "GL/glut.h"
@@ -27,6 +28,7 @@
 #include "../data/Matrix4.h"
 #include "../data/cells.h"
 #include "../data/Parameters.h"
+#include "../data/fileManager.h"
 #include "relax.h"
 #include "morph.h"
 
@@ -744,6 +746,8 @@ void pureSimulation( RELAXMODE rMode )
 	float time, deltaTime;
 	int countIterations = 0;
 	
+	float old_save_time = 0;
+
 	/*Add by Fabiane Queiroz in 28/11/2009*/
 	Array listFaces;
 	int  max = 1;
@@ -870,7 +874,26 @@ void pureSimulation( RELAXMODE rMode )
 			}
 		}
 		
-		
+		/*
+		if( ((int)time % (int)5) == 0 and time != old_save_time){
+			old_save_time = time;
+			// save CM file
+			printf("Saving cells file... %f", time);
+			//fprintf( stderr, "###ExpFileName = %s\n", outputCMfileName);
+			char newCmFileName[128];
+			int len = strlen( outputCMfileName );
+			strncpy( newCmFileName, outputCMfileName, len - 3 );
+			newCmFileName[len-3]='\0';
+			strcat( newCmFileName,"_T" );
+			char cTime[32];
+			sprintf(cTime,"%d",(int)time);
+			strcat( newCmFileName, cTime );
+			strcat( newCmFileName,".cm" );
+			saveCellsFile( newCmFileName);
+			printf("Done!\n");
+		}
+		*/
+
 		free( a );
 		
 	}
