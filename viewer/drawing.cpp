@@ -1907,10 +1907,17 @@ void drawVectorsField(void)
 	glPointSize(5.0);
 	glLineWidth(2.5);
 	
-	//glColor3f( 0.9, 0.9, 0.9 );
-	
+	//Bins
+	int plusX, plusY, plusZ, size; //Control de size of the vector field. Added by Bins TODO
+	size = 15;
+
 	for (i=0; i < NumberFaces; i++)
 	{
+		//Bins
+		plusX = (faces[i].EndOfVector3D.x - faces[i].center3D.x)*size;
+		plusY = (faces[i].EndOfVector3D.y - faces[i].center3D.y)*size;
+		plusZ = (faces[i].EndOfVector3D.z - faces[i].center3D.z)*size;
+
 		glColor3f( 1.0, 0.0, 0.0 );
 		glBegin( GL_POINTS );
 		glVertex3f( faces[i].center3D.x, faces[i].center3D.y, faces[i].center3D.z);
@@ -1918,7 +1925,7 @@ void drawVectorsField(void)
 		
 		glBegin( GL_LINES );
 		glVertex3f( faces[i].center3D.x, faces[i].center3D.y, faces[i].center3D.z);
-		glVertex3f( faces[i].EndOfVector3D.x, faces[i].EndOfVector3D.y, faces[i].EndOfVector3D.z );
+		glVertex3f( faces[i].EndOfVector3D.x+plusX, faces[i].EndOfVector3D.y+plusY, faces[i].EndOfVector3D.z+plusZ );
 		glEnd();
 		
 		

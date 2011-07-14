@@ -23,23 +23,17 @@ extern int mtl_flag;
 extern int opt_flag;
 
 extern char mtl_file[256];     /* mtl file name */
-extern long int vsize, total_vertices;
-
-extern long int *exchange;
-extern long int *sort;
-extern TVertex *vertex;
-extern TVertex  *vertexNew;
 
 
 
 /*-----PROTOTYPES----*/
+void saveOptimizerPatternFile( FILE *fp );
 void savePatternFile( const char *filename );
 void saveMtl( const char *mtl_file );
 
 int CmpVertex(const void *elem0, const void *elem1);
-void optimizer( FILE *fp );
-void saveVertices( FILE *fpObj );
-void saveFaces( FILE *fpObj );
+void saveOptVertices( FILE *fpObj, long int total_vertices, TVertex *vertexNew );
+void saveOptFaces( FILE *fpObj, long int *exchange );
 
 void optimizeVoronoiPoligons( void );
 void optimizeVoronoiPoligons2( void );

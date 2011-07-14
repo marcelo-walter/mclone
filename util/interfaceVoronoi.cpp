@@ -39,6 +39,8 @@ flag voronoiColorFlag = FALSE;
 
 int NumberVoronoiVert = 0; //From Globals.h
 
+voronoiType *vertexAux2D; //Local Aux
+
 /*
  *--------------------------------------------------------------------
  *	This function computes the voronoi diagram for the
@@ -1410,4 +1412,143 @@ makeTmpListOfCells( int whichFace, SCELL *h, SCELL *t )
 #endif
 	
 	return( nCellSameFace + nCellPrimFaces + nCellSecFaces );
+}
+
+/*
+ * Compare vertex for optimizeVoronoiVertex -> qsort
+ */
+int CmpVertex2D(const void *elem0, const void *elem1)
+{
+    int *val0=(int *)elem0;
+    int *val1=(int *)elem1;
+
+    if (vertexAux2D[*val0].x>vertexAux2D[*val1].x)
+    {
+        return -1;
+    }
+    else if (vertexAux2D[*val0].x<vertexAux2D[*val1].x)
+    {
+        return 1;
+    }
+    else
+    {
+        if (vertexAux2D[*val0].y>vertexAux2D[*val1].y)
+        {
+            return -1;
+        }
+        else if (vertexAux2D[*val0].y<vertexAux2D[*val1].y)
+        {
+            return 1;
+        }
+		else
+		{
+			return 0;
+		}
+    }
+}
+
+/* Created by Bins - 11/07/11
+ *
+ *  Optimize Voronoi Vertex
+ */
+void optimizeVoronoiVertex( void )
+{
+	int i, j, k, l;
+	int nVorVerts, whichFace;
+	long int countNew;
+
+	long int *sort = NULL;
+	long int *exchange = NULL;
+
+	long int vsize;
+
+	for( whichFace = 0; whichFace < NumberFaces; whichFace++ )
+    {
+		vsize = 0;
+        for ( i = 0; i < faces[whichFace].nVorPol; i++)
+	    {
+            nVorVerts = faces[whichFace].vorFacesList[i].faceSize;
+            for (j = 0; j < nVorVerts; j++)
+		    {
+                faces[whichFace].vorFacesList[i].vorPtsChanged[j] = vsize;
+				vsize++;
+            }
+        }
+
+		vertexAux2D = (voronoiType*)malloc(sizeof(voronoiType)*vsize);
+
+		l = 0;
+
+		for ( i = 0; i < faces[whichFace].nVorPol; i++)
+		{
+			nVorVerts = faces[whichFace].vorFacesList[i].faceSize;
+			for (j = 0; j < nVorVerts; j++)
+			{
+				k = faces[whichFace].vorFacesList[i].vorPts[j];
+
+				vertexAux2D[l] = faces[whichFace].vorPoints[k];
+
+				l++;
+			}
+		}
+
+		// Make ordenation array
+		sort = (long int*)malloc( sizeof(long int)*vsize );
+		for ( i = 0; i < vsize; i++)
+		{
+			sort[i] = i;
+		}
+
+		//fprintf( stderr, "\nSorting sort array... " );
+		qsort( sort, vsize, sizeof(long int), CmpVertex2D );
+
+		/* Optimizing sort array and creating exchange table */
+		exchange = (long int*)malloc(sizeof(long int)*vsize);
+		countNew = vsize;
+		exchange[sort[0]] = 0;
+		for ( i = 1; i < vsize; i++)
+		{
+			if( (vertexAux2D[sort[i-1]].x == vertexAux2D[sort[i]].x) &&
+			   (vertexAux2D[sort[i-1]].y == vertexAux2D[sort[i]].y) )
+			{
+				exchange[sort[i]] = exchange[sort[i-1]];
+				sort[i] = sort[i-1];
+				countNew--;
+			}
+			else
+			{
+				exchange[sort[i]] = exchange[sort[i-1]]+1;
+			}
+		}
+
+		/* Generates new array of vertices */
+		faces[whichFace].vorPoints = (voronoiType*)malloc(sizeof(voronoiType)*countNew);
+
+
+		faces[whichFace].vorPoints[0] = vertexAux2D[sort[0]];
+		j = 1;
+		for( i = 1; i < vsize; i++)
+		{
+			if (sort[i-1] != sort[i])
+			{
+				faces[whichFace].vorPoints[j] = vertexAux2D[sort[i]];
+				j++;
+			}
+		}
+
+		//printf("Old: %d, New: %d \n", vsize, j);
+
+		for ( i = 0; i < faces[whichFace].nVorPol; i++)
+		{
+
+			for( j = 0; j < faces[whichFace].vorFacesList[i].faceSize; j++)
+			{
+				k = faces[whichFace].vorFacesList[i].vorPtsChanged[j];
+				faces[whichFace].vorFacesList[i].vorPts[j] = exchange[k];
+
+			}
+		}
+
+    }
+
 }

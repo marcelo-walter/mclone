@@ -24,6 +24,7 @@ extern int NumberVoronoiVert; //From Globals.h
  *--------------------------------------------------------------------
  */
 void computeVoronoi( void );
+void optimizeVoronoiVertex( void ); //Created by Bins
 CELL *findSite( CELL *c );
 byte checkInsideOutside( int whichFace, double x, double y );
 int  clipVoronoiPolygons( int whichFace, int prevNumberVertices );
