@@ -4,8 +4,11 @@ This is the software implementation of the following thesis, from Marcelo Walter
 
 M. Walter. Integration of Complex Shapes and Natural Patterns. Ph.D. thesis, University of British Columbia, December 1998.
 
-During its lifetime, it has been modified by Ricardo Binsfeld, Fabiane Quadros, Thompson Peter, and other collaborators. Feel free to report bugs and send bug fixes. They are going to be treated with pretty much affection :-)
+During its lifetime, it has been modified by Ricardo Binsfeld, Fabiane Queiroz, Thompson Peter, and other collaborators. Feel free to report bugs and send bug fixes. They are going to be treated with pretty much affection :-)
 
+For quick information about how the algorithm works, take a look at the MClone article on wikipedia (it is very simple, for now), at
+
+http://en.wikipedia.org/wiki/MClone
 
 
 =========== COMPILING ===========

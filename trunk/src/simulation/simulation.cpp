@@ -56,7 +56,6 @@ FILE *fpRates; //LOCAL
 
 void patFormAndGrowthSimulation( RELAXMODE rMode )
 {
-	
     EVENT *a;
     float time, deltaTime;
     int countIterations = 0;
@@ -134,11 +133,9 @@ void patFormAndGrowthSimulation( RELAXMODE rMode )
 					}
 				}
 				
-				
-				
 				/*
 				 * Before we can change the embryo, we have to
-				 * recompute the cell's barucentric coordinates
+				 * recompute the cell's baricentric coordinates
 				 * in order to be able to remap them to the new
 				 * model
 				 */
@@ -280,7 +277,6 @@ void updtBaryCentricCoord( void )
 /* Modified by Fabiane Queiroz in 25/11/2009 */
 void initPatFormAndGrowth( ) //Remove parameter  RELAXMODE rMode by Bins
 {
-    
     /*Add by Fabiane Queiroz in 28/11/2009*/
     Array listFaces;
     //listFaces.array = malloc(sizeof(int)*max);
