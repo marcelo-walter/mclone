@@ -168,7 +168,7 @@ void patFormAndGrowthSimulation( RELAXMODE rMode )
 						Prim[j].scale[Z] = (Prim[j].scale[Z]+Prim[j].r);
 						
 						Prim[j].trans[X] = Prim[j].trans[X] + Prim[j].center.x;
-						Prim[j].trans[Y] =  Prim[j].trans[Y] + Prim[j].center.y;
+						Prim[j].trans[Y] = Prim[j].trans[Y] + Prim[j].center.y;
 						Prim[j].trans[Z] = Prim[j].trans[Z] + Prim[j].center.z;
 						
 					}
