@@ -149,8 +149,7 @@ void comp_aniso_effect( void )
 /*
  *-----------------------------------------------------------------------
  * This function goes over all cells in the surface and computes a
- * new position for them according to a 
- procedure
+ * new position for them according to a procedure
  *-----------------------------------------------------------------------
  */
 

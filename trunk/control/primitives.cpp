@@ -341,7 +341,7 @@ void assignPrim2Cell( CELL *c )
 	 * start in 1 instead
 	 */
 	// printf("Número de primitivas: %d\n", NumberPrimitives);
-	for (i=2 /*1*/; i < NumberPrimitives; i++){
+	for (i = 2 /*1*/; i < NumberPrimitives; i++){
 		if ( Prim[i].type == CYLINDER ){
 			// printf("primitiva: %f\n",Prim[i].scale[0]);
 			p.x = c->x;
@@ -350,24 +350,23 @@ void assignPrim2Cell( CELL *c )
 			// printf("célula: %f, %f, %f\n",p.x,p.y,p.z);
 			
 			if( belongPrimitive(i, p, &v) ){
-				/* check if celldoesn't have yet a primitive assigned */
+				/* check if cell doesn't have yet a primitive assigned */
 				if ( c->prim1 == FALSE ){
-					
 					c->prim1 = i;
 				}
 				else if ( c->prim1 != i && c->prim2 == FALSE){
-					
 					c->prim2 = i;
 				}
-				//else{
-				//fprintf( stderr, "Tried to assign more than 2 primitives to a cell! (%d %d %d)\n",
-				//   i, c->prim1, c->prim2);
-				//}
+				else{
+					fprintf( stderr, "Tried to assign more than 2 primitives to a cell! (%d %d %d)\n",
+							i, c->prim1, c->prim2);
+				}
 				/*fprintf( stderr, "%f %f %f %d %d\n",
 				 c->x, c->y, c->z, c->prim1, c->prim2 );*/
-			}else{
-				// printf("célula: %f, %f, %f não pertence a primitiva %d , %f\n",p.x,p.y,p.z,i,Prim[i].scale[0]);
 			}
+			/*else{
+				printf("célula: %f, %f, %f não pertence a primitiva %d , %f\n",p.x,p.y,p.z,i,Prim[i].scale[0]);
+			}*/
 			
 			
 		}		
@@ -379,7 +378,6 @@ void assignPrim2Cell( CELL *c )
 	if ( c->prim1 == FALSE && c->prim2 == FALSE ){
 		printf("célula: %f %f %f\n", c->x, c->y, c->z);
 		errorMsg("Could not assign any primitive to a cell! (primitives.c)");
-		
 	}
 		
 	
@@ -412,9 +410,13 @@ void assignPrim2AllCells(Array* listFaces )
 		if(listFaces->array == NULL)
 		{
 			// printf("\nlistFaces->array == NULL \n");
-			for(i=0; i < NumberFaces; i++)
+			for(i = 0; i < NumberFaces; i++)
 			{
 				//  printf("face: %d possui %d celulas \n", i, faces[i].ncells);
+				/* John:
+				 * Why do you take the "next" without taking the first one? You start your processment
+				 * at the second "Cell" element of the face O.o
+				 */
 		  		c = faces[i].head->next;
 				/*if(faces[i].head->next == NULL || faces[i].tail == NULL){
 				 printf("Oupa!\n");
@@ -429,7 +431,7 @@ void assignPrim2AllCells(Array* listFaces )
 		else
 		{
 			int j;
-			for(i=0; i < listFaces->size; i++)
+			for(i = 0; i < listFaces->size; i++)
 			{
 			    //printf("listFaces->array != NULL \n");
 				j = listFaces->array[i];

@@ -138,7 +138,7 @@ typedef struct theap{
 
 /*Added by Fabiane Queiroz at 01/12/2009*/
 typedef struct Array{
-	int   *array;  
+	int   *array;
 	int   size; 
 }Array;
 
