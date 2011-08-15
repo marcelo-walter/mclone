@@ -78,7 +78,7 @@ int main( int argc, char *argv[] )
 	parFileName[128],
 	wingedEdgeFileName[128],
 	vectorfieldFileName[128],
-	*s, 
+	*s,
 	distanceFileName[128]; /* By Vinicius 18/03/2005*/
 	int 	rg,
 	cg,
@@ -92,13 +92,13 @@ int main( int argc, char *argv[] )
 	struct timezone zpt;
 	/* keep track of total simulation times */
 	int initTimeSimulation, finalTimeSimulation, totalTimeSimulation;
-	
+
 	//int InicioGPath;
-	
+
 	/* we need at least the name of an object file */
-	if ( argc < 2 ) 
+	if ( argc < 2 )
 		usage();
-	
+
 	/* parse the command line options */
 	for(i = 1; i < argc; i++ )
 	{
@@ -114,7 +114,7 @@ int main( int argc, char *argv[] )
 					if( i >= argc )
 						break;
 					strcpy( distanceFileName, argv[i] );
-					
+
 					/* If you want to specify a face index where you star to calculate de geodesic distance, you can you this.
 					 i++;
 					 InicioGPath = atoi(argv[i]);
