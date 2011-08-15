@@ -1,0 +1,13 @@
+MCLONE - The Clonal Mosaic Project
+
+This is the software implementation of the following thesis, from Marcelo Walter:
+
+M. Walter. Integration of Complex Shapes and Natural Patterns. Ph.D. thesis, University of British Columbia, December 1998.
+
+During its lifetime, it has been modified by Ricardo Binsfeld, Fabiane Quadros, Thompson Peter, and other collaborators. Feel free to report bugs and send bug fixes. They are going to be treated with pretty much affection :-)
+
+
+
+=========== COMPILING ===========
+
+The project hasn't yet any Makefile, since we use Eclipse to compile it. A Makefile will be made soon so you can compile it decently.
