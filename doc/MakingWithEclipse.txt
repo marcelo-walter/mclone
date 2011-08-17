@@ -1,0 +1,65 @@
+Introduction
+============
+
+There are two ways in which you can compile MClone, i.e., the software has two
+main rules and each compiling way has its funcionalities.
+
+The first way in which you can compile MClone (and this is the default way -- if
+you don't specify anything the Makefile will compile it this way) is in the
+"Simulation" mode. In this mode, MClone will run its algorithm (it needs some
+files -- take a look at "ConfiguringMClone.txt" -- with some ammount of
+configuration so it run) without any GUI, and, then, without any of the GUI
+funcionalities. The program compiled in this way is used so the user can, for
+example, create a script that calls MClone several times and leave it running at
+night or while doing other things.
+
+The second way in which the user would like to compile MClone is in the "Viewer"
+mode. In this mode, MClone will not be capable of simulating the algorithm
+entirely (calm down... we are working on it :-)), but, once the algorithm was
+runned (using the MClone Simulation mode), the user can see its result using the
+Viewer mode without any problems. The Viewer mode was made using GLUT (we are
+very likely to change it to GLUI or any other better library on a near future --
+we'd be very glad to accept patches from other users :-)) and, then, you can
+right click on the screen while using the program to know what kind of
+funcionalities you have access to.
+
+Finally, if you have some doubt about how to make the program using Eclipse
+(Eclipse is the program we use to develop the program. So, we are likely to have
+already passed for enough problems and are likely, then, to know some issues we
+have forgot to write here), write me an e-mail (it is on the end of the text)
+and I can try to help you with it.
+
+So, now, open your Eclipse CDT[1], create a project with the folder where you've
+put MClone (it can be an empty project, for example), right click on the name of
+the project (on "Project Explorer", at the left of the screen), and click on
+Properties. Go on C/C++ Build (at the left side of the screen) and click on
+"Manage Configuration...", at the top right of the windows. Create two new
+Configurations, which I'm going to call "MCloneSimulation" and "MCloneViewer"
+(or, sometimes, for brevity, Simulation and Viewer, respectively).
+
+Now, expand the submenus below the C/C++ Build and click in Settings. There is
+where the magic is going to happen. You're ready to start configuring your
+system to build the program using Eclipse.
+
+
+Preparing the Simulation Mode to make on Eclipse
+===============================================
+
+
+
+Preparing the Viewer Mode to make on Eclipse
+===========================================
+
+
+
+Footnotes
+=========
+
+[1]: The Eclipse CDT project is a project that enables you to use the Eclipse
+     IDE as a C/C++ IDE. More information in:
+     http://www.eclipse.org/cdt/
+
+Authors
+=======
+
+John Gamboa (jcbgamboa@inf.ufrgs.br)
