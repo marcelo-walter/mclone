@@ -11,6 +11,6 @@ For quick information about how the algorithm works, take a look at the MClone a
 http://en.wikipedia.org/wiki/MClone
 
 
-=========== COMPILING ===========
+=========== BUILDING ===========
 
-The project hasn't yet any Makefile, since we use Eclipse to compile it. A Makefile will be made soon so you can compile it decently.
+The project hasn't yet any Makefile, since we use Eclipse to compile it. A Makefile will be made soon so you can compile it decently. Otherwise, if you want to build the program using Eclipse, take a look at "MakingWithEclipse.txt", at the documentation folder (root/doc/MakingWithEclipse.txt).
