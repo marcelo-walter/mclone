@@ -29,9 +29,14 @@ already passed for enough problems and are likely, then, to know some issues we
 forgot to write here), write me an e-mail (it is on the end of the text)
 and I can try to help you with it.
 
-Before going straight to Eclipse, be sure to at least take a look at the file
-"WhatLibs.txt", which describes what are the libraries needed for building
-MClone.
+	### VERY IMPORTANT WARNING ###
+
+	Before going straight to Eclipse, be sure to at least take a look at the
+	file "WhatLibs.txt", which describes what are the libraries needed for
+	building MClone, as well as explain how to make them work the way we
+	want them to.
+
+	### VERY IMPORTANT WARNING ###
 
 So, now, open your Eclipse CDT[1], create a project with the folder where you've
 put MClone (it can be an empty project, for example), right click on the name of
@@ -56,24 +61,60 @@ instructions in "WhatLibs.txt", it should be at
 "/usr/local/include/ImageMagick"
 
 Now the program will compile, but the console will print a lot of undefined
-references to many symbols, declared but not defined.
+references to many symbols, declared but not defined. You shall, then, tell to
+the linker that it might link some libraries (including ImageMagick) so the
+references can be defined. To do so, go to "GCC C++ Linker->Libraries" and add
+the following "-l" diretives:
+
+Magick++   <-- this is related to the ImageMagick library
+m          <-- this is the math library of C (that one in #include <math.h>)
+GLU        <-- GLU library (it links libGL along with it)
+glut       <-- glut library
+voronoi    <-- this is the library released with the project on the /lib/ folder
+
+Finally, if you don't tell the linker to look at the /lib/ folder for the
+Voronoi3D lib, it will not find it at all. So, be sure to add its path on the
+"-L" library search path diretives.
+
+For any reason, Eclipse tries to build again the Voronoi3D library when you
+click on the "Build" button. This, for any mystic reason, causes an error on the
+"stack.cc" file, which is trying to include a file called "memRoutines.h". Since
+you have already compiled the library and already have the libvoronoi.a file
+(take a look at the WhatLibs.txt to know what I'm talking about), and since you
+also have a .tar.gz file with all the source code of the Voronoi3D library, you
+can (and, actually, ou should, to economize you space and also to stop Eclipse
+from trying to compile everything again) delete the source code files and leave
+only the "libvoronoi.a" file on the same folder pointed by the "-L" directive
+you've defined on the last paragraph.
+
+After all of this, you should be able to compile and link the program without
+problems.
 
 
 Preparing the Viewer Mode to make on Eclipse
 ===========================================
 
+Now that you've already passed by the most difficult part (building the program
+on Simulation Mode), you should have no problems in building it in Viewer Mode.
+To do so, take the exact same steps of the Simulation Mode and, after all, add,
+in "GCC C++ Compiler->Preprocessor", the following -D directive:
+
+GRAPHICS
+
+Close the Properties of the project, click on the "Build" button, and you should
+be able to compile it smoothly (at least I did :-).
 
 
 
 Other Options
 =============
 
-	VERBOSE
-	=======
+VERBOSE
+-------
 
-	If you're debugging the program, you can use the "-DVERBOSE" option, so the
-	program will print some usefull information during its running. To do so, click
-	in the "Preprocessor" options and the "VERBOSE" symbol.
+If you're debugging the program, you can use the "-DVERBOSE" option, so the
+program will print some usefull information during its running. To do so, click
+in the "Preprocessor" options and the "VERBOSE" symbol.
 
 
 
