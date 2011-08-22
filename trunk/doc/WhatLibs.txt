@@ -60,14 +60,57 @@ process.
 
 	on your command prompt so the new libraries can be loaded.
 
+--------------------
+On a near future, I'm probably writing a how-to on Mac also here.
+--------------------
+This should be enough to make your ImageMagick working in your system.
+
 
 
 Voronoi3D
 =========
 
-Voronoi3D
+Voronoi3D is a library created by Michael McAllister which is capable of
+computing Voronoi on some surface (and is used to on the Viewer part of MClone).
+The version used in MClone (I can't say if it was maintained during the last 10
+years) is released along with the project in the /libs/ folder. Since it is
+compacted in a ".tar.gz" file, the Linux user should be able to easily extract
+its content. Other operating system users could use programs like "WinRAR" and
+7zip (these two for Windows).
+
+After decompressing "voronoi3D.tar.gz", change directory to the folder where the
+files were extracted, and issue
+
+make
+
+on the prompt line. Besides the ".o" files created, this will create a file
+named "libvoronoi.a". This is the file you want to link to MClone. You can call
+
+make clean
+
+if you don't want the other .o files (they are not that useful).
+
+
+
+OpenGL, GLU and glut
+====================
+
+I'll not cover much here, since there are tons of better tutorials on the
+internet explainig how to get OpenGL, GLU and glut running on your system.
+
+Instead, I recommend you to watch to the videos in
+
+http://www.videotutorialsrock.com/
+
+(which are very very very very good for beginners, in my opinion) if you really
+don't know how to install the OpenGL in your computer.
+
+
+
 
 Author
 ======
 
 John Gamboa (jcbgamboa@inf.ufrgs.br)
+
+
