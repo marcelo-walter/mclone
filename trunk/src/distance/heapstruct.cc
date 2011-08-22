@@ -163,7 +163,7 @@ void MxHeap::p(MxHeapable *t)
 	for (ii = 0; ii < filled; ii++)
 	{
 		Aux = raw(ii);
-		printf("%d %d [%d] {%f %d}\n", ii, (int)Aux, (int)t, Aux->heap_key(), Aux->get_heap_pos());
+		printf("%d %d [%d] {%f %d}\n", ii, (long int)Aux, (long int)t, Aux->heap_key(), Aux->get_heap_pos());
 	}
 	
 	printf("\n");
@@ -173,12 +173,12 @@ void MxHeap::p(MxHeapable *t)
 		Aux = raw(ii);
 		if (Aux != NULL)
 		{
-			printf("%d %d [%d] {%f %d}\n", ii, (int)Aux, (int)t, Aux->heap_key(), Aux->get_heap_pos());
+			printf("%d %d [%d] {%f %d}\n", ii, (long int)Aux, (long int)t, Aux->heap_key(), Aux->get_heap_pos());
 		}
 		else {
-			printf("%d %d [%d] {XX XX}\n", ii, (int)Aux, (int)t);
+			printf("%d %d [%d] {XX XX}\n", ii, (long int)Aux, (long int)t);
 		}
 	}
 	
-	printf("%d %d [%d] - [%d] [%d]\n---//---\n", NN, (int)raw(NN), (int)t, filled, NN);
+	printf("%d %d [%d] - [%d] [%d]\n---//---\n", NN, (long int)raw(NN), (long int)t, filled, NN);
 }
