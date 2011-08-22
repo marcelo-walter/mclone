@@ -16,7 +16,14 @@ you don't have to continue reading if you don't want to:
 
  - ImageMagick
  - Voronoi3D (which comes in the /lib/ folder of the project)
+ - OpenGL, GLU, glut
 
+For the Debian user, I've created a very simple script (I can't say it will
+definitely work properly, but I think it should) so he don't need to follow all
+these steps. If you don't trust in me (or in my script) you of course can
+install the libraries manually. If you are a better script programmer than me
+(it is not too much difficult, actually), and you think you could create a
+better script, please send me and I will probably add it to the project.
 
 ImageMagick
 ===========
