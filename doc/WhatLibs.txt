@@ -1,0 +1,66 @@
+Introduction
+============
+
+There are some libraries which you need to have in order to get MClone builded.
+Provide you with these libraries already compiled in a folder of the project
+would be very weighty (just an example, ImageMagick has 12Mb of code and, after
+compiled, occuppies over 110Mb of you hard disk space). So, as an alternative,
+we provide you some instructions about how to have these libraries working.
+
+If you know any way of getting them working without doing what we say here, you
+can, of course, do it your way. If you think your way is better than what we say
+here, please let us know your way sending an e-mail to the author of this file.
+
+The libs needed to the program are listed here on the beggining of the file, so
+you don't have to continue reading if you don't want to:
+
+ - ImageMagick
+
+
+ImageMagick
+===========
+
+The first library you should download to get your MClone builded is called
+ImageMagick. Go to www.imagemagick.org and download the ImageMagick version to
+your operating system. I can't help too much if you're on Mac or Windows, but
+I describe here the steps I needed to go through to get ImageMagick running
+in my computer.
+
+The important thing is: you have to know where your ImageMagick library was
+installed in your computer, so you can use this information during the building
+process.
+
+	For Linux users (but other ones can read it too):
+	=================================================
+
+	Since ImageMagick has an usual source code, after the download from the
+	web site, you could just run (after changing directory to the folder
+	where it was uncompressed) something like:
+
+	./configure
+	make
+	make install      #(or "sudo make install", if on a Debian like distro)
+
+	But this should not make sure you've installed ImageMagick in a regular
+	place. I.e., depending of your system, ImageMagick is likely to be
+	installed in some different places.
+
+	Since we want it to be installed in "/usr/local/", we are going to pass
+	it as a parameter to the configure script:
+
+	./configure --prefix="/usr/local"
+	make
+	make install
+
+	Sometimes, if even after the instalation your ImageMagick still don't
+	work, try running
+
+	ldconfig
+
+	on your command prompt so the new libraries can be loaded.
+
+
+Author
+======
+
+John Gamboa (jcbgamboa@inf.ufrgs.br)
