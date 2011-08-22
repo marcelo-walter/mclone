@@ -117,6 +117,15 @@ program will print some usefull information during its running. To do so, click
 in the "Preprocessor" options and the "VERBOSE" symbol.
 
 
+CHANGING THE PROGRAM NAME
+-------------------------
+
+By default, Eclipse put the name of the Project as the "artifact" name (artifact
+is the way Eclipse calls the name of the executable file). If you want to change
+it (for example, call the Viewer Mode artifact something like "McloneViewer",
+you could click on the "Build Artifact" tab, on the middle of the upper corner
+of the Properties dialog, and change the field "Artifact name".
+
 
 Footnotes
 =========
