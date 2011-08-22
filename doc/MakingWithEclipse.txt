@@ -26,8 +26,12 @@ funcionalities you have access to.
 Finally, if you have some doubt about how to make the program using Eclipse
 (Eclipse is the program we use to develop the program. So, we are likely to have
 already passed for enough problems and are likely, then, to know some issues we
-have forgot to write here), write me an e-mail (it is on the end of the text)
+forgot to write here), write me an e-mail (it is on the end of the text)
 and I can try to help you with it.
+
+Before going straight to Eclipse, be sure to at least take a look at the file
+"WhatLibs.txt", which describes what are the libraries needed for building
+MClone.
 
 So, now, open your Eclipse CDT[1], create a project with the folder where you've
 put MClone (it can be an empty project, for example), right click on the name of
@@ -45,10 +49,31 @@ system to build the program using Eclipse.
 Preparing the Simulation Mode to make on Eclipse
 ===============================================
 
+The first thing to do is to include (on "Includes" options) the path for the
+ImageMagick library. If you're on a linux distribution and followed my
+instructions in "WhatLibs.txt", it should be at
+
+"/usr/local/include/ImageMagick"
+
+Now the program will compile, but the console will print a lot of undefined
+references to many symbols, declared but not defined.
 
 
 Preparing the Viewer Mode to make on Eclipse
 ===========================================
+
+
+
+
+Other Options
+=============
+
+	VERBOSE
+	=======
+
+	If you're debugging the program, you can use the "-DVERBOSE" option, so the
+	program will print some usefull information during its running. To do so, click
+	in the "Preprocessor" options and the "VERBOSE" symbol.
 
 
 

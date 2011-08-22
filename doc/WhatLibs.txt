@@ -15,6 +15,7 @@ The libs needed to the program are listed here on the beggining of the file, so
 you don't have to continue reading if you don't want to:
 
  - ImageMagick
+ - Voronoi3D (which comes in the /lib/ folder of the project)
 
 
 ImageMagick
@@ -59,6 +60,12 @@ process.
 
 	on your command prompt so the new libraries can be loaded.
 
+
+
+Voronoi3D
+=========
+
+Voronoi3D
 
 Author
 ======
