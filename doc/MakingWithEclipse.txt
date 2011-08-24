@@ -4,14 +4,12 @@ Introduction
 There are two ways in which you can compile MClone, i.e., the software has two
 main rules and each compiling way has its funcionalities.
 
-The first way in which you can compile MClone (and this is the default way -- if
-you don't specify anything the Makefile will compile it this way) is in the
-"Simulation" mode. In this mode, MClone will run its algorithm (it needs some
-files -- take a look at "ConfiguringMClone.txt" -- with some ammount of
-configuration so it run) without any GUI, and, then, without any of the GUI
-funcionalities. The program compiled in this way is used so the user can, for
-example, create a script that calls MClone several times and leave it running at
-night or while doing other things.
+The first way in which you can compile MClone is in the "Simulation" mode. In
+this mode, MClone will run its algorithm (it needs some files -- take a look at
+"ConfiguringMClone.txt" -- with some ammount of configuration so it run) without
+any GUI, and, then, without any of the GUI funcionalities. The program compiled
+in this way is used so the user can, for example, create a script that calls
+MClone several times and leave it running at night or while doing other things.
 
 The second way in which the user would like to compile MClone is in the "Viewer"
 mode. In this mode, MClone will not be capable of simulating the algorithm
