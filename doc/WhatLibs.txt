@@ -25,6 +25,12 @@ install the libraries manually. If you are a better script programmer than me
 (it is not too much difficult, actually), and you think you could create a
 better script, please send me and I will probably add it to the project.
 
+(I've tried to download Mesa3D packages and compile it, so the script would work
+on any system, but the configure script asked for so many packages I didn't have
+that I though it would be easier if the user found his way of installing OpenGL
+and glut)
+
+
 ImageMagick
 ===========
 
@@ -97,6 +103,10 @@ make clean
 
 if you don't want the other .o files (they are not that useful).
 
+If you're using a Debian like linux distribution, you may probably use the
+libvoronoi.a file that comes within the voronoi3D.tar.gz file, but I can't say
+it is definitely going to work properly.
+
 
 
 OpenGL, GLU and glut
@@ -118,6 +128,6 @@ don't know how to install the OpenGL in your computer.
 Author
 ======
 
-John Gamboa (jcbgamboa@inf.ufrgs.br)
+John Gamboa (vaulttech@gmail.com)
 
 

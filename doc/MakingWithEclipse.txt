@@ -60,6 +60,12 @@ instructions in "WhatLibs.txt", it should be at
 
 "/usr/local/include/ImageMagick"
 
+You'll also need to add the /src/ directory as a "Include" path, since many
+files include each other taking as "reference" the /src/ directory. In Eclipse,
+it would seem something like this:
+
+"${workspace_loc:/${ProjName}/src}"
+
 Now the program will compile, but the console will print a lot of undefined
 references to many symbols, declared but not defined. You shall, then, tell to
 the linker that it might link some libraries (including ImageMagick) so the
@@ -137,4 +143,4 @@ Footnotes
 Authors
 =======
 
-John Gamboa (jcbgamboa@inf.ufrgs.br)
+John Gamboa (vaulttech@gmail.com)

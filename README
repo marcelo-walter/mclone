@@ -1,16 +1,48 @@
 MCLONE - The Clonal Mosaic Project
 
-This is the software implementation of the following thesis, from Marcelo Walter:
+This is the software implementation of the following thesis, from Marcelo
+Walter:
 
-M. Walter. Integration of Complex Shapes and Natural Patterns. Ph.D. thesis, University of British Columbia, December 1998.
+M. Walter. Integration of Complex Shapes and Natural Patterns. Ph.D. thesis,
+University of British Columbia, December 1998.
 
-During its lifetime, it has been modified by Ricardo Binsfeld, Fabiane Queiroz, Thompson Peter, and other collaborators. Feel free to report bugs and send bug fixes. They are going to be treated with pretty much affection :-)
+During its lifetime, it has been modified by Ricardo Binsfeld, Fabiane Queiroz,
+Thompson Peter, and other collaborators. Feel free to report bugs and send bug
+fixes. They are going to be treated with pretty much affection :-)
 
-For quick information about how the algorithm works, take a look at the MClone article on wikipedia (it is very simple, for now), at
+For quick information about how the algorithm works, take a look at the MClone
+article on wikipedia (it is very simple, for now), at
 
 http://en.wikipedia.org/wiki/MClone
 
 
-=========== BUILDING ===========
 
-The project hasn't yet any Makefile, since we use Eclipse to compile it. A Makefile will be made soon so you can compile it decently. Otherwise, if you want to build the program using Eclipse, take a look at "MakingWithEclipse.txt", at the documentation folder (root/doc/MakingWithEclipse.txt).
+Building
+========
+
+First things first, what you really need to know is that if you really want to
+build this project, you should take a look at the needed libraries in
+"WhatLibs.txt", in the documentation folder.
+
+The project hasn't yet any Makefile, since we use Eclipse to compile it. A
+Makefile will be made soon so you can compile it decently. Otherwise, if you
+want to build the program using Eclipse, take a look at "MakingWithEclipse.txt",
+at the documentation folder (/doc/MakingWithEclipse.txt).
+
+
+
+Hacking
+=======
+
+If you're planning to hack into the code, I suggest you take a look at
+"Hacking.txt", in the documentation folder. There, I provide you with some
+useful information that could save you some time.
+
+Any changes are welcome :-)
+
+
+
+Author
+======
+
+John Gamboa (vaulttech@gmail.com)
