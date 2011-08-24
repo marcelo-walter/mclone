@@ -25,11 +25,11 @@
 #include <magick/api.h>
 
 #include "primitives.h"
-#include "../simulation/relax.h"
-#include "../data/Object.h"
-#include "../data/Parameters.h"
-#include "../util/interfaceVoronoi.h"
-#include "../util/genericUtil.h"
+#include "simulation/relax.h"
+#include "data/Object.h"
+#include "data/Parameters.h"
+#include "util/interfaceVoronoi.h"
+#include "util/genericUtil.h"
 
 
 #ifdef GRAPHICS

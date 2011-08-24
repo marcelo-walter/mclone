@@ -11,8 +11,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../util/genericUtil.h"
-#include "../data/fileManager.h"
+#include "util/genericUtil.h"
+#include "data/fileManager.h"
 
 /*
  * --------------------------------------------------------------------------

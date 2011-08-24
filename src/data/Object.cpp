@@ -14,8 +14,8 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-#include "../util/genericUtil.h"
-#include "../data/fileManager.h"
+#include "util/genericUtil.h"
+#include "data/fileManager.h"
 
 /*
  *--------------------------------------------------

@@ -11,9 +11,9 @@
 
 #include <stdio.h>
 
-#include "../data/cellsList.h"
-#include "../data/Object.h"
-#include "../control/primitives.h"
+#include "data/cellsList.h"
+#include "data/Object.h"
+#include "control/primitives.h"
 
 /*
  *-----------------------------------------------------------------

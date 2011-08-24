@@ -18,12 +18,12 @@
 #include "cellsList.h"
 #include "Object.h"
 #include "Parameters.h"
-#include "../simulation/relax.h"
-#include "../simulation/simulation.h"
-#include "../util/random.h"
-#include "../util/heap.h"
-#include "../util/genericUtil.h"
-#include "../util/distPoints.h"
+#include "simulation/relax.h"
+#include "simulation/simulation.h"
+#include "util/random.h"
+#include "util/heap.h"
+#include "util/genericUtil.h"
+#include "util/distPoints.h"
 
 /*
  *---------------------------------------------------------------

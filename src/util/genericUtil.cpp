@@ -13,18 +13,18 @@
 #include <math.h>
 #include <string.h>
 
-#include "../control/primitives.h"
-#include "../data/cellsList.h"
-#include "../data/Parameters.h"
-#include "../data/Matrix4.h"
-#include "../simulation/simulation.h"
-#include "../simulation/relax.h"
+#include "control/primitives.h"
+#include "data/cellsList.h"
+#include "data/Parameters.h"
+#include "data/Matrix4.h"
+#include "simulation/simulation.h"
+#include "simulation/relax.h"
 #include "transformations.h"
 
 
 #ifdef GRAPHICS
 #include "GL/glut.h"
-#include "../viewer/graph.h"
+#include "viewer/graph.h"
 #endif
 
 /*

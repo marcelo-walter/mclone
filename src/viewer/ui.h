@@ -13,7 +13,7 @@
 
 #include <GL/glut.h>
 
-#include "../data/Types.h"
+#include "data/Types.h"
 
 /*
  *------------------------------------------------------------

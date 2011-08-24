@@ -10,7 +10,7 @@
 #ifndef _ANIM_H_
 #define _ANIM_H_
 
-#include "../data/Types.h"
+#include "data/Types.h"
 #include "Growth.h"
 
 /*

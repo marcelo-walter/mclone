@@ -51,7 +51,7 @@
 #ifndef _TRACKBALL_H_
 #define _TRACKBALL_H_
 
-#include "../data/Types.h"
+#include "data/Types.h"
 
 /*
  * This size should really be based on the distance from the center of

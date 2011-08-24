@@ -16,7 +16,7 @@
 #ifndef _INTERSECT_H_
 #define _INTERSECT_H_
 
-#include "../data/Types.h"
+#include "data/Types.h"
 
 int  intersect( int whichFace, double v0x, double v0y,
 			   double v1x, double v1y, Point2D *p );

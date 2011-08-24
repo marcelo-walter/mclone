@@ -7,7 +7,7 @@
 
 #include "surface.h"
 
-#include "../data/Object.h"
+#include "data/Object.h"
 
 /*---VARIABLES---*/
 // geodesic computation

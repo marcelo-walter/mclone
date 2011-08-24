@@ -24,8 +24,8 @@
 #include <math.h>
 
 #include "genericUtil.h"
-#include "../data/Point3D.h"
-#include "../data/Object.h"
+#include "data/Point3D.h"
+#include "data/Object.h"
 
 /*
  *---------------------------------------------------------

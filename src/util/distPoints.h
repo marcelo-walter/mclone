@@ -21,7 +21,7 @@
 #ifndef _DIST_POINTS_H_
 #define _DIST_POINTS_H_
 
-#include "../data/Types.h"
+#include "data/Types.h"
 
 void partialSumArea( double totalArea );
 double triangleAreas( void );

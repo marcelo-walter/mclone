@@ -16,7 +16,7 @@
 #ifndef _PRIMITIVES_H_
 #define _PRIMITIVES_H_
 
-#include "../data/Types.h"
+#include "data/Types.h"
 
 /*
  *---------------------------------------------------------

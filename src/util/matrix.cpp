@@ -13,12 +13,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../data/Types.h"
+#include "data/Types.h"
 
 #include "matrixUtil.h"
-#include "../distance/interfacedistance.h"
-#include "../control/vectorField.h"
-#include "../data/Object.h"
+#include "distance/interfacedistance.h"
+#include "control/vectorField.h"
+#include "data/Object.h"
 
 
 #define TINY 1.0e-20;

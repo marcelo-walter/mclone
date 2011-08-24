@@ -14,11 +14,11 @@
 #include <string.h>
 
 #include "primitives.h"
-#include "../util/genericUtil.h"
-#include "../util/transformations.h"
-#include "../data/Point3D.h"
-#include "../data/Matrix4.h"
-#include "../data/fileManager.h"
+#include "util/genericUtil.h"
+#include "util/transformations.h"
+#include "data/Point3D.h"
+#include "data/Matrix4.h"
+#include "data/fileManager.h"
 
 #ifdef GRAPHICS
 #include "GL/glut.h"

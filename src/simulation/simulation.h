@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 
-#include "../data/Types.h"
+#include "data/Types.h"
 
 /*
  *--------------------------------------------------

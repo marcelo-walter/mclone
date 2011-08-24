@@ -8,7 +8,7 @@
 #define _GENERIC_UTIL_H_
 
 #include <stdio.h>
-#include "../data/Types.h"
+#include "data/Types.h"
 
 /* for the parsing of the growth data file */
 #define	DATA	"data"

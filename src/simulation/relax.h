@@ -7,7 +7,7 @@
 #ifndef _RELAX_H_
 #define _RELAX_H_
 
-#include "../data/Types.h"
+#include "data/Types.h"
 
 #define	WRP			2.4;
 

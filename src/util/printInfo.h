@@ -8,7 +8,7 @@
 #ifndef _PRINT_INFO_H_
 #define _PRINT_INFO_H_
 
-#include "../data/Types.h"
+#include "data/Types.h"
 
 void printActivePrim( void );
 void printArray(float **p, int rows, int columns);

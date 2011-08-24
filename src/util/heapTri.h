@@ -31,7 +31,7 @@
 #ifndef _HEAP_TRI_H_
 #define _HEAP_TRI_H_
 
-#include "../data/Types.h"
+#include "data/Types.h"
 
 /*
  *-----------------------------------------------------------

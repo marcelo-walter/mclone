@@ -8,15 +8,15 @@
 
 #include <stdlib.h>
 
-#include "../simulation/relax.h"
-#include "../simulation/forces.h"
-#include "../control/wingEdge.h"
-#include "../data/Object.h"
-#include "../data/cellsList.h"
+#include "simulation/relax.h"
+#include "simulation/forces.h"
+#include "control/wingEdge.h"
+#include "data/Object.h"
+#include "data/cellsList.h"
 #include "genericUtil.h"
 #include "intersect.h"
 
-#include "../viewer/drawing.h"
+#include "viewer/drawing.h"
 
 /*
  *--------------------------------------------------------------------
