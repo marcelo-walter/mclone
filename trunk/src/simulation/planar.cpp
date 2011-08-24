@@ -12,12 +12,12 @@
 
 #include "forces.h"
 #include "relax.h"
-#include "../util/heapTri.h"
-#include "../util/genericUtil.h"
-#include "../data/Object.h"
-#include "../data/Point3D.h"
-#include "../data/Matrix4.h"
-#include "../data/cellsList.h"
+#include "util/heapTri.h"
+#include "util/genericUtil.h"
+#include "data/Object.h"
+#include "data/Point3D.h"
+#include "data/Matrix4.h"
+#include "data/cellsList.h"
 
 /*
  *--------------------------------------------------------

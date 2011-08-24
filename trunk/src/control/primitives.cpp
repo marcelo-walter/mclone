@@ -21,18 +21,18 @@
 
 #ifdef GRAPHICS
 #include "GL/glut.h"
-#include "../viewer/graph.h"
+#include "viewer/graph.h"
 #endif
 
 #include "Anim.h"
 #include "Growth.h"
-#include "../data/cellsList.h"
-#include "../data/fileManager.h"
-#include "../data/Object.h"
-#include "../data/Point3D.h"
-#include "../data/Matrix4.h"
-#include "../util/genericUtil.h"
-#include "../util/transformations.h"
+#include "data/cellsList.h"
+#include "data/fileManager.h"
+#include "data/Object.h"
+#include "data/Point3D.h"
+#include "data/Matrix4.h"
+#include "util/genericUtil.h"
+#include "util/transformations.h"
 
 /*
  *---------------------------------------------------------

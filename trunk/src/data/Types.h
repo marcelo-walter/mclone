@@ -8,7 +8,7 @@
 #ifndef _TYPES_H_
 #define _TYPES_H_
 
-#include "../data/Macros.h"
+#include "data/Macros.h"
 
 /* define some useful types */
 typedef unsigned char byte;

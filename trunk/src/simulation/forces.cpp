@@ -11,13 +11,13 @@
 #include <stdlib.h>
 
 #include "relax.h"
-#include "../util/heapTri.h"
-#include "../control/wingEdge.h"
-#include "../data/cellsList.h"
-#include "../data/Object.h"
-#include "../data/Parameters.h"
-#include "../data/Matrix4.h"
-#include "../util/genericUtil.h"
+#include "util/heapTri.h"
+#include "control/wingEdge.h"
+#include "data/cellsList.h"
+#include "data/Object.h"
+#include "data/Parameters.h"
+#include "data/Matrix4.h"
+#include "util/genericUtil.h"
 
 /*
  *--------------------------------------------------

@@ -12,7 +12,7 @@
 
 #include <math.h>
 
-#include "../util/genericUtil.h"
+#include "util/genericUtil.h"
 #include "Point3D.h"
 
 

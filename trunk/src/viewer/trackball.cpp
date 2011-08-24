@@ -69,7 +69,7 @@
 
 #include <math.h>
 
-#include "../util/vect.h"
+#include "util/vect.h"
 
 /*
  * Ok, simulate a track-ball.  Project the points onto the virtual

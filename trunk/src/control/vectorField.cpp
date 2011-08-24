@@ -15,18 +15,18 @@
 #include <string.h>
 
 #include "texture.h"
-#include "../distance/interfacedistance.h"
-#include "../simulation/relax.h"
-#include "../data/Object.h"
-#include "../data/fileManager.h"
-#include "../data/Matrix4.h"
-#include "../util/genericUtil.h"
-#include "../util/matrix.h"
-#include "../util/printInfo.h"
-#include "../util/distPoints.h"
+#include "distance/interfacedistance.h"
+#include "simulation/relax.h"
+#include "data/Object.h"
+#include "data/fileManager.h"
+#include "data/Matrix4.h"
+#include "util/genericUtil.h"
+#include "util/matrix.h"
+#include "util/printInfo.h"
+#include "util/distPoints.h"
 
-#include "../viewer/graph.h" //Remover isso, nao deveria usar esse arquivo
-#include "../viewer/ui.h"
+#include "viewer/graph.h" //Remover isso, nao deveria usar esse arquivo
+#include "viewer/ui.h"
 
 /*
  *---------------------------------------------------------------

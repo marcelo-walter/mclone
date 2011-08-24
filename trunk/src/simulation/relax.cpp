@@ -12,16 +12,16 @@
 #include <stdio.h>
 
 #include "forces.h"
-#include "../data/cellsList.h"
-#include "../data/cells.h"
-#include "../data/Object.h"
-#include "../data/Parameters.h"
-#include "../data/Matrix4.h"
-#include "../data/fileManager.h"
-#include "../control/primitives.h"
-#include "../control/wingEdge.h"
-#include "../util/intersect.h"
-#include "../util/genericUtil.h"
+#include "data/cellsList.h"
+#include "data/cells.h"
+#include "data/Object.h"
+#include "data/Parameters.h"
+#include "data/Matrix4.h"
+#include "data/fileManager.h"
+#include "control/primitives.h"
+#include "control/wingEdge.h"
+#include "util/intersect.h"
+#include "util/genericUtil.h"
 
 /*
  *--------------------------------------------------

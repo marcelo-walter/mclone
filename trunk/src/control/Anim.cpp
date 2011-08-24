@@ -14,9 +14,9 @@
 #include <string.h>
 
 #include "primitives.h"
-#include "../util/genericUtil.h"
-#include "../util/printInfo.h"
-#include "../data/fileManager.h"
+#include "util/genericUtil.h"
+#include "util/printInfo.h"
+#include "data/fileManager.h"
 
 #ifdef GRAPHICS
 #include "GL/glut.h"

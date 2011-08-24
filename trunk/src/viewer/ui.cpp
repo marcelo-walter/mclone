@@ -19,17 +19,17 @@
 #include "drawing.h"
 #include "utilGraph.h"
 
-#include "../control/primitives.h"
-#include "../control/vectorField.h"
-#include "../simulation/simulation.h"
-#include "../simulation/planar.h"
-#include "../simulation/morph.h"
-#include "../data/Object.h"
-#include "../data/fileManager.h"
-#include "../util/genericUtil.h"
-#include "../util/printInfo.h"
+#include "control/primitives.h"
+#include "control/vectorField.h"
+#include "simulation/simulation.h"
+#include "simulation/planar.h"
+#include "simulation/morph.h"
+#include "data/Object.h"
+#include "data/fileManager.h"
+#include "util/genericUtil.h"
+#include "util/printInfo.h"
 
-#include "../util/vect.h"
+#include "util/vect.h"
 
 /*
  *------------------------------------------------------------

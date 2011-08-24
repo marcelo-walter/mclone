@@ -14,12 +14,12 @@
 
 #include <math.h>
 
-#include "../control/primitives.h"
-#include "../control/Anim.h"
-#include "../data/Matrix4.h"
-#include "../data/fileManager.h"
-#include "../util/genericUtil.h"
-#include "../simulation/simulation.h"
+#include "control/primitives.h"
+#include "control/Anim.h"
+#include "data/Matrix4.h"
+#include "data/fileManager.h"
+#include "util/genericUtil.h"
+#include "simulation/simulation.h"
 
 /*
  *----------------------------------------------------------

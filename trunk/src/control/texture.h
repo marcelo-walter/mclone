@@ -16,8 +16,8 @@
 #ifndef _TEXTURE_H_
 #define _TEXTURE_H_
 
-#include "../data/Types.h"
-#include "../data/Macros.h"
+#include "data/Types.h"
+#include "data/Macros.h"
 
 /* for the parsing of the texture data file */
 #define EXISTC 		"EXISTC"

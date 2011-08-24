@@ -40,13 +40,13 @@
 #include "cells.h"
 #include "Object.h"
 #include "fileManager.h"
-#include "../util/random.h"
-#include "../util/genericUtil.h"
-#include "../util/distPoints.h"
-#include "../simulation/relax.h"
-#include "../simulation/simulation.h"
-#include "../control/primitives.h"
-#include "../control/texture.h"
+#include "util/random.h"
+#include "util/genericUtil.h"
+#include "util/distPoints.h"
+#include "simulation/relax.h"
+#include "simulation/simulation.h"
+#include "control/primitives.h"
+#include "control/texture.h"
 
 
 /*
