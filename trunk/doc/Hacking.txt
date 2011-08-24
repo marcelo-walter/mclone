@@ -1,0 +1,45 @@
+Introduction
+============
+
+This file is supposed to contain some information that could be useful to anyone
+that is going to hack into the code of MClone. If you have suffered during hour
+working around some problem and you think other people should know about it,
+send me an e-mail or commit your modification to the project on GoogleCode and
+it will probably be attached to this file.
+Also, if you think any of the explanations below need some modifications (for
+any reason, like "it is not clear enough" or "it has some gramatical errors"),
+I'd be pleased to receive reports.
+
+(the project is not maintained by native english speakers, so we'd really
+appreciate corrections, if you find any error)
+
+
+
+
+1. When do I have to recompile Voronoi3D?
+=========================================
+
+When Voronoi3D is "maked", it results in a file called "libvoronoi.a", which is
+a library attached to MClone during linking phase. Although it is a separated
+library, it resembles in MClone data structures so it can send/receive some
+information from/to MClone. Thus, modifying MClone data structures is a task
+that should receive special attention.
+
+The file that works as a bridge from MClone and Voronoi3D is called
+"interfaceVoronoi.h". Specifically, it uses a function which is defined below
+
+extern "C" void getVoronoi( SCELL *headCell, SCELL *tailCell,
+                                voronoiType **vorList, faceType **faceList,
+                                int *howManyVert );
+
+Thus, when modifying any of these data structures (SCELL, voronoiType or
+faceType), be sure to recompile Voronoi3D using the new types, or the library
+will work imprevisibly.
+
+
+
+
+Author
+======
+
+John Gamboa (vaulttech@gmail.com)
