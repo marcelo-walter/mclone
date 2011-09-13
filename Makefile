@@ -3,45 +3,100 @@
 # Author:
 # John Gamboa
 
-
+##
 # Goal names
-MCLONE_SIMULATOR := MCloneSimulator
-MCLONE_VIEWER := MCloneViewer
+##
+MCLONE_SIMULATOR := bin/MCloneSimulator
+MCLONE_VIEWER := bin/MCloneViewer
 
+##
 # Compiler directives
+##
 CXX := g++
 CFLAGS := -Wall
 
 INCLUDE_PATHS := -I./src/ -I/usr/local/include/ImageMagick/
 LINKING_PATHS := -L./lib/voronoi3D/
 LINKING_FLAGS := -lMagick++ -lm -lvoronoi -lGL -lGLU -lglut
-VIEWER_FLAG := -DGRAPHICS
-OBJS := $(patsubst %.cpp,%.o,$(wildcard ./src/*/*.cpp)) $(patsubst %.cc,%.o,$(wildcard ./src/*/*.cc))
 
+VIEWER_FLAG := -DGRAPHICS
+
+##
+# These function calls create a list of ".o" files prefixed with "obj/".
+# If you really want to know how these functions work, refer to the GNU make
+# documentation (it should be very straightforward to understand it).
+##
+OBJS := $(addprefix obj/, $(notdir $(patsubst %.cpp,%.o,$(wildcard src/*/*.cpp)))) $(addprefix obj/, $(notdir $(patsubst %.cc,%.o ,$(wildcard src/*/*.cc)))) $(addprefix obj/, $(notdir $(patsubst %.cpp,%.o,$(wildcard src/*.cpp))))
+
+##
 # Default Goal (i.e., the first one): Just redirects to "MCLONE_SIMULATOR".
+##
 all : $(MCLONE_SIMULATOR) $(MCLONE_VIEWER)
 
+###
+# Simulator mode
+###
+$(MCLONE_SIMULATOR) : $(OBJS) | bin
+	g++ $(LINKING_PATHS) -o $(MCLONE_SIMULATOR) $(OBJS) $(LINKING_FLAGS) $(CFLAGS)
+
+###
+# View mode
+###
+$(MCLONE_VIEWER) : $(OBJS) | bin
+	g++ $(VIEWER_FLAG) $(LINKING_PATHS) -o $(MCLONE_VIEWER) $(OBJS) $(LINKING_FLAGS) $(CFLAGS)
+
+##
 # Indicates that these "prerequisites" aren't files
+##
 .PHONY : clean all Simulator Viewer
 
-# Alias to build only the Simulator or only the Viewer modes.
+###
+# Generic .o rules.
+#
+# Here is where the action happens, and thus it may be relatively difficult to
+# understand what is happening. These rules were really inspired on how Eclipse
+# makes this project.
+#
+# To know deeply what -MMD, -MP, -MF and -MT compiler flags do, you should refer
+# to the g++ man page. I will try to explain what I think is really usefull.
+#
+# Using -MMD, g++ creates a rule (like those in this makefile) with all the
+# dependecies needed by the ".cpp" file. Using -MF just says to g++ that it must
+# redirect this rule to a file. -MT renames the file to the same file (I don't
+# know if I could take this flag out of the makefile, but since it is working I
+# found it would be better just let it there :-).
+#
+# If you didn't understand the $(@:.o=.d) part as I didn't in a first moment,
+# you should refer to
+# http://www.gnu.org/software/make/manual/make.html#Substitution-Refs
+#
+# Finally, there are 3 rules cause I didn't find a way of grouping them all in
+# a single one. If you know any better way of doing this, you are wellcome to
+# send us a patch.
+###
+obj/%.o: src/%.cpp | obj
+	@echo 'Building file: $<'
+	g++ $(INCLUDE_PATHS) -c -MMD -MP -MF"$(@:.o=.d)" -MT"$(@:.o=.d)" -o "$@" "$<"
+	@echo 'Finished building file: $<'
 
-# Simulator mode
-$(MCLONE_SIMULATOR) : $(SIMULATOR_OBJECTS)
-	g++ $(LINKING_PATHS) -o $(MCLONE_SIMULATOR) $(OBJS) $(LINKING_FLAGS)
+obj/%.o: src/*/%.cpp | obj
+	@echo 'Building file: $<'
+	g++ $(INCLUDE_PATHS) -c -MMD -MP -MF"$(@:.o=.d)" -MT"$(@:.o=.d)" -o "$@" "$<"
+	@echo 'Finished building file: $<'
 
-# View mode
-$(MCLONE_VIEWER) : $(VIEWER_OBJECTS)
-	g++ $(VIEWER_FLAG) $(LINKING_PATHS) -o $(MCLONE_SIMULATOR) $(OBJS) \
-	$(LINKING_FLAGS)
+obj/%.o: src/*/%.cc | obj
+	@echo 'Building file: $<'
+	g++ $(INCLUDE_PATHS) -c -MMD -MP -MF"$(@:.o=.d)" -MT"$(@:.o=.d)" -o "$@" "$<"
+	@echo 'Finished building file: $<'
 
-./obj/%.o: src/*/%.cpp
-	g++ $(INCLUDE_PATHS) -MMD -MP -MF"$(@:%.o=./obj/%.d)" \
-	-MT"$(./obj/:%.o=%.d)" -o "$@" "$<"
+# These rules are meant just to create the folders needed
+obj :
+	mkdir obj
+bin :
+	mkdir bin
 
-./obj/%.o: src/*/%.cc
-	g++ $(INCLUDE_PATHS) -MMD -MP -MF"$(@:%.o=./obj/%.d)" \
-	-MT"$(./obj/:%.o=%.d)" -o "$@" "$<"
-
+# Since "make -B" isn't working, for any reason, I think the cleaning rule has
+# become very important
 clean :
-	rm -rf ./obj/*.o
+	rm -rf ./obj
+	rm -rf ./bin
