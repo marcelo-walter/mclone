@@ -9,43 +9,47 @@
 #ifndef _DRAWING_H_
 #define _DRAWING_H_
 
-#include <GL/glut.h>
+#ifdef __APPLE__
+    #include "GLUT/glut.h"
+#else
+    #include "GL/glut.h"
+#endif
 
 #include "data/Types.h"
 
-#define MY_CIRCLE_LIST 	1	/* used with the display list */
-#define MY_AXES_LIST	2	/* creates a display list for drawing
+#define MY_CIRCLE_LIST  1       /* used with the display list */
+#define MY_AXES_LIST    2       /* creates a display list for drawing
 the axes */
-#define MY_LINES_LIST	3	/* display list for the 2 lines
+#define MY_LINES_LIST   3       /* display list for the 2 lines
 separating the 4 windows */
-#define	MY_GRID_LIST	4	/* display list for the grid */
-#define	MY_SCENE_LIST	5	/* scene: background, floor */
+#define MY_GRID_LIST    4       /* display list for the grid */
+#define MY_SCENE_LIST   5       /* scene: background, floor */
 
 /*
  *-----------------------------------------------
- *	Local definitions
+ *      Local definitions
  *-----------------------------------------------
  */
-#define	MY_FONT	GLUT_BITMAP_HELVETICA_18
+#define MY_FONT GLUT_BITMAP_HELVETICA_18
 
 extern flag sceneFlag;
 extern flag shadowFlag;
 extern flag modeFlag;
-extern flag vectorsFlag;	/* show or not the vectors
+extern flag vectorsFlag;        /* show or not the vectors
  that define a local coordinate
  system for the polygon */
-extern flag normalsFlag;	/* Vin?cius 17/09/2004 */
+extern flag normalsFlag;        /* Vin?cius 17/09/2004 */
 extern flag voronoiBorders;
 
 extern flag bwOutput;
-extern flag degreeVector;	/* Thompson 07/11/2003 */
+extern flag degreeVector;       /* Thompson 07/11/2003 */
 
 extern flag drawVector;
 extern flag drawVectorField;
 extern flag drawVerticesVectorField;
 
-extern flag fillingFlag;	/* draw or not filled polygons */ //From main.h
-extern flag edgesFlag;		/* draw or not edges */ //From main.h
+extern flag fillingFlag;        /* draw or not filled polygons */ //From main.h
+extern flag edgesFlag;          /* draw or not edges */ //From main.h
 
 /* color definitions */
 extern float backColor[XYZ];
@@ -69,7 +73,7 @@ extern float colorMediumBrown[XYZ];
 
 /*
  *-----------------------------------------------
- *	Local prototypes
+ *      Local prototypes
  *-----------------------------------------------
  */
 void setVertexDisplayShadow(int ix, double y);
