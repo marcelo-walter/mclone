@@ -10,28 +10,33 @@
 #ifndef _GRAPH_H_
 #define _GRAPH_H_
 
-#include <GL/glut.h>
+#ifdef __APPLE__
+    #include "GLUT/glut.h"
+#else
+    #include "GL/glut.h"
+#endif
+
 #include "data/Types.h"
 
 /*
  *------------------------------------------------------------
- *		Local definitions
+ *              Local definitions
  *------------------------------------------------------------
  */
 
 /* for the perspective projection */
-#define FRONT_CLIP_PLANE	0.1
-#define BACK_CLIP_PLANE		1000.0
+#define FRONT_CLIP_PLANE        0.1
+#define BACK_CLIP_PLANE         1000.0
 
 /* Texture definitions */
-#define	checkImageWidth 64
-#define	checkImageHeight 64
+#define checkImageWidth 64
+#define checkImageHeight 64
 
 
 
 /*
  *--------------------------------------------------
- *	Local Global variables
+ *      Local Global variables
  *--------------------------------------------------
  */
 extern GLubyte checkImage[checkImageWidth][checkImageHeight][3];
@@ -64,7 +69,7 @@ extern float colPrim[N_OF_PRIM+1][XYZ];
 
 /*
  *--------------------------------------------------
- *		various flags
+ *              various flags
  *--------------------------------------------------
  */
 /* splits the window in 4 or not */
@@ -115,7 +120,7 @@ extern float panSpeed;
 
 /*
  *------------------------------------------------------------
- *		Local prototypes
+ *              Local prototypes
  *------------------------------------------------------------
  */
 void makeCheckImage(void);
@@ -138,7 +143,7 @@ void myPrimTransf(int whichPrim);
 void myOpenGLReshape( int w, int h );
 void myOpenGLDisplay( void );
 void auxDisplay(VMODE vmode, double eyex, double eyey, double eyez, double upx,
-		double upy, double upz, int x, int y, int w, int h);
+                double upy, double upz, int x, int y, int w, int h);
 void initColorArray(void);
 
 

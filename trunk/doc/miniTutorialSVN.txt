@@ -84,4 +84,4 @@ http://svnbook.red-bean.com/
 
 Não sei se tem algo mais a dizer... mas definitivamente há muito mais a aprender. Então, sugiro que aprendamos juntos utilizando essa ferramenta que é uma das mais widely used ferramentas de versionamento de código do mundo =D
 
-John
+John Gamboa

@@ -1,46 +1,50 @@
 /*
  *------------------------------------------------------------
- *	ui.c
- *	Marcelo Walter
- *	This module contains all GLUT stuff to interface
- *	the OpenGL to X
- *	
+ *      ui.c
+ *      Marcelo Walter
+ *      This module contains all GLUT stuff to interface
+ *      the OpenGL to X
+ *
  *------------------------------------------------------------
  */
 
 #ifndef _UI_H_
 #define _UI_H_
 
-#include <GL/glut.h>
+#ifdef __APPLE__
+    #include "GLUT/glut.h"
+#else
+    #include "GL/glut.h"
+#endif
 
 #include "data/Types.h"
 
 /*
  *------------------------------------------------------------
- *		Structures
+ *              Structures
  *------------------------------------------------------------
  */
 // Estruturas utilizadas para leitura de arquivos BMP
-typedef struct { 
-    unsigned short  bfType; 
-    unsigned long   bfSize; 
-    unsigned short  bfReserved1; 
-    unsigned short  bfReserved2; 
-    unsigned long   bfOffBits; 
+typedef struct {
+    unsigned short  bfType;
+    unsigned long   bfSize;
+    unsigned short  bfReserved1;
+    unsigned short  bfReserved2;
+    unsigned long   bfOffBits;
 } BITMAPFILEHEADER;
 
 typedef struct {
-    unsigned long  biSize; 
-    long biWidth; 
-    long biHeight; 
-    unsigned short biPlanes; 
-    unsigned short biBitCount; 
-    unsigned long biCompression; 
-    unsigned long biSizeImage; 
-    long biXPelsPerMeter; 
-    long biYPelsPerMeter; 
-    unsigned long biClrUsed; 
-    unsigned long biClrImportant; 
+    unsigned long  biSize;
+    long biWidth;
+    long biHeight;
+    unsigned short biPlanes;
+    unsigned short biBitCount;
+    unsigned long biCompression;
+    unsigned long biSizeImage;
+    long biXPelsPerMeter;
+    long biYPelsPerMeter;
+    unsigned long biClrUsed;
+    unsigned long biClrImportant;
 } BITMAPINFOHEADER;
 
 extern int winWidth, winHeight;
@@ -51,16 +55,16 @@ extern BITMAPINFOHEADER bmpInfoHeader;
 
 /*
  *--------------------------------------------------
- *	Local Global variables
+ *      Local Global variables
  *--------------------------------------------------
  */
 /* stop animation or not */
 extern flag stopAnimation;
 
 /* which mouse button was pressed */
-extern flag rotateflag;	/* left */
-extern flag panflag;		/* middle */
-extern flag zoomflag;		/* left AND middle */
+extern flag rotateflag; /* left */
+extern flag panflag;            /* middle */
+extern flag zoomflag;           /* left AND middle */
 
 /* mouse flags specific for the picking part */
 extern flag leftPickFlag;
@@ -97,7 +101,7 @@ extern int IndexAnterior;
 
 /*
  *--------------------------------------------------
- *	Prototypes
+ *      Prototypes
  *--------------------------------------------------
  */
 void InitGraphics(int argc, char *argv[]);

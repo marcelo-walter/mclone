@@ -1,5 +1,5 @@
 /*
- *	main.h
+ *      main.h
  */
 
 #ifndef _MAIN_H_
@@ -8,15 +8,16 @@
 #include "data/Types.h"
 
 /* for the simulation. Default final time */
-#define	FINAL_TIME	10
+#define FINAL_TIME    10
 
 /*
  *--------------------------------------------------
- *	Local Defined Global variables
+ *      Local Defined Global variables
  *--------------------------------------------------
  */
 
 int main(int argc, char *argv[]);
+
 void usage(void);
 void processGroups(void);
 void preProcess(void);

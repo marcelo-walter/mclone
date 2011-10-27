@@ -10,11 +10,11 @@
 /*
  *---------------------------------------------------------
  *
- *	wingEdge.h
- *	Marcelo Walter
- *	The structure is adapted from the one presented
- *	in Samet, "The Design and Analysis of Spatial
- *	Data Structures"
+ *      wingEdge.h
+ *      Marcelo Walter
+ *      The structure is adapted from the one presented
+ *      in Samet, "The Design and Analysis of Spatial
+ *      Data Structures"
  *---------------------------------------------------------
  */
 
@@ -22,34 +22,34 @@
 #define _WING_EDGE_H_
 
 
-void 	saveWingEdge( const char *fileName );
-void 	checkWingEdgeFile( const char *fileName );
-void 	buildWingEdge( void  );
-void 	buildEdgesList( void );
-int  	includeEdge(int vstart, int vend);
-int  	findEdgeForVert( int vstart, int vend, int *direction );
-void 	updateFaceVertList( void );
-void 	faceAdjInfo( void );
-int  	findFace( int vstart, int vend);
-void 	classifyEdge(int i, int j, int type);
-void 	edgeAdjInfo( void );
-int  	countEdgesFromFace( int whichFace );
-int 	countFacesFromVertex( int whichVertex );
-int  	eccwForFace( int whichEdge, int whichFace );
-int  	eccwForVertex( int whichEdge, int whichVertex );
-int  	ecwForFace( int whichEdge, int whichFace );
-int  	ecwForVertex( int whichEdge, int whichVertex );
-void 	findPrimAdjFaces( int whichFace );
-void 	findSecAdjFaces( int whichFace );
+void    saveWingEdge( const char *fileName );
+void    checkWingEdgeFile( const char *fileName );
+void    buildWingEdge( void  );
+void    buildEdgesList( void );
+int     includeEdge(int vstart, int vend);
+int     findEdgeForVert( int vstart, int vend, int *direction );
+void    updateFaceVertList( void );
+void    faceAdjInfo( void );
+int     findFace( int vstart, int vend);
+void    classifyEdge(int i, int j, int type);
+void    edgeAdjInfo( void );
+int     countEdgesFromFace( int whichFace );
+int     countFacesFromVertex( int whichVertex );
+int     eccwForFace( int whichEdge, int whichFace );
+int     eccwForVertex( int whichEdge, int whichVertex );
+int     ecwForFace( int whichEdge, int whichFace );
+int     ecwForVertex( int whichEdge, int whichVertex );
+void    findPrimAdjFaces( int whichFace );
+void    findSecAdjFaces( int whichFace );
 double compAngleFaces(int whichEdge, int face1, int face2);
-double 	compAngleFaces1(int face1, int face2);
-void 	checkInfoEdge( int whichEdge );
-void 	compMatEdges( int whichEdge );
-void 	loadWingEdge( const char *fileName );
-void 	completeWingEdge( void );
-int 	countEdgesFromVertex( int whichVertex );
-int 	findEdgeForFaces( int face1, int face2 );
-int  	findVertex( int firstEdge, int secondEdge );
-void 	initEdgeFieldsNull( void );
+double  compAngleFaces1(int face1, int face2);
+void    checkInfoEdge( int whichEdge );
+void    compMatEdges( int whichEdge );
+void    loadWingEdge( const char *fileName );
+void    completeWingEdge( void );
+int     countEdgesFromVertex( int whichVertex );
+int     findEdgeForFaces( int face1, int face2 );
+int     findVertex( int firstEdge, int secondEdge );
+void    initEdgeFieldsNull( void );
 
 #endif //_WING_EDGE_H_
