@@ -15,7 +15,6 @@ appreciate corrections, if you find any error)
 
 
 
-
 1. When do I have to recompile Voronoi3D?
 =========================================
 
@@ -35,6 +34,19 @@ extern "C" void getVoronoi( SCELL *headCell, SCELL *tailCell,
 Thus, when modifying any of these data structures (SCELL, voronoiType or
 faceType), be sure to recompile Voronoi3D using the new types, or the library
 will work imprevisibly.
+
+
+
+2. The Makefile is too big and unusable. How could I change it?
+===============================================================
+
+Some time ago I've done a 100-lines-wonderfully-beatiful Makefile, but when I
+tried to use it to compile the program with nvcc (the NVIDIA C compiler) I've
+discovered nvcc does not understand some flags I used to find the dependencies
+from the source files (I was using flags from the "-M family" along with g++).
+
+The Makefile had to be changed, but I wouldn't just change it by hand (it would
+be unacceptable, given the number of source files we have at the code). 
 
 
 
