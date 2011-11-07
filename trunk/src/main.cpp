@@ -98,15 +98,16 @@ int main( int argc, char *argv[] )
 
     //int InicioGPath;
 
+#ifdef ENABLE_CUDA
+
+	printf("HOA HOA: YOU'RE USING NVCC \O/ \O/\n");
+
+
+#endif /* ENABLE_CUDA */
+
     /* we need at least the name of an object file */
     if ( argc < 2 )
         usage();
-
-#ifdef ENABLE_PARALLEL
-
-
-
-#endif /* ENABLE_PARALLEL */
 
     /* parse the command line options */
     for(i = 1; i < argc; i++ )

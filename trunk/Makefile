@@ -11,7 +11,17 @@ MCLONE_VIEWER := bin/MCloneViewer
 
 # Compiler directives
 CC := g++
-CFLAGS := -Wall
+
+ifeq ($(CC),gcc)
+	CFLAGS := -Wall
+else ifeq ($(CC),g++)
+	CFLAGS := -Wall
+else
+	CFLAGS := -DENABLE_CUDA
+endif
+
+
+
 
 INCLUDE_PATHS := -I./src/ -I/usr/local/include/ImageMagick/
 LINKING_PATHS := -L./lib/voronoi3D/
