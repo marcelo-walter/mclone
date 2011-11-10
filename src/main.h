@@ -34,5 +34,14 @@ void setEnv( void );
 void freeAll( void );
 
 
+#ifdef ENABLE_CUDA
+    #include "cuda_runtime.h"
+
+    // Taken from http://code.google.com/p/snp-gpgpu/source/browse/?r=10#svn%2Ftrunk%2Fcuda_by_example_codes%2Fcommon
+    static void HandleError( cudaError_t err, const char *file, int line );
+    #define HANDLE_ERROR( err ) (HandleError( err, __FILE__, __LINE__ ))
+#endif /* ENABLE_CUDA */
+
+
 #endif //_MAIN_H_
 
