@@ -29,6 +29,11 @@
 
 #endif
 
+//#ifdef ENABLE_CUDA
+//    // for some reason, nvcc simply doesn't know the MIN macro
+//    #define MIN(a,b) ((a < b)? a : b)
+//#endif
+
 /*******************************************************/
 
 #define SanityCheck(t)	assert(t)
@@ -154,8 +159,10 @@ class MxBlock : public MxEQ
 		void resize(uint n) { resize_block(n); }
 		void bitcopy(const T *array, uint n) // copy bits directly
 		{ memcpy(block, array, this->MIN(n,N)*sizeof(T)); }
+
 		void copy(const T *array, const uint n) // copy using assignment operator
 		{ for(uint i=0; i<this->MIN(n,N); i++) block[i] = array[i]; }
+
 		void bitcopy(const MxBlock<T>& b) { bitcopy(b, b.length()); }
 		void copy(const MxBlock<T>& b) { copy(b, b.length()); }
 	};
@@ -288,3 +295,4 @@ public:
 
 // MXHEAP_INCLUDED
 #endif
+

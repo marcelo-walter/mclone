@@ -12,20 +12,23 @@ MCLONE_VIEWER := bin/MCloneViewer
 # Compiler directives
 CC := g++
 
+# There are some changes if the user specify that he wants to use cuda.
 ifeq ($(CC),gcc)
 	CFLAGS := -Wall
+    INCLUDE_PATHS := -I./src/ -I/usr/local/include/ImageMagick/
+    LINKING_PATHS := -L./lib/voronoi3D/
+    LINKING_FLAGS := -lMagick++ -lm -lvoronoi -lGL -lGLU -lglut
 else ifeq ($(CC),g++)
 	CFLAGS := -Wall
+    INCLUDE_PATHS := -I./src/ -I/usr/local/include/ImageMagick/
+    LINKING_PATHS := -L./lib/voronoi3D/
+    LINKING_FLAGS := -lMagick++ -lm -lvoronoi -lGL -lGLU -lglut
 else
-	CFLAGS := -DENABLE_CUDA
+	CFLAGS := -DENABLE_CUDA -x cu
+    INCLUDE_PATHS := -I./src/ -I/usr/local/include/ImageMagick/
+    LINKING_PATHS := -L./lib/voronoi3D/
+    LINKING_FLAGS := -lMagick++ -lm -lvoronoi -lGL -lGLU -lglut -lcuda -lcudart -licudata
 endif
-
-
-
-
-INCLUDE_PATHS := -I./src/ -I/usr/local/include/ImageMagick/
-LINKING_PATHS := -L./lib/voronoi3D/
-LINKING_FLAGS := -lMagick++ -lm -lvoronoi -lGL -lGLU -lglut
 
 VIEWER_FLAG := -DGRAPHICS
 

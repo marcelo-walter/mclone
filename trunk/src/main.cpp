@@ -49,7 +49,7 @@
 #include "distance/interfacedistance.h"
 
 #ifdef GRAPHICS
-#include "viewer/ui.h"
+    #include "viewer/ui.h"
 #endif
 
 /*
@@ -98,16 +98,36 @@ int main( int argc, char *argv[] )
 
     //int InicioGPath;
 
-#ifdef ENABLE_CUDA
+    /* we need at least the name of an object file */
+    if ( argc < 2 )
+        usage();
 
-	printf("HOA HOA: YOU'RE USING NVCC \O/ \O/\n");
+
+#ifdef ENABLE_CUDA
+	/* If the user has enabled CUDA, we verify what are his GPU cards and
+       choose the one that fits better on our needs */
+
+    int deviceCount;
+    int device;
+
+    /* If there are devices, we get any of them */
+    // TODO: CHOOSE THE BEST DEVICE INSTEAD OF ANYONE OF THEM
+    HANDLE_ERROR( cudaGetDevice( &device ) );
+    printf("Using device %d\n", device);
+
+    HANDLE_ERROR( cudaGetDeviceCount( &deviceCount ) );
+    if (deviceCount == 1)
+    {
+        cudaDeviceProp deviceProperties;
+        cudaGetDeviceProperties ( &deviceProperties, 0 );
+
+        if ((deviceProperties.major == deviceProperties.minor) == 9999)
+            printf("Running on device emulation mode. No available device found\n");
+    }
 
 
 #endif /* ENABLE_CUDA */
 
-    /* we need at least the name of an object file */
-    if ( argc < 2 )
-        usage();
 
     /* parse the command line options */
     for(i = 1; i < argc; i++ )
@@ -978,3 +998,16 @@ void usage( void )
     printf("-h Help\n");
     exit(1);
 }
+
+
+#ifdef ENABLE_CUDA
+// Taken from http://code.google.com/p/snp-gpgpu/source/browse/?r=10#svn%2Ftrunk%2Fcuda_by_example_codes%2Fcommon
+static void HandleError( cudaError_t err, const char *file, int line ) {
+    if (err != cudaSuccess) {
+        printf( "%s in %s at line %d\n", cudaGetErrorString( err ),
+                file, line );
+        exit( EXIT_FAILURE );
+    }
+}
+#endif /* ENABLE_CUDA */
+
