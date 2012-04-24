@@ -221,15 +221,15 @@ void MakeLUDecomposition3D(int Type)
 	if (Type)
 	{
 		//Using Straight Path Lenght
-		setMatrix(MatrixLUX, NumColunaLinha, -1); //ATENCAO: Usado -1 apenas para compilar, REVER. TODO
-		setMatrix(MatrixLUY, NumColunaLinha, -1); //ATENCAO: Usado -1 apenas para compilar, REVER. TODO
-		setMatrix(MatrixLUZ, NumColunaLinha, -1); //ATENCAO: Usado -1 apenas para compilar, REVER. TODO
+		setMatrix(MatrixLUX, NumColunaLinha, 7);
+		setMatrix(MatrixLUY, NumColunaLinha, 7);
+		setMatrix(MatrixLUZ, NumColunaLinha, 7);
 	}
 	else {
 		//Using Geodesic Path Lenght
-		setMatrixWithGeodesicPath(MatrixLUX, NumColunaLinha, -1); //ATENCAO: Usado -1 apenas para compilar, REVER. TODO
-		setMatrixWithGeodesicPath(MatrixLUY, NumColunaLinha, -1); //ATENCAO: Usado -1 apenas para compilar, REVER. TODO
-		setMatrixWithGeodesicPath(MatrixLUZ, NumColunaLinha, -1); //ATENCAO: Usado -1 apenas para compilar, REVER. TODO
+		setMatrixWithGeodesicPath(MatrixLUX, NumColunaLinha, 7);
+		setMatrixWithGeodesicPath(MatrixLUY, NumColunaLinha, 7);
+		setMatrixWithGeodesicPath(MatrixLUZ, NumColunaLinha, 7);
 	}
 	
 	setVector(VectorLUResultX, NumColunaLinha, 'X');
