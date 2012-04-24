@@ -381,6 +381,10 @@ void setMatrix(float **m, long numColunaLinha, int TypeRBFEuclidian)
 						//Using Raio only (3D)
 						m[i][x] = (ValorEntradaFuncaoRadial * 2);
 					} break;
+					case 7: {
+						//Using Inverse Multiquadratic
+						m[i][x] = 1/(pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5));
+					} break;
 				}
 			}
 			x++;
@@ -483,6 +487,10 @@ void setMatrixWithGeodesicPath(float **m, long numColunaLinha, int TypeRBFGeodes
 					case 4: {
 						//Using Thin-Plane RBF (2D)
 						m[i][x] = ((pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))));
+					} break;
+					case 7: {
+						//Using Inverse Multiquadratic
+						m[i][x] = 1/(pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5));
 					} break;
 				}
 			}
