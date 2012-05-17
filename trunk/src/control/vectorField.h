@@ -38,6 +38,31 @@ extern int WithInterpolationType;
 
 #define	VECTORID "VECTORID"
 
+/**
+ * 0: Using Multiquadratic
+ * 1: Using Gaussian RBF Function
+ * 2: Using Thin-Plane RBF (3D)
+ * 3: Using Raio only (3D)
+ * 4: Using Thin-Plane RBF (2D)
+ * 5: Using Thin-Plane RBF (3D) (Only on matrix)
+ * 6: Using Raio only (3D) (Only on matrix)
+ * 7: Using Inverse Multiquadratic
+ * 8: Using Biharmonic (Only on vectorField)
+ * 9: Using Triharmonic (Only on vectorField)
+ */
+enum InterpolationMode {
+	MULTIQUADRATIC = 0,
+	GAUSSIAN_RBF = 1,
+	THIN_PLANE_RBF_3D = 2,
+	RAIO_ONLY_3D = 3,
+	THIN_PLANE_RBF_2D = 4,
+	THIN_PLANE_RBF_3D_B = 5,
+	RAIO_ONLY_3D_B = 6,
+	INVERSE_MULTIQUADRATIC = 7,
+	BIHARMONIC = 8,
+	TRIHARMONIC = 9
+};
+
 /*
  *---------------------------------------------------------------
  *

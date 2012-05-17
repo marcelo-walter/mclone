@@ -10,7 +10,7 @@
 #ifndef _MATRIX_H_
 #define _MATRIX_H_
 
-
+#include "control/vectorField.h"
 
 #define NR_END 1
 #define FREE_ARG char*
@@ -30,8 +30,8 @@ void setVector(float *vector, int tamanho, char eixo);
 void free_vectorFloatCreate(float *v, long IndiceVetor_Inferior, long IndiceVetor_Superior);
 void free_vectorIntCreate(int *v, long IndiceVetor_Inferior, long IndiceVetor_Superior);
 float **matrixCreate(long IndiceLinhaMatrix_Infeior, long IndiceLinhaMatrix_Superior, long IndiceColunaMatrix_Inferior, long IndiceColunaMatrix_Superior);	//allocate a float matrix with subscript range m[IndiceLinhaMatrix_Infeior..IndiceLinhaMatrix_Superior][IndiceColunaMatrix_Inferior..IndiceColunaMatrix_Superior]
-void setMatrix(float **m, long numColunaLinha, int TypeRBFEuclidian);
-void setMatrixWithGeodesicPath(float **m, long numColunaLinha, int TypeRBFGeodesic);
+void setMatrix(float **m, long numColunaLinha, InterpolationMode typeRBFEuclidian);
+void setMatrixWithGeodesicPath(float **m, long numColunaLinha, InterpolationMode typeRBFGeodesic);
 void free_matrixLU(float **m, long IndiceLinhaMatrix_Infeior, long IndiceLinhaMatrix_Superior, long IndiceColunaMatrix_Inferior, long IndiceColunaMatrix_Superior); //free a float matrix allocated by matrix()
 void ludcmpLU(float **a, int n, int *indx, float *d);
 void lubksbLU(float **a, int n, int *indx, float b[]);

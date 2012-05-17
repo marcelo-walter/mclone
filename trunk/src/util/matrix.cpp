@@ -17,7 +17,6 @@
 
 #include "matrixUtil.h"
 #include "distance/interfacedistance.h"
-#include "control/vectorField.h"
 #include "data/Object.h"
 
 
@@ -289,7 +288,7 @@ float **matrixCreate(long IndiceLinhaMatrix_Infeior, long IndiceLinhaMatrix_Supe
 	return m;
 }
 
-void setMatrix(float **m, long numColunaLinha, int TypeRBFEuclidian)
+void setMatrix(float **m, long numColunaLinha, InterpolationMode typeRBFEuclidian)
 {
 	long i, j, x, Aux, jPlus, jPlusPlus;
 	float ValorEntradaFuncaoRadial = 0.0;
@@ -334,6 +333,7 @@ void setMatrix(float **m, long numColunaLinha, int TypeRBFEuclidian)
 
 		AuxNodo2 = headV->next;
 		x = 1;
+
 		while (AuxNodo2 != zedV)
 		{
 			CjX = (AuxNodo2->vBegin.x);
@@ -343,48 +343,49 @@ void setMatrix(float **m, long numColunaLinha, int TypeRBFEuclidian)
 			if (AuxNodo1->faceIndex == AuxNodo2->faceIndex)
 			{
 				m[i][x] = 0.0;
-			}
-			else {
+			} else {
 				ValorEntradaFuncaoRadial = sqrt( (pow((CiX - CjX),2)) + (pow((CiY - CjY),2)) + (pow((CiZ - CjZ),2)) );
 				/*
 				 printf("(%f - %f) (%f - %f) (%f - %f)\n", CiX, CjX, CiY, CjY, CiZ, CjZ);
 				 printf("[%i -> %i] <%f> <%f> <%f>", AuxNodo1->faceIndex, AuxNodo2->faceIndex, (CiX - CjX), (CiY - CjY), (CiZ - CjZ));
 				 printf(" = %f\n", ValorEntradaFuncaoRadial);*/
 
-				switch (TypeRBFEuclidian)
-				{
-					case 0: {
+				switch (typeRBFEuclidian) {
+					case MULTIQUADRATIC: {
 						//Using Multiquadratic
 						m[i][x] = pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5);
 					} break;
-					case 1: {
+					case GAUSSIAN_RBF: {
 						//Using Gaussian RBF Function
 						m[i][x] = exp(-(pow(ValorEntradaFuncaoRadial,2))*pow(2.0,2));
 					} break;
-					case 2: {
+					case THIN_PLANE_RBF_3D: {
 						//Using Thin-Plane RBF (3D)
 						m[i][x] = pow(ValorEntradaFuncaoRadial, 3);
 					} break;
-					case 3: {
+					case RAIO_ONLY_3D: {
 						//Using Raio only (3D)
 						m[i][x] = ValorEntradaFuncaoRadial;
 					} break;
-					case 4: {
+					case THIN_PLANE_RBF_2D: {
 						//Using Thin-Plane RBF (2D)
 						m[i][x] = ((pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))));
 					} break;
-					case 5: {
+					case THIN_PLANE_RBF_3D_B: {
 						//Using Thin-Plane RBF (3D)
 						m[i][x] = (pow((ValorEntradaFuncaoRadial * 2), 3));
 					} break;
-					case 6: {
+					case RAIO_ONLY_3D_B: {
 						//Using Raio only (3D)
 						m[i][x] = (ValorEntradaFuncaoRadial * 2);
 					} break;
-					case 7: {
+					case INVERSE_MULTIQUADRATIC: {
 						//Using Inverse Multiquadratic
-						m[i][x] = 1/(pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5));
+						m[i][x] = 1 / (pow((pow(ValorEntradaFuncaoRadial,2) + pow(0.5,2)),0.5));
 					} break;
+					case BIHARMONIC:
+					case TRIHARMONIC:
+						break;
 				}
 			}
 			x++;
@@ -396,7 +397,7 @@ void setMatrix(float **m, long numColunaLinha, int TypeRBFEuclidian)
 	}
 }
 
-void setMatrixWithGeodesicPath(float **m, long numColunaLinha, int TypeRBFGeodesic)
+void setMatrixWithGeodesicPath(float **m, long numColunaLinha, InterpolationMode typeRBFGeodesic)
 {
 	long i, j, x, Aux, jPlus, jPlusPlus, IndiceGeodesicPath, OffSetIndiceGeodesicPath;
 	float ValorEntradaFuncaoRadial = 0.0;
@@ -450,14 +451,12 @@ void setMatrixWithGeodesicPath(float **m, long numColunaLinha, int TypeRBFGeodes
 			if (AuxNodo1->faceIndex == AuxNodo2->faceIndex)
 			{
 				m[i][x] = 0.0;
-			}
-			else {
+			} else {
 				if (AuxNodo1->faceIndex < AuxNodo2->faceIndex)
 				{
 					IndiceGeodesicPath = ((AuxNodo1->faceIndex * NumberFaces) - ((AuxNodo1->faceIndex * (AuxNodo1->faceIndex + 1))/2));
 					OffSetIndiceGeodesicPath = ((AuxNodo2->faceIndex - AuxNodo1->faceIndex)-1);
-				}
-				else {
+				} else {
 					IndiceGeodesicPath = ((AuxNodo2->faceIndex * NumberFaces) - ((AuxNodo2->faceIndex * (AuxNodo2->faceIndex+1))/2));
 					OffSetIndiceGeodesicPath = ((AuxNodo1->faceIndex - AuxNodo2->faceIndex)-1);
 				}
@@ -466,32 +465,37 @@ void setMatrixWithGeodesicPath(float **m, long numColunaLinha, int TypeRBFGeodes
 
 				//fprintf( stderr, "\n[%d][%d] = %f (%d, %d)\n", AuxNodo1->faceIndex, AuxNodo2->faceIndex, ArrayGeodesicPath[(IndiceGeodesicPath + OffSetIndiceGeodesicPath)].Distance, ArrayGeodesicPath[(IndiceGeodesicPath + OffSetIndiceGeodesicPath)].Path1, ArrayGeodesicPath[(IndiceGeodesicPath + OffSetIndiceGeodesicPath)].Path2);
 
-				switch (TypeRBFGeodesic)
+				switch (typeRBFGeodesic)
 				{
-					case 0: {
+					case MULTIQUADRATIC: {
 						//Using Multiquadratic
 						m[i][x] = pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5);
 					} break;
-					case 1: {
+					case GAUSSIAN_RBF: {
 						//Using Gaussian RBF Function
 						m[i][x] = exp(-(pow(ValorEntradaFuncaoRadial,2))*pow(2.0,2));
 					} break;
-					case 2: {
+					case THIN_PLANE_RBF_3D: {
 						//Using Thin-Plane RBF (3D)
 						m[i][x] = pow(ValorEntradaFuncaoRadial, 3);
 					} break;
-					case 3: {
+					case RAIO_ONLY_3D: {
 						//Using Raio only (3D)
 						m[i][x] = ValorEntradaFuncaoRadial;
 					} break;
-					case 4: {
+					case THIN_PLANE_RBF_2D: {
 						//Using Thin-Plane RBF (2D)
 						m[i][x] = ((pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))));
 					} break;
-					case 7: {
+					case INVERSE_MULTIQUADRATIC: {
 						//Using Inverse Multiquadratic
-						m[i][x] = 1/(pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5));
+						m[i][x] = 1 / (pow((pow(ValorEntradaFuncaoRadial,2) + pow(0.5,2)),0.5));
 					} break;
+					case THIN_PLANE_RBF_3D_B:
+					case RAIO_ONLY_3D_B:
+					case BIHARMONIC:
+					case TRIHARMONIC:
+						break;
 				}
 			}
 			x++;

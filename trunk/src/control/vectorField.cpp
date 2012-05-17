@@ -48,6 +48,21 @@ int PointPicking = -1;
 
 int WithInterpolationType;
 
+/**
+ * 0: Using Multiquadratic
+ * 1: Using Gaussian RBF Function
+ * 2: Using Thin-Plane RBF (3D)
+ * 3: Using Raio only (3D)
+ * 4: Using Thin-Plane RBF (2D)
+ * 5: Using Thin-Plane RBF (3D) (Only on matrix)
+ * 6: Using Raio only (3D) (Only on matrix)
+ * 7: Using Inverse Multiquadratic
+ * 8: Using Biharmonic (Only on vectorField)
+ * 9: Using Triharmonic (Only on vectorField)
+ */
+InterpolationMode static INTERPOLATION_MODE = INVERSE_MULTIQUADRATIC;
+InterpolationMode static MATRIX_INTERPOLATION_MODE = MULTIQUADRATIC;
+
 /*
  *---------------------------------------------------------------
  *
@@ -185,7 +200,7 @@ void morphVectorField( void )
 		vect->vEnd = vectors[IndexFace].vEnd;
 		printf("vectors[IndexFace].vEnd: %f\n", vectors[IndexFace].vEnd.x);
 		//faces[IndexFace].EndOfVector3D;
-		//NodoAux->vEnd = 
+		//NodoAux->vEnd =
 		vect->vBegin = faces[IndexFace].center3D;
 		///NodoAux->
 		fromVectorBarycentricCoord(vect);
@@ -221,15 +236,14 @@ void MakeLUDecomposition3D(int Type)
 	if (Type)
 	{
 		//Using Straight Path Lenght
-		setMatrix(MatrixLUX, NumColunaLinha, 7);
-		setMatrix(MatrixLUY, NumColunaLinha, 7);
-		setMatrix(MatrixLUZ, NumColunaLinha, 7);
-	}
-	else {
+		setMatrix(MatrixLUX, NumColunaLinha, MATRIX_INTERPOLATION_MODE);
+		setMatrix(MatrixLUY, NumColunaLinha, MATRIX_INTERPOLATION_MODE);
+		setMatrix(MatrixLUZ, NumColunaLinha, MATRIX_INTERPOLATION_MODE);
+	} else {
 		//Using Geodesic Path Lenght
-		setMatrixWithGeodesicPath(MatrixLUX, NumColunaLinha, 7);
-		setMatrixWithGeodesicPath(MatrixLUY, NumColunaLinha, 7);
-		setMatrixWithGeodesicPath(MatrixLUZ, NumColunaLinha, 7);
+		setMatrixWithGeodesicPath(MatrixLUX, NumColunaLinha, MATRIX_INTERPOLATION_MODE);
+		setMatrixWithGeodesicPath(MatrixLUY, NumColunaLinha, MATRIX_INTERPOLATION_MODE);
+		setMatrixWithGeodesicPath(MatrixLUZ, NumColunaLinha, MATRIX_INTERPOLATION_MODE);
 	}
 	
 	setVector(VectorLUResultX, NumColunaLinha, 'X');
@@ -289,27 +303,47 @@ float InterpolationRBFX(float x, float y, float z)
 	{
 		ValorEntradaFuncaoRadial = sqrt( (pow((x - NodoAux->vBegin.x),2)) + (pow((y - NodoAux->vBegin.y),2)) + (pow((z - NodoAux->vBegin.z),2)) );
 		
-		//Using Multiquadratic
-		//rbfSomatorioResult += (VectorLUResultX[indiceAux] * (pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5)));
-		
-		//Using Gaussian RBF Function
-		//rbfSomatorioResult += ( VectorLUResultX[indiceAux] * ( exp( -( pow(ValorEntradaFuncaoRadial,2) ) * pow(2.0,2) ) ) );
-		rbfSomatorioResult +=  VectorLUResultX[indiceAux] *  exp( - (4.0 * (pow(ValorEntradaFuncaoRadial,2 )) ) );
-		
-		//Using Thin-Plane RBF (3D)
-	//	rbfSomatorioResult += (VectorLUResultX[indiceAux] * (pow(ValorEntradaFuncaoRadial, 3)));
-		
-		//Using Raio only (3D)
-		//rbfSomatorioResult += (VectorLUResultX[indiceAux] * (ValorEntradaFuncaoRadial));
-		
-		//Using Thin-Plane RBF (2D)
-		//rbfSomatorioResult += (VectorLUResultX[indiceAux] * ( (pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))) ));
-		
-		//Using Biharmonic
-		//rbfSomatorioResult += (VectorLUResultX[indiceAux] * ValorEntradaFuncaoRadial);
-		
-		// Using Triharmonic
-		//rbfSomatorioResult += (VectorLUResultX[indiceAux] * pow(ValorEntradaFuncaoRadial,3));
+		switch (INTERPOLATION_MODE) {
+			case MULTIQUADRATIC:
+				//Using Multiquadratic
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * (pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5)));
+				break;
+			case GAUSSIAN_RBF:
+				//Using Gaussian RBF Function
+				rbfSomatorioResult += ( VectorLUResultX[indiceAux] * ( exp( -( pow(ValorEntradaFuncaoRadial,2) ) * pow(2.0,2) ) ) );
+				//rbfSomatorioResult +=  VectorLUResultX[indiceAux] *  exp( - (4.0 * (pow(ValorEntradaFuncaoRadial,2 )) ) );
+				break;
+			case THIN_PLANE_RBF_3D:
+				//Using Thin-Plane RBF (3D)
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * (pow(ValorEntradaFuncaoRadial, 3)));
+				break;
+			case RAIO_ONLY_3D:
+				//Using Raio only (3D)
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * (ValorEntradaFuncaoRadial));
+				break;
+			case THIN_PLANE_RBF_2D:
+				//Using Thin-Plane RBF (2D)
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * ( (pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))) ));
+				break;
+			case THIN_PLANE_RBF_3D_B:
+				//Using Thin-Plane RBF (3D)
+				break;
+			case RAIO_ONLY_3D_B:
+				//Using Raio only (3D)
+				break;
+			case INVERSE_MULTIQUADRATIC:
+				//Using Inverse Multiquadratic
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * (1/(pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5))));
+				break;
+			case BIHARMONIC:
+				//Using Biharmonic
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * ValorEntradaFuncaoRadial);
+				break;
+			case TRIHARMONIC:
+				//Using Triharmonic
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * pow(ValorEntradaFuncaoRadial,3));
+				break;
+		}
 		
 		indiceAux++;
 		NodoAux = NodoAux->next;
@@ -331,27 +365,47 @@ float InterpolationRBFY(float x, float y, float z)
 	{
 		ValorEntradaFuncaoRadial = sqrt( (pow((x - NodoAux->vBegin.x),2)) + (pow((y - NodoAux->vBegin.y),2)) + (pow((z - NodoAux->vBegin.z),2)) );
 		
-		//Using Multiquadratic
-		//rbfSomatorioResult += (VectorLUResultY[indiceAux] * (pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5)));
-		
-		//Using Gaussian RBF Function
-		//rbfSomatorioResult += ( VectorLUResultY[indiceAux] * ( exp( -( pow(ValorEntradaFuncaoRadial,2) ) * pow(2.0,2) ) ) );
-		rbfSomatorioResult +=  VectorLUResultY[indiceAux] *  exp( - (4.0 * (pow(ValorEntradaFuncaoRadial,2 )) ) );
-		
-		//Using Thin-Plane RBF (3D)
-		//rbfSomatorioResult += (VectorLUResultY[indiceAux] * (pow(ValorEntradaFuncaoRadial, 3)));
-		
-		//Using Raio only (3D)
-		//rbfSomatorioResult += (VectorLUResultY[indiceAux] * (ValorEntradaFuncaoRadial));
-		
-		//Using Thin-Plane RBF (2D)
-		//rbfSomatorioResult += (VectorLUResultY[indiceAux] * ( (pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))) ));
-		
-		//Using Biharmonic
-		//rbfSomatorioResult += (VectorLUResultY[indiceAux] * ValorEntradaFuncaoRadial);
-
-		// Using Triharmonic
-		//rbfSomatorioResult += (VectorLUResultY[indiceAux] * pow(ValorEntradaFuncaoRadial,3));
+		switch (INTERPOLATION_MODE) {
+			case MULTIQUADRATIC:
+				//Using Multiquadratic
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * (pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5)));
+				break;
+			case GAUSSIAN_RBF:
+				//Using Gaussian RBF Function
+				rbfSomatorioResult += ( VectorLUResultY[indiceAux] * ( exp( -( pow(ValorEntradaFuncaoRadial,2) ) * pow(2.0,2) ) ) );
+				//rbfSomatorioResult +=  VectorLUResultY[indiceAux] *  exp( - (4.0 * (pow(ValorEntradaFuncaoRadial,2 )) ) );
+				break;
+			case THIN_PLANE_RBF_3D:
+				//Using Thin-Plane RBF (3D)
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * (pow(ValorEntradaFuncaoRadial, 3)));
+				break;
+			case RAIO_ONLY_3D:
+				//Using Raio only (3D)
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * (ValorEntradaFuncaoRadial));
+				break;
+			case THIN_PLANE_RBF_2D:
+				//Using Thin-Plane RBF (2D)
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * ( (pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))) ));
+				break;
+			case THIN_PLANE_RBF_3D_B:
+				//Using Thin-Plane RBF (3D)
+				break;
+			case RAIO_ONLY_3D_B:
+				//Using Raio only (3D)
+				break;
+			case INVERSE_MULTIQUADRATIC:
+				//Using Inverse Multiquadratic
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * (1/(pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5))));
+				break;
+			case BIHARMONIC:
+				//Using Biharmonic
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * ValorEntradaFuncaoRadial);
+				break;
+			case TRIHARMONIC:
+				//Using Triharmonic
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * pow(ValorEntradaFuncaoRadial,3));
+				break;
+		}
 		
 		indiceAux++;
 		NodoAux = NodoAux->next;
@@ -373,29 +427,47 @@ float InterpolationRBFZ(float x, float y, float z)
 	{
 		ValorEntradaFuncaoRadial = sqrt( (pow((x - NodoAux->vBegin.x),2)) + (pow((y - NodoAux->vBegin.y),2)) + (pow((z - NodoAux->vBegin.z),2)) );
 		
-		//Using Multiquadratic
-		//rbfSomatorioResult += ( VectorLUResultZ[indiceAux] * ( pow( ( pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5)) );
-		
-		//Using Gaussian RBF Function
-		//rbfSomatorioResult += ( VectorLUResultZ[indiceAux] * ( exp( -( pow(ValorEntradaFuncaoRadial,2) ) * pow(2.0,2) ) ) );
-		//rbfSomatorioResult += ( VectorLUResultZ[indiceAux] * ( exp( - ( pow(ValorEntradaFuncaoRadial,2) ) * pow(2.0,2) ) ) );
-		rbfSomatorioResult +=  VectorLUResultZ[indiceAux] *  exp( - (4.0 * (pow(ValorEntradaFuncaoRadial,2 )) ) );
-		
-		
-		//Using Thin-Plane RBF (3D)
-		//rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (pow(ValorEntradaFuncaoRadial, 3)));
-		
-		//Using Raio only (3D)
-		//rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (ValorEntradaFuncaoRadial));
-		
-		//Using Thin-Plane RBF (2D)
-		//rbfSomatorioResult += (VectorLUResultZ[indiceAux] * ( (pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))) ));
-		
-		//Using Biharmonic
-		//rbfSomatorioResult += (VectorLUResultZ[indiceAux] * ValorEntradaFuncaoRadial);
-		
-		// Using Triharmonic
-		//rbfSomatorioResult += (VectorLUResultZ[indiceAux] * pow(ValorEntradaFuncaoRadial,3));
+		switch (INTERPOLATION_MODE) {
+			case MULTIQUADRATIC:
+				//Using Multiquadratic
+				rbfSomatorioResult += ( VectorLUResultZ[indiceAux] * ( pow( ( pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5)) );
+				break;
+			case GAUSSIAN_RBF:
+				//Using Gaussian RBF Function
+				rbfSomatorioResult += ( VectorLUResultZ[indiceAux] * ( exp( - ( pow(ValorEntradaFuncaoRadial,2) ) * pow(2.0,2) ) ) );
+				//rbfSomatorioResult +=  VectorLUResultZ[indiceAux] *  exp( - (4.0 * (pow(ValorEntradaFuncaoRadial,2 )) ) );
+				break;
+			case THIN_PLANE_RBF_3D:
+				//Using Thin-Plane RBF (3D)
+				rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (pow(ValorEntradaFuncaoRadial, 3)));
+				break;
+			case RAIO_ONLY_3D:
+				//Using Raio only (3D)
+				rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (ValorEntradaFuncaoRadial));
+				break;
+			case THIN_PLANE_RBF_2D:
+				//Using Thin-Plane RBF (2D)
+				rbfSomatorioResult += (VectorLUResultZ[indiceAux] * ( (pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))) ));
+				break;
+			case THIN_PLANE_RBF_3D_B:
+				//Using Thin-Plane RBF (3D)
+				break;
+			case RAIO_ONLY_3D_B:
+				//Using Raio only (3D)
+				break;
+			case INVERSE_MULTIQUADRATIC:
+				//Using Inverse Multiquadratic
+				rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (1/(pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5))));
+				break;
+			case BIHARMONIC:
+				//Using Biharmonic
+				rbfSomatorioResult += (VectorLUResultZ[indiceAux] * ValorEntradaFuncaoRadial);
+				break;
+			case TRIHARMONIC:
+				//Using Triharmonic
+				rbfSomatorioResult += (VectorLUResultZ[indiceAux] * pow(ValorEntradaFuncaoRadial,3));
+				break;
+		}
 
 		indiceAux++;
 		NodoAux = NodoAux->next;
@@ -514,17 +586,17 @@ void CertificaAreaCelulas(void)
 		faces[IndexFace].EndOfVector3D.x = InterpolationRBFX(faces[IndexFace].center3D.x, faces[IndexFace].center3D.y, faces[IndexFace].center3D.z);
 		faces[IndexFace].EndOfVector3D.y = InterpolationRBFY(faces[IndexFace].center3D.x, faces[IndexFace].center3D.y, faces[IndexFace].center3D.z);
 		faces[IndexFace].EndOfVector3D.z = InterpolationRBFZ(faces[IndexFace].center3D.x, faces[IndexFace].center3D.y, faces[IndexFace].center3D.z);
-		
+
 		ProjetaVetorFace(IndexFace, faces[IndexFace].EndOfVector3D.x, faces[IndexFace].EndOfVector3D.y, faces[IndexFace].EndOfVector3D.z, &(faces	[IndexFace].EndOfVector3D));
-		
+
 		vectors[IndexFace].vEnd.x = faces[IndexFace].EndOfVector3D.x;
 		vectors[IndexFace].vEnd.y = faces[IndexFace].EndOfVector3D.y;
 		vectors[IndexFace].vEnd.z = faces[IndexFace].EndOfVector3D.z;
-		
+
 		vectors[IndexFace].vBegin = faces[IndexFace].center3D;
 		vectors[IndexFace].faceIndex = IndexFace;
 		//printf( "Face: %d %f %f %f\n", IndexFace, faces[IndexFace].EndOfVector3D.x, faces[IndexFace].EndOfVector3D.y, faces[IndexFace].EndOfVector3D.z);
-		
+
 		/*add by Fabiane Queiroz*/
 		/*vectors[IndexFace].vBegin.x = faces[IndexFace].center3D.x;
 		vectors[IndexFace].vBegin.y = faces[IndexFace].center3D.y;
@@ -553,7 +625,6 @@ void CertificaAreaCelulas(void)
 		mapOntoPolySpace(IndexFace, q.x, q.y, q.z, &(faces[IndexFace].endOfProjectVector));
 		
 		 //printf("AAAAAAAA: %f %f e %f %f\n ", faces[IndexFace].centerProjecVector.x , faces[IndexFace].endOfProjectVector.x,  faces[IndexFace].centerProjecVector.y , faces[IndexFace].endOfProjectVector.y);
-		
 	}
 	
 	/*Add by Fabiane Queiroz at 22/09/2010*/
@@ -584,7 +655,6 @@ void createVerticesVectors(void)
 		
 		for(indexFace = 0; indexFace < facesNumber; indexFace ++)
 		{
-			
 			vect.x = faces[vert[indexVertice].neighFaces[indexFace]].EndOfVector3D.x - faces[vert[indexVertice].neighFaces[indexFace]].center3D.x;
 			vect.y = faces[vert[indexVertice].neighFaces[indexFace]].EndOfVector3D.y - faces[vert[indexVertice].neighFaces[indexFace]].center3D.y;
 			vect.z = faces[vert[indexVertice].neighFaces[indexFace]].EndOfVector3D.z - faces[vert[indexVertice].neighFaces[indexFace]].center3D.z;
@@ -592,7 +662,6 @@ void createVerticesVectors(void)
 			sum.x =  vect.x + sum.x;
 			sum.y =  vect.y + sum.y;
 			sum.z =  vect.z + sum.z;
-
 		}
 		
 		vect.x = sum.x/(facesNumber);
@@ -602,7 +671,7 @@ void createVerticesVectors(void)
 		vert[indexVertice].EndOfVector3D.x = vert[indexVertice].pos.x + vect.x;
 		vert[indexVertice].EndOfVector3D.y = vert[indexVertice].pos.y + vect.y;
 		vert[indexVertice].EndOfVector3D.z = vert[indexVertice].pos.z + vect.z;
-		 
+
 		sum.x = 0; sum.y = 0; sum.z = 0;
 		
 		/* get vector's current position in the 2D space */
@@ -619,12 +688,8 @@ void createVerticesVectors(void)
 		mapOntoPolySpace(indexVertice, q.x, q.y, q.z, &(vert[indexVertice].endOfProjectVector));
 		
 		//printf("OUPAAAAAAAA: %f %f e %f %f \n ", vert[indexVertice].endOfProjectVector.x , vert[indexVertice].beginOfProjectvector.x, vert[indexVertice].endOfProjectVector.y , vert[indexVertice].beginOfProjectvector.y);
-		
 	}
-	
 }
-
-
 
 float InterpolationRBFXWithGeodesicPath(float x, float y, float z, int IndexOfFace)
 {
@@ -645,32 +710,54 @@ float InterpolationRBFXWithGeodesicPath(float x, float y, float z, int IndexOfFa
 			{
 				IndiceGeodesicPath = ((	NodoAux->faceIndex * NumberFaces) - ((NodoAux->faceIndex * (NodoAux->faceIndex + 1))/2));
 				OffSetIndiceGeodesicPath = ((IndexOfFace - 	NodoAux->faceIndex)-1);
-			}
-			else {
+			} else {
 				IndiceGeodesicPath = ((IndexOfFace * NumberFaces) - ((IndexOfFace * (IndexOfFace+1))/2));
 				OffSetIndiceGeodesicPath = ((NodoAux->faceIndex - IndexOfFace)-1);
 			}
 			ValorEntradaFuncaoRadial = sqrt( (pow((x - NodoAux->vBegin.x),2)) + (pow((y - NodoAux->vBegin.y),2)) + (pow((z - NodoAux->vBegin.z),2)) );
 			ValorEntradaFuncaoRadial += ((ArrayGeodesicPath[(IndiceGeodesicPath + OffSetIndiceGeodesicPath)].Distance)*2);
-		}
-		else {
+		} else {
 			ValorEntradaFuncaoRadial = 0.0;
 		}
 		
-		//Using Multiquadratic
-		//rbfSomatorioResult += (VectorLUResultX[indiceAux] * (pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5)));
-		
-		//Using Gaussian RBF Function
-		//rbfSomatorioResult += (VectorLUResultX[indiceAux] * (exp(-(pow(ValorEntradaFuncaoRadial,2))*pow(2.0,2))));
-		
-		//Using Thin-Plane RBF (3D)
-		//rbfSomatorioResult += (VectorLUResultX[indiceAux] * (pow(ValorEntradaFuncaoRadial, 3)));
-		
-		//Using Raio only (3D)
-		rbfSomatorioResult += (VectorLUResultX[indiceAux] * (ValorEntradaFuncaoRadial));
-		
-		//Using Thin-Plane RBF (2D)
-		//rbfSomatorioResult += (VectorLUResultX[indiceAux] * ( (pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))) ));
+		switch (INTERPOLATION_MODE) {
+			case MULTIQUADRATIC:
+				//Using Multiquadratic
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * (pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5)));
+				break;
+			case GAUSSIAN_RBF:
+				//Using Gaussian RBF Function
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * (exp(-(pow(ValorEntradaFuncaoRadial,2))*pow(2.0,2))));
+				break;
+			case THIN_PLANE_RBF_3D:
+				//Using Thin-Plane RBF (3D)
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * (pow(ValorEntradaFuncaoRadial, 3)));
+				break;
+			case RAIO_ONLY_3D:
+				//Using Raio only (3D)
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * (ValorEntradaFuncaoRadial));
+				break;
+			case THIN_PLANE_RBF_2D:
+				//Using Thin-Plane RBF (2D)
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * ((pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))) ));
+				break;
+			case THIN_PLANE_RBF_3D_B:
+				//Using Thin-Plane RBF (3D)
+				break;
+			case RAIO_ONLY_3D_B:
+				//Using Raio only (3D)
+				break;
+			case INVERSE_MULTIQUADRATIC:
+				//Using Inverse Multiquadratic
+				rbfSomatorioResult += (VectorLUResultX[indiceAux] * (1 / (pow((pow(ValorEntradaFuncaoRadial,2) + pow(0.5,2)),0.5))));
+				break;
+			case BIHARMONIC:
+				//Using Biharmonic
+				break;
+			case TRIHARMONIC:
+				//Using Triharmonic
+				break;
+		}
 		
 		indiceAux++;
 		NodoAux = NodoAux->next;
@@ -698,32 +785,54 @@ float InterpolationRBFYWithGeodesicPath(float x, float y, float z, int IndexOfFa
 			{
 				IndiceGeodesicPath = ((	NodoAux->faceIndex * NumberFaces) - ((NodoAux->faceIndex * (NodoAux->faceIndex + 1))/2));
 				OffSetIndiceGeodesicPath = ((IndexOfFace - 	NodoAux->faceIndex)-1);
-			}
-			else {
+			} else {
 				IndiceGeodesicPath = ((IndexOfFace * NumberFaces) - ((IndexOfFace * (IndexOfFace+1))/2));
 				OffSetIndiceGeodesicPath = ((NodoAux->faceIndex - IndexOfFace)-1);
 			}
 			ValorEntradaFuncaoRadial = sqrt( (pow((x - NodoAux->vBegin.x),2)) + (pow((y - NodoAux->vBegin.y),2)) + (pow((z - NodoAux->vBegin.z),2)) );
 			ValorEntradaFuncaoRadial += ((ArrayGeodesicPath[(IndiceGeodesicPath + OffSetIndiceGeodesicPath)].Distance)*2);
-		}
-		else {
+		} else {
 			ValorEntradaFuncaoRadial = 0.0;
 		}
 		
-		//Using Multiquadratic
-		//rbfSomatorioResult += (VectorLUResultY[indiceAux] * (pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5)));
-		
-		//Using Gaussian RBF Function
-		//rbfSomatorioResult += (VectorLUResultY[indiceAux] * (exp(-(pow(ValorEntradaFuncaoRadial,2))*pow(2.0,2))));
-		
-		//Using Thin-Plane RBF (3D)
-		//rbfSomatorioResult += (VectorLUResultY[indiceAux] * (pow(ValorEntradaFuncaoRadial, 3)));
-		
-		//Using Raio only (3D)
-		rbfSomatorioResult += (VectorLUResultY[indiceAux] * (ValorEntradaFuncaoRadial));
-		
-		//Using Thin-Plane RBF (2D)
-		//rbfSomatorioResult += (VectorLUResultY[indiceAux] * ( (pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))) ));
+		switch (INTERPOLATION_MODE) {
+			case MULTIQUADRATIC:
+				//Using Multiquadratic
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * (pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5)));
+				break;
+			case GAUSSIAN_RBF:
+				//Using Gaussian RBF Function
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * (exp(-(pow(ValorEntradaFuncaoRadial,2))*pow(2.0,2))));
+				break;
+			case THIN_PLANE_RBF_3D:
+				//Using Thin-Plane RBF (3D)
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * (pow(ValorEntradaFuncaoRadial, 3)));
+				break;
+			case RAIO_ONLY_3D:
+				//Using Raio only (3D)
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * (ValorEntradaFuncaoRadial));
+				break;
+			case THIN_PLANE_RBF_2D:
+				//Using Thin-Plane RBF (2D)
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * ((pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))) ));
+				break;
+			case THIN_PLANE_RBF_3D_B:
+				//Using Thin-Plane RBF (3D)
+				break;
+			case RAIO_ONLY_3D_B:
+				//Using Raio only (3D)
+				break;
+			case INVERSE_MULTIQUADRATIC:
+				//Using Inverse Multiquadratic
+				rbfSomatorioResult += (VectorLUResultY[indiceAux] * (1 / (pow((pow(ValorEntradaFuncaoRadial,2) + pow(0.5,2)),0.5))));
+				break;
+			case BIHARMONIC:
+				//Using Biharmonic
+				break;
+			case TRIHARMONIC:
+				//Using Triharmonic
+				break;
+		}
 		
 		indiceAux++;
 		NodoAux = NodoAux->next;
@@ -752,32 +861,54 @@ float InterpolationRBFZWithGeodesicPath(float x, float y, float z, int IndexOfFa
 			{
 				IndiceGeodesicPath = ((NodoAux->faceIndex * NumberFaces) - ((NodoAux->faceIndex * (NodoAux->faceIndex + 1))/2));
 				OffSetIndiceGeodesicPath = ((IndexOfFace - 	NodoAux->faceIndex)-1);
-			}
-			else {
+			} else {
 				IndiceGeodesicPath = ((IndexOfFace * NumberFaces) - ((IndexOfFace * (IndexOfFace+1))/2));
 				OffSetIndiceGeodesicPath = ((NodoAux->faceIndex - IndexOfFace)-1);
 			}
 			ValorEntradaFuncaoRadial = sqrt( (pow((x - NodoAux->vBegin.x),2)) + (pow((y - NodoAux->vBegin.y),2)) + (pow((z - NodoAux->vBegin.z),2)) );
 			ValorEntradaFuncaoRadial += ((ArrayGeodesicPath[(IndiceGeodesicPath + OffSetIndiceGeodesicPath)].Distance)*2);
-		}
-		else {
+		} else {
 			ValorEntradaFuncaoRadial = 0.0;
 		}
 		
-		//Using Multiquadratic
-		//rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5)));
-		
-		//Using Gaussian RBF Function
-		//rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (exp(-(pow(ValorEntradaFuncaoRadial,2))*pow(2.0,2))));
-		
-		//Using Thin-Plane RBF (3D)
-		//rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (pow(ValorEntradaFuncaoRadial, 3)));
-		
-		//Using Raio only (3D)
-		rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (ValorEntradaFuncaoRadial));
-		
-		//Using Thin-Plane RBF (2D)
-		//rbfSomatorioResult += (VectorLUResultZ[indiceAux] * ( (pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))) ));
+		switch (INTERPOLATION_MODE) {
+			case MULTIQUADRATIC:
+				//Using Multiquadratic
+				rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (pow((pow(ValorEntradaFuncaoRadial,2)+pow(0.5,2)),0.5)));
+				break;
+			case GAUSSIAN_RBF:
+				//Using Gaussian RBF Function
+				rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (exp(-(pow(ValorEntradaFuncaoRadial,2))*pow(2.0,2))));
+				break;
+			case THIN_PLANE_RBF_3D:
+				//Using Thin-Plane RBF (3D)
+				rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (pow(ValorEntradaFuncaoRadial, 3)));
+				break;
+			case RAIO_ONLY_3D:
+				//Using Raio only (3D)
+				rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (ValorEntradaFuncaoRadial));
+				break;
+			case THIN_PLANE_RBF_2D:
+				//Using Thin-Plane RBF (2D)
+				rbfSomatorioResult += (VectorLUResultZ[indiceAux] * ((pow((fabs(ValorEntradaFuncaoRadial)),2)) * (log10(fabs(ValorEntradaFuncaoRadial))) ));
+				break;
+			case THIN_PLANE_RBF_3D_B:
+				//Using Thin-Plane RBF (3D)
+				break;
+			case RAIO_ONLY_3D_B:
+				//Using Raio only (3D)
+				break;
+			case INVERSE_MULTIQUADRATIC:
+				//Using Inverse Multiquadratic
+				rbfSomatorioResult += (VectorLUResultZ[indiceAux] * (1 / (pow((pow(ValorEntradaFuncaoRadial,2) + pow(0.5,2)),0.5))));
+				break;
+			case BIHARMONIC:
+				//Using Biharmonic
+				break;
+			case TRIHARMONIC:
+				//Using Triharmonic
+				break;
+		}
 		
 		indiceAux++;
 		NodoAux = NodoAux->next;
@@ -853,7 +984,6 @@ void CertificaAreaCelulasWithGeodesicPathWithAngle(void)
 	}
 }
 
-
 /*
  *-----------------------------------------------------------
  * Creates the list. Initialize head and
@@ -890,7 +1020,6 @@ VECTORARRAY *vectorAlloc(void)
 	return n;
 }
 
-
 /*
  *-----------------------------------------------------------
  *  Inserts a node in the list
@@ -917,16 +1046,13 @@ void removeVector(VECTORARRAY *v, VECTORARRAY *h)
 {
 	printf("Entrei em removeVector!\n");
 	VECTORARRAY *s;
-	
+
 	s = h;
 	while(s->next != v) s = s->next;
-	
+
 	s->next = v->next;
 	free(v); v = NULL;
-	
-	
 }
-
 
 /*
  * Map from Universe co-ordinated system to 2D face co-ordinated system
@@ -1001,6 +1127,7 @@ void SetaTipoRBF(void)
 	
 	switch (WithInterpolationType) {
 		case 0: {
+			//parametrize();
 			printf("%d -> 3D with straight path. ", WithInterpolationType);
 			MakeLUDecomposition3D(1);
 			CertificaAreaCelulas();
