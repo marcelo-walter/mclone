@@ -215,7 +215,7 @@ void drawAll(MMODE mmode, VMODE vmode, RMODE rmode, int t)
 void drawVoronoi( void )
 {
 	int nVorVerts, whichFace;
-	int i, j, k, t;
+	int i, j, k;
 	Point3D q;
 	CELL *c;
 	float currentColor[XYZW], actualColor[RGB];
@@ -361,8 +361,6 @@ void drawVoronoi( void )
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-
-
 /*
  *----------------------------------------------------------
  *----------------------------------------------------------
@@ -395,6 +393,7 @@ void drawVoronoiBorders( void )
 	}
 	glColor4fv( currentColor );
 }
+
 /*
  *----------------------------------------------------------
  *	This function draws the object specified
@@ -402,8 +401,6 @@ void drawVoronoiBorders( void )
  *	a time
  *----------------------------------------------------------
  */
-
-
 void drawObject( void )
 {
     int i, j;
@@ -413,8 +410,8 @@ void drawObject( void )
     float currentColor[XYZW];
 	
     /* test for the texture stuff */
-    int vertIndex, prim1Index, textID;
-    double textValue, u, v;
+    /*int vertIndex, prim1Index, textID;
+    double textValue, u, v;*/
 	
     /*miny = 1e30;*/
 	
@@ -447,8 +444,6 @@ void drawObject( void )
 			 c[Y] *= textValue;
 			 c[Z] *= textValue;
 			 }*/
-			
-			
 			
             if (!lightFlag)
 			{
@@ -748,12 +743,85 @@ void setTexture(int ix, float scale)
 
 /*
  *----------------------------------------------------------
+ * Set color of vertices based on the HSV model of the face vectors
+ *----------------------------------------------------------
+ */
+void setHsvColor(float c[], int faceIndex) {
+	Face faceAux = faces[faceIndex];
+	Point3D baseVector, vector;
+	float color[XYZ] = { 0, 0, 0 };
+
+	baseVector.x = hsvColorFlagX ? 1 : 0;
+	baseVector.y = hsvColorFlagY ? 1 : 0;
+	baseVector.z = hsvColorFlagZ ? 1 : 0;
+
+	vector.x = faceAux.EndOfVector3D.x - faceAux.center3D.x;
+	vector.y = faceAux.EndOfVector3D.y - faceAux.center3D.y;
+	vector.z = faceAux.EndOfVector3D.z - faceAux.center3D.z;
+
+	float vectorMod = sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
+	float baseVectorMod = sqrt(pow(baseVector.x, 2) + pow(baseVector.y, 2) + pow(baseVector.z, 2));
+
+	float cosTheta = ((vector.x * baseVector.x) + (vector.y * baseVector.y)
+			+ (vector.z * baseVector.z)) / vectorMod * baseVectorMod;
+
+	float h = rad2deg(acos(cosTheta));
+	float s = 0.8;
+	float v = 0.8;
+
+	int hi = (int) ((h / 60)) % 6;
+	float f = (h / 60) - hi;
+	float p = v * (1 - s);
+	float q = v * (1 - (f * s));
+	float t = v * (1 - ((1 - f) * s));
+
+	switch (hi) {
+		case 0:
+			color[0] = v;
+			color[1] = t;
+			color[2] = p;
+			break;
+		case 1:
+			color[0] = q;
+			color[1] = v;
+			color[2] = p;
+			break;
+		case 2:
+			color[0] = p;
+			color[1] = v;
+			color[2] = t;
+			break;
+		case 3:
+			color[0] = p;
+			color[1] = q;
+			color[2] = v;
+			break;
+		case 4:
+			color[0] = t;
+			color[1] = p;
+			color[2] = v;
+			break;
+		case 5:
+			color[0] = v;
+			color[1] = p;
+			color[2] = q;
+			break;
+	}
+
+	assignValueVector(c, color);
+}
+
+/*
+ *----------------------------------------------------------
  * set color of vertices
  *----------------------------------------------------------
  */
 void setColor(float c[], int vertIndex, int faceIndex)
 {
-    if ( colorPrimFlag && !polygonPicking ){
+	if (hsvColorFlagX || hsvColorFlagY || hsvColorFlagZ) {
+		setHsvColor(c, faceIndex);
+
+	} else if ( colorPrimFlag && !polygonPicking ){
 		/* paint polygons according to the primitives they belong to */
 		if ( vert[vertIndex].prim1 != 0 && vert[vertIndex].prim2 != 0)
 			assignValueVector(c,  colorBlue );
@@ -1244,8 +1312,7 @@ void buildGrid( void )
  */
 void drawMode(MMODE mmode, VMODE vmode, int pick, int t)
 {
-	
-	int   i, len, len1, n;				
+	int   n;
     char  modelMode[ 64 ], pickingMode[ 64 ], v[ 64 ], str1[ 64 ];
 	char  textLine[64];
 	
@@ -1428,8 +1495,6 @@ void drawCircle(int npies, float radius)
     GLfloat initAngle=0.0;
     GLfloat anglePie;
     GLint i;
-    GLfloat center[XYZ];
-    GLfloat p[XYZ];
 	
     anglePie = 360.0 / (float) npies;
 	
@@ -1438,6 +1503,7 @@ void drawCircle(int npies, float radius)
 		initAngle += anglePie;
     }
 }
+
 /*
  *----------------------------------------------------------
  *      drawWireCylinder1
@@ -1891,27 +1957,21 @@ void drawVerticesVectorsField(void)
 		}
 		
 	}*/
-	
-	 
-
-		
 }
 
 
 void drawVectorsField(void)
 {
-
-	int i,j;
-	Point3D normal;
+	int i;
 	
 	glPointSize(5.0);
 	glLineWidth(2.5);
 	
-	//Bins
-	int plusX, plusY, plusZ, size; //Control de size of the vector field. Added by Bins TODO
+	//Control the size of the vector field. Added by Ricardo Binsfeld
+	int plusX, plusY, plusZ, size;
 	size = 15;
 
-	for (i=0; i < NumberFaces; i++)
+	for (i = 0; i < NumberFaces; i++)
 	{
 		//Bins
 		plusX = (faces[i].EndOfVector3D.x - faces[i].center3D.x)*size;
@@ -1928,8 +1988,6 @@ void drawVectorsField(void)
 		glVertex3f( faces[i].EndOfVector3D.x+plusX, faces[i].EndOfVector3D.y+plusY, faces[i].EndOfVector3D.z+plusZ );
 		glEnd();
 		
-		
-		
 		//float k = faces[i].cosAngle;
 		//glColor3f( 0.0, k, 0.0 );
 		//glPushName(i);
@@ -1939,16 +1997,6 @@ void drawVectorsField(void)
 		//glEnd();
 		//glPopName();
 	}
-	
-	
-		
-		
-		
-		
-		  					
-	
-	
-	
 }
 
 void drawCentroids(void)

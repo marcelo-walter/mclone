@@ -48,6 +48,7 @@ int mainMenuIdent, primitiveMenuIdent, printMenuIdent;
 int dispMenuIdent, viewMenuIdent, renderMenuIdent;
 int vectorMenuIdent;
 int savingMenuIdent;
+int hsvColorsMenuIdent;
 
 int typeDistanciaMenuIdent;
 int typeVectorFieldMenuIdent;
@@ -60,18 +61,16 @@ int typeVectorFieldMenuIdent;
  */
 void initMenus( void )
 {
-
     mainMenuIdent = glutCreateMenu( mainMenu );
     primitiveMenuIdent = glutCreateMenu( primitiveMenu );
     printMenuIdent = glutCreateMenu( printMenu );
     dispMenuIdent = glutCreateMenu( dispMenu );
     viewMenuIdent = glutCreateMenu( viewMenu );
     renderMenuIdent = glutCreateMenu( renderMenu );
-        vectorMenuIdent = glutCreateMenu( vectorFieldMenu );
-        savingMenuIdent = glutCreateMenu( savingMenu );
-
-        typeDistanciaMenuIdent = glutCreateMenu( typeDistance );
-
+    vectorMenuIdent = glutCreateMenu( vectorFieldMenu );
+    savingMenuIdent = glutCreateMenu( savingMenu );
+    typeDistanciaMenuIdent = glutCreateMenu( typeDistance );
+    hsvColorsMenuIdent = glutCreateMenu( hsvColorsMenu );
 
     /* Create primitive submenu */
     glutSetMenu( primitiveMenuIdent );
@@ -86,21 +85,21 @@ void initMenus( void )
     glutAddMenuEntry( "Halo", HALO);
     glutAddMenuEntry( "Edges", EDGES);
 
-        /* Create type distance submenu*/
-        glutSetMenu( typeDistanciaMenuIdent );
+    /* Create type distance submenu*/
+    glutSetMenu( typeDistanciaMenuIdent );
     glutAddMenuEntry("Straight Path", 0);
     glutAddMenuEntry("Straight Path using angle", 1);
-        if (useGeodeiscDistances)
-        {
-                glutAddMenuEntry("Geodesic Path", 2);
-                glutAddMenuEntry("Geodesic Path using angle", 3);
-        }
+	if (useGeodeiscDistances)
+	{
+		glutAddMenuEntry("Geodesic Path", 2);
+		glutAddMenuEntry("Geodesic Path using angle", 3);
+	}
 
-        /*Created by Fabiane Qeiroz at 23/09/2010
-         Create type Vector Field*/
-        glutSetMenu( typeVectorFieldMenuIdent );
-        glutAddMenuEntry("Faces Vector Field (Default)", 0);
-        glutAddMenuEntry("Vertices Vector Field", 1);
+	/*Created by Fabiane Qeiroz at 23/09/2010
+	 *Create type Vector Field*/
+	glutSetMenu( typeVectorFieldMenuIdent );
+	glutAddMenuEntry("Faces Vector Field (Default)", 0);
+	glutAddMenuEntry("Vertices Vector Field", 1);
 
     /* Display submenu */
     glutSetMenu( dispMenuIdent );
@@ -114,9 +113,16 @@ void initMenus( void )
     glutAddMenuEntry( "BW output", 7);  /* Thompson 05/07/2002 */
     glutAddMenuEntry( "Voronoi Borders", 8);
     glutAddMenuEntry( "Cells", 9);
-        glutAddMenuEntry( "Degree Vector", 10); /* Thompson 07/11/2003 */
-        glutAddMenuEntry( "Normal Vector", 11); /* Vin?cius 17/09/2004 */
+	glutAddMenuEntry( "Degree Vector", 10); /* Thompson 07/11/2003 */
+	glutAddMenuEntry( "Normal Vector", 11); /* Vinicius 17/09/2004 */
+	glutAddSubMenu( "HSV Colors", hsvColorsMenuIdent); /* Ricardo 29/05/2012 */
 
+	/* HSV Colors submenu */
+	glutSetMenu( hsvColorsMenuIdent ); /* Ricardo 29/05/2012 */
+	glutAddMenuEntry( "Base vector X", 0);
+	glutAddMenuEntry( "Base vector Y", 1);
+	glutAddMenuEntry( "Base vector Z", 2);
+	glutAddMenuEntry( "Disable", 3);
 
     /* Print information submenu */
     glutSetMenu( printMenuIdent );
@@ -136,39 +142,39 @@ void initMenus( void )
 
         /* Vector field submenu */
     glutSetMenu( vectorMenuIdent );
-        glutAddMenuEntry("Create Vector", 0);
+	glutAddMenuEntry("Create Vector", 0);
     //glutAddMenuEntry("Initial Point", 0);
     //glutAddMenuEntry("Final Point", 1);
     glutAddMenuEntry("Draw Control Vectors", 1);
-        glutAddMenuEntry("Print List of Vectors", 2);
-        glutAddMenuEntry("Draw Faces Vector Field", 3);
-         glutAddMenuEntry("Draw Vertices Vector Field", 4);
-        glutAddMenuEntry("Remove Vector", 5);
+	glutAddMenuEntry("Print List of Vectors", 2);
+	glutAddMenuEntry("Draw Faces Vector Field", 3);
+	glutAddMenuEntry("Draw Vertices Vector Field", 4);
+	glutAddMenuEntry("Remove Vector", 5);
 
-        glutAddSubMenu("Type Distance", typeDistanciaMenuIdent );
+	glutAddSubMenu("Type Distance", typeDistanciaMenuIdent );
 
-        /* Saving submenu */
-        glutSetMenu( savingMenuIdent );
-        glutAddMenuEntry("Write Optik", 0);
+	/* Saving submenu */
+	glutSetMenu( savingMenuIdent );
+	glutAddMenuEntry("Write Optik", 0);
     glutAddMenuEntry("Write Vertigo", 1);
     glutAddMenuEntry("Save Exp File", 2);
     glutAddMenuEntry("Save Session File", 3);
     glutAddMenuEntry("Save Prim File", 4);
     glutAddMenuEntry("Save Inventor File", 5);
     glutAddMenuEntry("Save Obj File", 6);
-        glutAddMenuEntry("Save Pattern File", 7);
-        glutAddMenuEntry("Save Control Vectors Field", 8);
-        glutAddMenuEntry("Save Vectors Field", 9);
+	glutAddMenuEntry("Save Pattern File", 7);
+	glutAddMenuEntry("Save Control Vectors Field", 8);
+	glutAddMenuEntry("Save Vectors Field", 9);
 
-        glutSetMenu( mainMenuIdent );
-        /* sub menus */
+	glutSetMenu( mainMenuIdent );
+	/* sub menus */
     glutAddSubMenu("Create Primitive", primitiveMenuIdent);
     glutAddSubMenu("Print Info", printMenuIdent);
     glutAddSubMenu("Rendering", renderMenuIdent);
     glutAddSubMenu("View", viewMenuIdent);
     glutAddSubMenu("Display", dispMenuIdent);
-        glutAddSubMenu("Vector Field", vectorMenuIdent);
-        glutAddSubMenu("Saving", savingMenuIdent);
+	glutAddSubMenu("Vector Field", vectorMenuIdent);
+	glutAddSubMenu("Saving", savingMenuIdent);
 
     /* individual options */
     glutAddMenuEntry("Zoom out", 0);
@@ -197,12 +203,10 @@ void initMenus( void )
  */
 void typeDistance(int item)
 {
-        WithInterpolationType = item;
+    WithInterpolationType = item;
     SetaTipoRBF();
-        glutPostRedisplay();
+    glutPostRedisplay();
 }
-
-
 
 /*
  *----------------------------------------------------------
@@ -236,11 +240,13 @@ void renderMenu(int item)
                         break;
                 case EDGES:
                         edgesFlag = !edgesFlag;
+                        break;
                 default:
                         break;
     }
     glutPostRedisplay();
 }
+
 /*
  *----------------------------------------------------------
  *      Display Sub Menu
@@ -320,6 +326,39 @@ void primitiveMenu(int item)
 
         glutPostRedisplay();
 }
+
+/*
+ *----------------------------------------------------------
+ * HSV Colors menu
+ *
+ * @author Ricardo Binsfeld - 29/05/2012
+ *----------------------------------------------------------
+ */
+void hsvColorsMenu(int item)
+{
+	hsvColorFlagX = FALSE;
+	hsvColorFlagY = FALSE;
+	hsvColorFlagZ = FALSE;
+
+	switch(item){
+		case 0:
+			hsvColorFlagX = TRUE;
+			break;
+		case 1:
+			hsvColorFlagY = TRUE;
+			break;
+		case 2:
+			hsvColorFlagZ = TRUE;
+			break;
+		case 3:
+			//Desativa todos, nao precisa fazer nada.
+			break;
+		default:
+			break;
+	}
+	glutPostRedisplay();
+}
+
 /*
  *----------------------------------------------------------
  *      PrintMenu
@@ -352,6 +391,7 @@ void printMenu(int item)
         }
         glutPostRedisplay();
 }
+
 /*
  *----------------------------------------------------------
  *      MainMenu
@@ -359,80 +399,77 @@ void printMenu(int item)
  */
 void mainMenu(int item)
 {
-        int i;
-
-        switch(item){
-                case 0:
-                        /* HACK! Moves the camera back by globalScale amount */
-                        Prim[WORLD].trans[Z] *= Prim[WORLD].cosine.z;
-                        showLandMarks = FALSE;
-                        showPrimitives = FALSE;
-                        panSpeed *= 16.0;
-                        break;
-                case 1:
-                        lightFlag = !lightFlag;
-                        break;
-                case 2:
-                        windowSplitFlag = !windowSplitFlag;
-                        break;
-                case 3:
-                        parametrize();
-                        break;
-                case 4:
-                        textureFlag = !textureFlag;
-                        if ( textureFlag )
-                        {
-                                if ( !textCoordComputed )
-                                {
-                                        compTextCoordinates();
-                                }
-                                glEnable(GL_TEXTURE_2D);
-                        }
-                        else
-                                glDisable(GL_TEXTURE_2D);
-                        break;
-                case 5:
-                        computeVoronoi();
-                        optimizeVoronoiVertex();
-                        break;
-                case 6:    /* added by Thompson 21/05/2002 */
-                        cellPicking = !cellPicking;
-                        if( cellPicking )
-                                glutSetCursor( GLUT_CURSOR_INFO );
-                        else
-                                glutSetCursor( GLUT_CURSOR_LEFT_ARROW );
-                        break;
-                case 7:{
-                        polygonPicking = !polygonPicking;
-                        if ( polygonPicking )
-                        {glutSetCursor( GLUT_CURSOR_INFO );}
-                        else {glutSetCursor( GLUT_CURSOR_LEFT_ARROW );}
-                }
-                        break;
-                case 8:
-                        drawCells = TRUE;
-                        createRandomCells( NumberCells, FALSE );
-                        break;
-                case 9:
-                        duplicatePrimitive();
-                        break;
-                case 10:
-                        growthFlag = !growthFlag;
-                        break;
-                case 11:
-                        animFlag = !animFlag;
-                        break;
-                case 12:
-                        exit(0);
-                case 13:
-                        optimizeVoronoiPoligons2();
-                        break;
-                default:
-                        break;
-        }
-        glutPostRedisplay();
+	switch(item){
+		case 0:
+				/* HACK! Moves the camera back by globalScale amount */
+				Prim[WORLD].trans[Z] *= Prim[WORLD].cosine.z;
+				showLandMarks = FALSE;
+				showPrimitives = FALSE;
+				panSpeed *= 16.0;
+				break;
+		case 1:
+				lightFlag = !lightFlag;
+				break;
+		case 2:
+				windowSplitFlag = !windowSplitFlag;
+				break;
+		case 3:
+				parametrize();
+				break;
+		case 4:
+				textureFlag = !textureFlag;
+				if ( textureFlag )
+				{
+						if ( !textCoordComputed )
+						{
+								compTextCoordinates();
+						}
+						glEnable(GL_TEXTURE_2D);
+				}
+				else
+						glDisable(GL_TEXTURE_2D);
+				break;
+		case 5:
+				computeVoronoi();
+				optimizeVoronoiVertex();
+				break;
+		case 6:    /* added by Thompson 21/05/2002 */
+				cellPicking = !cellPicking;
+				if( cellPicking )
+						glutSetCursor( GLUT_CURSOR_INFO );
+				else
+						glutSetCursor( GLUT_CURSOR_LEFT_ARROW );
+				break;
+		case 7:{
+				polygonPicking = !polygonPicking;
+				if ( polygonPicking )
+				{glutSetCursor( GLUT_CURSOR_INFO );}
+				else {glutSetCursor( GLUT_CURSOR_LEFT_ARROW );}
+		}
+				break;
+		case 8:
+				drawCells = TRUE;
+				createRandomCells( NumberCells, FALSE );
+				break;
+		case 9:
+				duplicatePrimitive();
+				break;
+		case 10:
+				growthFlag = !growthFlag;
+				break;
+		case 11:
+				animFlag = !animFlag;
+				break;
+		case 12:
+				exit(0);
+		case 13:
+				optimizeVoronoiPoligons2();
+				break;
+		default:
+				break;
+	}
+	glutPostRedisplay();
 }
-
 
 /*
  *----------------------------------------------------------
@@ -442,51 +479,50 @@ void mainMenu(int item)
  */
 void savingMenu(int item)
 {
-        switch(item)
-        {
-                case 0:
-                        writeOptikOutput( sessionFileName );
-                        break;
-                case 1:
-                        writeVertigoOutput( sessionFileName );
-                        break;
-                case 2:
-                        saveCellsFile( expFileName );
-                        break;
-                case 3:
-                        saveSessionFile( sessionFileName );
-                        break;
-                case 4:
-                        savePrimitivesFile( primitivesFileName, NumberPrimitives);
-                        break;
-                case 5:
-                        if ( expFilePresent )
-                                writeInventorOutput( expFileName );
-                        else
-                                writeInventorOutput( "foo.iv" );
-                        /* saveInventorFile(); */
-                        break;
-                case 6:
-                        saveObjFile( sessionFileName );
-                        break;
-                        /* Added by Thompson Peter Lied in 23/08/2002 */
-                        /* This function writes the pattern file and material library
-                         */
-                case 7:
-                        savePatternFile( sessionFileName );
-                        break;
-                        /* end */
-                case 8:
-                        saveVectors( sessionFileName );
-                        break;
-                case 9:
-                        saveVectorField( sessionFileName );
-                        break;
-                default:
-                        break;
-        }
-        glutPostRedisplay();
-
+	switch(item)
+	{
+		case 0:
+				writeOptikOutput( sessionFileName );
+				break;
+		case 1:
+				writeVertigoOutput( sessionFileName );
+				break;
+		case 2:
+				saveCellsFile( expFileName );
+				break;
+		case 3:
+				saveSessionFile( sessionFileName );
+				break;
+		case 4:
+				savePrimitivesFile( primitivesFileName, NumberPrimitives);
+				break;
+		case 5:
+				if ( expFilePresent )
+						writeInventorOutput( expFileName );
+				else
+						writeInventorOutput( "foo.iv" );
+				/* saveInventorFile(); */
+				break;
+		case 6:
+				saveObjFile( sessionFileName );
+				break;
+				/* Added by Thompson Peter Lied in 23/08/2002 */
+				/* This function writes the pattern file and material library
+				 */
+		case 7:
+				savePatternFile( sessionFileName );
+				break;
+				/* end */
+		case 8:
+				saveVectors( sessionFileName );
+				break;
+		case 9:
+				saveVectorField( sessionFileName );
+				break;
+		default:
+				break;
+	}
+	glutPostRedisplay();
 }
 
 /*
@@ -531,6 +567,7 @@ void vectorFieldMenu(int item)
                         break;
                 case 5:
                         removevect = TRUE;
+                        break;
                 default:
                         break;
         }
