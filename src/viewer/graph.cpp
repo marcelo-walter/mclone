@@ -94,9 +94,13 @@ flag lightFlag = FALSE;
 /* draws the object or not */
 flag objectFlag = TRUE;
 
-/* paint the polygons according to the primitives they
- belong */
+/* paint the polygons according to the primitives they belong */
 flag colorPrimFlag = TRUE;
+
+/* paint the polygons according to the HSV from they vectors */
+flag hsvColorFlagX = FALSE;
+flag hsvColorFlagY = TRUE;
+flag hsvColorFlagZ = FALSE;
 
 /* draw cells or not */
 flag drawCells = FALSE;

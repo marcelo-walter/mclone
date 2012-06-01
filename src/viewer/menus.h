@@ -19,7 +19,6 @@ extern int savingMenuIdent;
 extern int typeDistanciaMenuIdent;
 extern int typeVectorFieldMenuIdent;
 
-
 /*
  *--------------------------------------------------
  *	Local Prototypes
@@ -36,5 +35,6 @@ void renderMenu(int item);
 void saveInventorFile( void );
 void vectorFieldMenu(int item); /* Added by Thompson Peter Lied at 03/12/2003 */
 void savingMenu(int item); /* Added by Thompson Peter Lied at 08/03/2004 */
+void hsvColorsMenu(int item); /* Added by Ricardo Binsfeld at 29/05/2012 */
 
 #endif //_MENUS_H_

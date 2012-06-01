@@ -53,9 +53,6 @@ extern VMODE viewMode;
  backface or frontlines */
 extern RMODE renderMode;
 
-/* mouse button pressed (LEFT, MIDDLE, RIGHT */
-static int mouseButton;
-
 /* window limits of the ortographic projection.
  3 windows (top, front, side) and
  (xmin, xmax, ymin, ymax, zmin, zmax) for
@@ -90,9 +87,13 @@ extern flag lightFlag;
 /* draws the object or not */
 extern flag objectFlag;
 
-/* paint the polygons according to the primitives they
- belong */
+/* paint the polygons according to the primitives they belong */
 extern flag colorPrimFlag;
+
+/* paint the polygons according to the HSV from they vectors */
+extern flag hsvColorFlagX;
+extern flag hsvColorFlagY;
+extern flag hsvColorFlagZ;
 
 /* draw cells or not */
 extern flag drawCells;
