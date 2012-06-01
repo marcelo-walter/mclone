@@ -99,7 +99,7 @@ flag colorPrimFlag = TRUE;
 
 /* paint the polygons according to the HSV from they vectors */
 flag hsvColorFlagX = FALSE;
-flag hsvColorFlagY = TRUE;
+flag hsvColorFlagY = FALSE;
 flag hsvColorFlagZ = FALSE;
 
 /* draw cells or not */
